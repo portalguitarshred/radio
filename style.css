@@ -42,16 +42,13 @@ main {
     border-radius: 8px;
     margin-top: 20px;
     margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 h1, h2 {
     margin: 0.5em 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #ffffff;
-    text-align: center;
+    text-align: left;
 }
 
 ul {
@@ -69,7 +66,9 @@ li {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
-    text-align: center;
+    text-align: left;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 li:hover {
@@ -77,8 +76,8 @@ li:hover {
 }
 
 #audio-player {
-    width: 100%;
-    margin-top: 20px;
+    width: calc(100% - 40px);
+    margin: 20px;
 }
 
 #stations {
