@@ -35,8 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const dataArray = new Uint8Array(bufferLength);
 
     const canvasCtx = audioVisualizer.getContext('2d');
-    audioVisualizer.width = window.innerWidth;
-    audioVisualizer.height = 100;
 
     function draw() {
         requestAnimationFrame(draw);
@@ -59,6 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     draw();
 
-    // Ensure the audio context is resumed on user interaction
     document.body.addEventListener('click', () => {
-        if (audioContext.state ===
+        if (audioContext.state === 'suspended') {
+            audioContext.resume();
+        }
+    });
+});
