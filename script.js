@@ -14,8 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const li = document.createElement('li');
         li.textContent = station.name;
         li.addEventListener('click', () => {
+            console.log(`Playing: ${station.name} - URL: ${station.url}`);
             audioPlayer.src = station.url;
-            audioPlayer.play();
+            audioPlayer.play().catch(error => {
+                console.error('Playback failed', error);
+            });
         });
         stationList.appendChild(li);
     });
