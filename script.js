@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const stations = [
         { name: 'Rock Guitar', url: 'https://rockfm-ice.stream.goloudservices.com/rockfm.mp3' }, // URL direta de um stream de áudio de Rock
-        { name: 'Jazz Guitar', url: 'http://stream-url-jazz' }, // Substitua por uma URL real de Jazz
-        { name: 'Blues Guitar', url: 'http://stream-url-blues' }, // Substitua por uma URL real de Blues
-        { name: 'Heavy Metal Guitar', url: 'http://stream-url-metal' }, // Substitua por uma URL real de Heavy Metal
-        { name: 'Instrumental Guitar', url: 'http://stream-url-instrumental' } // Substitua por uma URL real de Instrumental
+        { name: 'Jazz Guitar', url: 'https://jazz.stream.url' }, // Substitua por uma URL real de Jazz
+        { name: 'Blues Guitar', url: 'https://blues.stream.url' }, // Substitua por uma URL real de Blues
+        { name: 'Heavy Metal Guitar', url: 'https://heavymetal.stream.url' }, // Substitua por uma URL real de Heavy Metal
+        { name: 'Instrumental Guitar', url: 'https://instrumental.stream.url' } // Substitua por uma URL real de Instrumental
     ];
 
     stations.forEach(station => {
