@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -37,20 +41,24 @@ main {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     margin-top: 20px;
-    box-sizing: border-box;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h1, h2 {
     margin: 0.5em 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #ffffff;
-    text-align: left;
+    text-align: center;
 }
 
 ul {
     list-style-type: none;
     padding: 0;
-    margin: 0 20px;
+    margin: 0;
+    width: 100%;
 }
 
 li {
@@ -61,6 +69,7 @@ li {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+    text-align: center;
 }
 
 li:hover {
@@ -75,11 +84,8 @@ li:hover {
 #stations {
     margin-bottom: 20px;
     width: 100%;
-    padding: 0 20px;
-    box-sizing: border-box;
 }
 
-/* Media Queries for Responsive Design */
 @media (max-width: 768px) {
     header {
         padding: 0.5em;
@@ -99,12 +105,6 @@ li:hover {
 
     h1, h2 {
         font-size: 1.5em;
-        text-align: center;
-    }
-
-    ul {
-        margin: 0;
-        padding: 0;
     }
 
     li {
