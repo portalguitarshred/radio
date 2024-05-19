@@ -4,11 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const audioVisualizer = document.getElementById('audio-visualizer');
 
     const stations = [
-        { name: 'Rock Guitar', url: 'https://rockradio1.radioca.st/stream' }, // URL direta de um stream de áudio de Rock
-        { name: 'Jazz Guitar', url: 'http://streaming.tdiradio.com:8000/house.mp3' }, // URL direta de um stream de áudio de Jazz
-        { name: 'Blues Guitar', url: 'http://ice1.somafm.com/bootliquor-128-mp3' }, // URL direta de um stream de áudio de Blues
-        { name: 'Heavy Metal Guitar', url: 'http://ice1.somafm.com/thistle-128-mp3' }, // URL direta de um stream de áudio de Heavy Metal
-        { name: 'Instrumental Guitar', url: 'http://ice1.somafm.com/sf1033-128-mp3' } // URL direta de um stream de áudio de Instrumental
+        { name: 'Rock Guitar', url: 'https://rockradio1.radioca.st/stream' },
+        { name: 'Jazz Guitar', url: 'http://streaming.tdiradio.com:8000/house.mp3' },
+        { name: 'Blues Guitar', url: 'http://ice1.somafm.com/bootliquor-128-mp3' },
+        { name: 'Heavy Metal Guitar', url: 'http://ice1.somafm.com/thistle-128-mp3' },
+        { name: 'Instrumental Guitar', url: 'http://ice1.somafm.com/sf1033-128-mp3' }
     ];
 
     stations.forEach(station => {
@@ -58,4 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     draw();
-});
+
+    // Ensure the audio context is resumed on user interaction
+    document.body.addEventListener('click', () => {
+        if (audioContext.state ===
