@@ -27,7 +27,6 @@ header {
     font-family: Arial, sans-serif;
     font-size: 1.2em;
     margin-top: 0;
-    color: #989898;
 }
 
 main {
@@ -69,12 +68,10 @@ li:hover {
 #audio-player {
     width: 100%;
     margin-top: 20px;
-    padding: 10px:
 }
 
 #stations {
     margin-bottom: 20px;
-    margin-left: 15px;
 }
 
 #audio-visualizer {
