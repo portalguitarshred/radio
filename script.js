@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const stationList = document.getElementById('station-list');
     const audioPlayer = document.getElementById('audio-player');
+    const volumeControl = document.getElementById('volume-control');
     let currentPlaying = null; // Variável para acompanhar a estação tocando
 
     const stations = [
@@ -28,5 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
             currentPlaying = li; // Atualiza a estação atual
         });
         stationList.appendChild(li);
+    });
+
+    // Controle de volume
+    volumeControl.addEventListener('input', (e) => {
+        audioPlayer.volume = e.target.value;
     });
 });
