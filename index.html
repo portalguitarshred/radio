@@ -6,13 +6,91 @@
     <title>Guitar Radio</title>
     <!-- Link para a biblioteca Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
     <style>
-        .clock-icon {
-            cursor: pointer;
-            margin-left: 50px;
-            font-size: 1.2em;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #121212;
             color: #ffffff;
+            overflow-x: hidden;
+            width: 100vw;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #1f1f1f;
+            color: #ffffff;
+            padding: 1em;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+
+        .logo {
+            max-width: 150px;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            font-family: Arial, sans-serif;
+            font-size: 1.2em;
+            margin-top: 0;
+        }
+
+        main {
+            padding: 1em;
+            max-width: 800px;
+            width: 100%;
+            background-color: #1f1f1f;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+            box-sizing: border-box;
+        }
+
+        h1, h2 {
+            margin: 0.5em 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        li {
+            background-color: #333333;
+            margin: 0.5em 0;
+            padding: 0.5em;
+            border: 1px solid #444444;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        li:hover {
+            background-color: #05d26d;
+        }
+
+        li.playing::before {
+            content: '▶';
+            color: #ffffff;
+            margin-right: 10px;
+            display: inline-block;
         }
 
         .heart-icon {
@@ -20,7 +98,7 @@
             margin-left: auto;
             font-size: 1.2em;
             position: absolute;
-            right: 10px;
+            right: 30px;
             color: #121212; /* Preto quando não favoritado */
             transition: color 0.3s;
         }
@@ -31,10 +109,9 @@
 
         .share-icon {
             cursor: pointer;
-            margin-left: auto;
             font-size: 1.2em;
             position: absolute;
-            right: 40px; /* Ajuste conforme necessário */
+            right: 10px;
             color: #ffffff;
             transition: color 0.3s;
         }
@@ -133,6 +210,62 @@
 
         .share-options button:hover {
             background-color: #04b65c;
+        }
+
+        #audio-player {
+            width: calc(100% - 40px);
+            margin: 20px;
+            box-sizing: border-box;
+        }
+
+        #stations {
+            margin-bottom: 20px;
+            width: calc(100%);
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        #audio-visualizer {
+            width: 100%;
+            height: 100px;
+            background-color: #000;
+        }
+
+        #volume-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        #volume-control {
+            width: 100%;
+            margin-left: 10px;
+            background-color: #333;
+            border: none;
+            border-radius: 5px;
+            height: 8px;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        #volume-control::-webkit-slider-thumb {
+            width: 16px;
+            height: 16px;
+            background: #05d26d;
+            border-radius: 50%;
+            cursor: pointer;
+            appearance: none;
+        }
+
+        #volume-control::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: #05d26d;
+            border-radius: 50%;
+            cursor: pointer;
         }
     </style>
 </head>
