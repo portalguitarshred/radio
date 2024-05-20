@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM fully loaded and parsed'); // Log básico
+
     const stationList = document.getElementById('station-list');
     const audioPlayer = document.getElementById('audio-player');
     const volumeControl = document.getElementById('volume-control');
@@ -16,14 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     function fetchTrackInfo(station) {
-        console.log('Fetching track info from:', station.statusUrl); // Log de debug
+        console.log('Fetching track info from:', station.statusUrl); // Log básico
         fetch(station.statusUrl)
             .then(response => {
-                console.log('Response received:', response); // Log de debug
+                console.log('Response received:', response); // Log básico
                 return response.json();
             })
             .then(data => {
-                console.log('Data received:', data); // Log de debug
+                console.log('Data received:', data); // Log básico
                 const source = data.icestats.source;
                 if (source.title) {
                     trackTitle.textContent = source.title;
@@ -50,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const li = document.createElement('li');
         li.textContent = station.name;
         li.addEventListener('click', () => {
-            console.log(`Playing: ${station.name} - URL: ${station.url}`);
+            console.log(`Playing: ${station.name} - URL: ${station.url}`); // Log básico
             audioPlayer.src = station.url;
             audioPlayer.play().catch(error => {
                 console.error('Playback failed', error);
@@ -70,6 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     volumeControl.addEventListener('input', (e) => {
         audioPlayer.volume = e.target.value;
-        console.log(`Volume: ${audioPlayer.volume}`);
+        console.log(`Volume: ${audioPlayer.volume}`); // Log básico
     });
 });
