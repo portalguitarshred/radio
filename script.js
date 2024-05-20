@@ -19,6 +19,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const li = document.createElement('li');
         li.textContent = station.name;
 
+        // Adiciona barras do espectro de áudio
+        for (let i = 0; i < 5; i++) {
+            const bar = document.createElement('div');
+            li.appendChild(bar);
+        }
+
         li.addEventListener('click', () => {
             console.log(`Playing: ${station.name} - URL: ${station.url}`);
             audioPlayer.src = station.url;
