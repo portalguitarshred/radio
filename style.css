@@ -98,7 +98,7 @@ li.playing .spectrum {
 li.playing .spectrum div {
     width: 2px;
     background: #ffffff;
-    animation: bar-animation 1s infinite;
+    animation: bar-animation 0.5s infinite; /* Duração da animação ajustada para 0.5s */
     animation-timing-function: linear;
 }
 
