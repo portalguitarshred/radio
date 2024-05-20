@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     statusMessage.id = 'status-message';
     document.body.appendChild(statusMessage); // Adiciona o elemento de status ao corpo do documento
     let currentPlaying = null;
-    let audioContext, analyser, dataArray, bufferLength, source;
 
     const stations = [
         { name: 'Rock', url: 'https://21933.live.streamtheworld.com/RADIO_89FM_ADP.aac?1716174521095' },
@@ -20,9 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const li = document.createElement('li');
         li.textContent = station.name;
 
-        const canvas = document.createElement('canvas');
-        li.appendChild(canvas);
-
         li.addEventListener('click', () => {
             console.log(`Playing: ${station.name} - URL: ${station.url}`);
             audioPlayer.src = station.url;
@@ -32,42 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
             audioPlayer.play().then(() => {
                 statusMessage.textContent = ''; // Limpa a mensagem de carregamento
                 statusMessage.classList.remove('show'); // Esconde a mensagem de status
-
-                if (!audioContext) {
-                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    analyser = audioContext.createAnalyser();
-                    source = audioContext.createMediaElementSource(audioPlayer);
-                    source.connect(analyser);
-                    analyser.connect(audioContext.destination);
-                    analyser.fftSize = 64; // Define o tamanho do FFT
-                    bufferLength = analyser.frequencyBinCount;
-                    dataArray = new Uint8Array(bufferLength);
-                }
-
-                function draw() {
-                    requestAnimationFrame(draw);
-
-                    analyser.getByteFrequencyData(dataArray);
-
-                    const canvasCtx = canvas.getContext('2d');
-                    canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-
-                    canvasCtx.fillStyle = '#ffffff';
-                    const barWidth = (canvas.width / bufferLength) * 2.5;
-                    let barHeight;
-                    let x = 0;
-
-                    for (let i = 0; i < bufferLength; i++) {
-                        barHeight = dataArray[i] / 2;
-
-                        canvasCtx.fillStyle = 'rgb(255, 255, 255)';
-                        canvasCtx.fillRect(x, canvas.height - barHeight / 2, barWidth, barHeight);
-
-                        x += barWidth + 1;
-                    }
-                }
-
-                draw();
             }).catch(error => {
                 console.error('Playback failed', error);
                 statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.'; // Mensagem de erro
@@ -84,10 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (currentPlaying) {
                 currentPlaying.classList.remove('playing'); // Remove a classe 'playing' da estação anterior
-                const previousCanvas = currentPlaying.querySelector('canvas');
-                if (previousCanvas) {
-                    previousCanvas.getContext('2d').clearRect(0, 0, previousCanvas.width, previousCanvas.height); // Limpa o canvas anterior
-                }
             }
             li.classList.add('playing'); // Adiciona a classe 'playing' à estação atual
             currentPlaying = li; // Atualiza a estação atual
