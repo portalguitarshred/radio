@@ -84,7 +84,7 @@ li:hover {
 
 #audio-player {
     width: calc(100% - 40px); /* Ajusta a largura do player */
-    margin: 20px 20px; /* Adiciona margem de 20px à esquerda e direita para alinhamento */
+    margin: 20px; /* Adiciona margem de 20px em todas as direções */
     box-sizing: border-box; /* Inclui padding e border na largura total */
 }
 
