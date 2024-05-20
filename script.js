@@ -38,6 +38,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         li.appendChild(heartIcon);
 
+        // Adiciona ícone de compartilhamento
+        const shareIcon = document.createElement('i');
+        shareIcon.classList.add('fa', 'fa-share-alt', 'share-icon');
+        shareIcon.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openShareModal(station.url);
+        });
+        li.appendChild(shareIcon);
+
         // Adiciona barras do espectro de áudio
         const spectrum = document.createElement('div');
         spectrum.classList.add('spectrum');
@@ -124,4 +133,46 @@ document.addEventListener('DOMContentLoaded', () => {
         timerModal.style.display = 'none';
         alert(`Temporizador definido para ${minutes} minutos.`);
     });
+
+    // Lógica do Compartilhamento
+    const shareModal = document.getElementById('shareModal');
+    const closeShareModal = document.getElementById('closeShareModal');
+    const copyLinkButton = document.getElementById('copyLink');
+    const shareFacebookButton = document.getElementById('shareFacebook');
+    const shareTwitterButton = document.getElementById('shareTwitter');
+    let currentShareUrl = '';
+
+    closeShareModal.addEventListener('click', () => {
+        shareModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === shareModal) {
+            shareModal.style.display = 'none';
+        }
+    });
+
+    function openShareModal(url) {
+        currentShareUrl = url;
+        shareModal.style.display = 'block';
+    }
+
+    copyLinkButton.addEventListener('click', () => {
+        navigator.clipboard.writeText(currentShareUrl).then(() => {
+            alert('Link copiado para a área de transferência.');
+        }).catch(err => {
+            console.error('Erro ao copiar o link: ', err);
+        });
+    });
+
+    shareFacebookButton.addEventListener('click', () => {
+        const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentShareUrl)}`;
+        window.open(facebookUrl, '_blank');
+    });
+
+    shareTwitterButton.addEventListener('click', () => {
+        const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentShareUrl)}`;
+        window.open(twitterUrl, '_blank');
+    });
 });
+
