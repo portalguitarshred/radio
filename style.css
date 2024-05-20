@@ -137,3 +137,17 @@ li:hover {
     border-radius: 50%;
     cursor: pointer;
 }
+
+#status-message {
+    color: #ffffff;
+    background-color: #ff0000;
+    padding: 10px;
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 5px;
+    display: none; /* Escondido por padrão */
+}
+
+#status-message.show {
+    display: block; /* Mostrar quando necessário */
+}
