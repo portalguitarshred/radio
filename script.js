@@ -21,9 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
         li.textContent = station.name;
 
         // Adiciona ícone de coração
-        const heartIcon = document.createElement('span');
-        heartIcon.innerHTML = '&#9829;'; // Ícone de coração similar ao Instagram
-        heartIcon.classList.add('heart-icon');
+        const heartIcon = document.createElement('i');
+        heartIcon.classList.add('fa', 'fa-heart', 'heart-icon');
         if (favorites.includes(station.url)) {
             heartIcon.classList.add('favorited');
         }
