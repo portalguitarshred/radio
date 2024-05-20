@@ -89,3 +89,31 @@ li:hover {
     color: #ffffff; /* Cor branca */
     margin-right: 10px; /* Espaçamento entre o ícone e o texto */
 }
+
+#volume-control {
+    width: 100%;
+    margin-top: 10px;
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+    height: 8px;
+    appearance: none;
+    cursor: pointer;
+}
+
+#volume-control::-webkit-slider-thumb {
+    width: 16px;
+    height: 16px;
+    background: #05d26d;
+    border-radius: 50%;
+    cursor: pointer;
+    appearance: none;
+}
+
+#volume-control::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #05d26d;
+    border-radius: 50%;
+    cursor: pointer;
+}
