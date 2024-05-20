@@ -78,7 +78,7 @@
             box-sizing: border-box;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: flex-start;
             position: relative;
         }
 
@@ -98,7 +98,7 @@
             margin-left: auto;
             font-size: 1.2em;
             position: absolute;
-            right: 30px;
+            right: 60px;
             color: #121212; /* Preto quando não favoritado */
             transition: color 0.3s;
         }
@@ -111,7 +111,7 @@
             cursor: pointer;
             font-size: 1.2em;
             position: absolute;
-            right: 10px;
+            right: 30px;
             color: #ffffff;
             transition: color 0.3s;
         }
@@ -119,14 +119,40 @@
         .spectrum {
             display: flex;
             gap: 2px;
-            margin-right: 60px; /* Margem ajustada para acomodar ícones adicionais */
+            position: absolute;
+            right: 10px;
         }
 
         .spectrum div {
             width: 2px;
             background: #ffffff;
-            animation: bar-animation 1s infinite;
+            animation: bar-animation 0.5s infinite;
             animation-timing-function: linear;
+        }
+
+        .spectrum div:nth-child(1) {
+            height: 10px;
+            animation-delay: 0s;
+        }
+
+        .spectrum div:nth-child(2) {
+            height: 14px;
+            animation-delay: 0.1s;
+        }
+
+        .spectrum div:nth-child(3) {
+            height: 8px;
+            animation-delay: 0.2s;
+        }
+
+        .spectrum div:nth-child(4) {
+            height: 16px;
+            animation-delay: 0.3s;
+        }
+
+        .spectrum div:nth-child(5) {
+            height: 12px;
+            animation-delay: 0.4s;
         }
 
         @keyframes bar-animation {
@@ -266,6 +292,55 @@
             background: #05d26d;
             border-radius: 50%;
             cursor: pointer;
+        }
+
+        /* Adicionando o espectro de áudio falso */
+        li.playing .spectrum {
+            display: flex;
+            gap: 2px;
+            position: absolute;
+            right: 10px;
+        }
+
+        li.playing .spectrum div {
+            width: 2px;
+            background: #ffffff;
+            animation: bar-animation 0.5s infinite; /* Duração da animação ajustada para 0.5s */
+            animation-timing-function: linear;
+        }
+
+        li.playing .spectrum div:nth-child(1) {
+            height: 10px;
+            animation-delay: 0s;
+        }
+
+        li.playing .spectrum div:nth-child(2) {
+            height: 14px;
+            animation-delay: 0.1s;
+        }
+
+        li.playing .spectrum div:nth-child(3) {
+            height: 8px;
+            animation-delay: 0.2s;
+        }
+
+        li.playing .spectrum div:nth-child(4) {
+            height: 16px;
+            animation-delay: 0.3s;
+        }
+
+        li.playing .spectrum div:nth-child(5) {
+            height: 12px;
+            animation-delay: 0.4s;
+        }
+
+        @keyframes bar-animation {
+            0%, 100% {
+                transform: scaleY(1);
+            }
+            50% {
+                transform: scaleY(0.5);
+            }
         }
     </style>
 </head>
