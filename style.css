@@ -69,11 +69,15 @@ li {
     box-sizing: border-box; /* Inclui padding e border na largura total */
     display: flex;
     align-items: center;
-    position: relative; /* Necessário para posicionar o canvas dentro do li */
+    position: relative; /* Necessário para posicionar o espectro dentro do li */
 }
 
 li:hover {
     background-color: #05d26d;
+}
+
+li.playing {
+    background-color: #05d26d; /* Cor verde para a estação ativa */
 }
 
 .playing::before {
@@ -83,6 +87,7 @@ li:hover {
     display: inline-block; /* Garante que o ícone apareça corretamente */
 }
 
+/* Adicionando o espectro de áudio falso */
 li::after {
     content: '';
     display: none;
