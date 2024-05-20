@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(`Playing: ${station.name} - URL: ${station.url}`);
             audioPlayer.src = station.url;
             statusMessage.textContent = 'Carregando...'; // Mensagem de carregamento
+            statusMessage.classList.add('show'); // Mostrar mensagem de status
             audioPlayer.play().catch(error => {
                 console.error('Playback failed', error);
                 statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.'; // Mensagem de erro
@@ -30,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             audioPlayer.oncanplay = () => {
                 statusMessage.textContent = ''; // Limpa a mensagem de carregamento
+                statusMessage.classList.remove('show'); // Esconde a mensagem de status
             };
 
             audioPlayer.onerror = () => {
