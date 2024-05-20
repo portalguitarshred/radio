@@ -7,6 +7,9 @@ body {
     align-items: center;
     background-color: #121212;
     color: #ffffff;
+    overflow-x: hidden; /* Evita movimento horizontal */
+    width: 100vw; /* Define a largura do body para 100% da viewport */
+    box-sizing: border-box; /* Inclui padding e border na largura total */
 }
 
 header {
@@ -16,6 +19,7 @@ header {
     width: 100%;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* Inclui padding e border na largura total */
 }
 
 .logo {
@@ -37,6 +41,7 @@ main {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     margin-top: 20px;
+    box-sizing: border-box; /* Inclui padding e border na largura total */
 }
 
 h1, h2 {
@@ -49,7 +54,8 @@ h1, h2 {
 ul {
     list-style-type: none;
     padding: 0;
-
+    width: 100%;
+    box-sizing: border-box; /* Inclui padding e border na largura total */
 }
 
 li {
@@ -61,6 +67,7 @@ li {
     cursor: pointer;
     transition: background-color 0.3s;
     margin-right: 40px;
+    box-sizing: border-box; /* Inclui padding e border na largura total */
 }
 
 li:hover {
@@ -70,12 +77,14 @@ li:hover {
 #audio-player {
     width: calc(100% - 40px); /* Ajusta a largura do player */
     margin: 20px 20px; /* Adiciona margem de 20px à esquerda e direita para alinhamento */
+    box-sizing: border-box; /* Inclui padding e border na largura total */
 }
 
 #stations {
     margin-bottom: 20px;
     width: 100%;
     padding: 0 20px;
+    box-sizing: border-box; /* Inclui padding e border na largura total */
 }
 
 #audio-visualizer {
@@ -84,16 +93,13 @@ li:hover {
     background-color: #000;
 }
 
-.playing::before {
-    content: '▶'; /* Ícone de play */
-    color: #ffffff; /* Cor branca */
-    margin-right: 10px; /* Espaçamento entre o ícone e o texto */
-}
-
 #volume-container {
     display: flex;
     align-items: center;
     margin-top: 10px;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box; /* Inclui padding e border na largura total */
 }
 
 #volume-control {
