@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const stationList = document.getElementById('station-list');
     const audioPlayer = document.getElementById('audio-player');
+    let currentPlaying = null; // Variável para acompanhar a estação tocando
 
     const stations = [
         { name: 'Rock', url: 'https://21933.live.streamtheworld.com/RADIO_89FM_ADP.aac?1716174521095' }, // URL funcional para Rock
@@ -19,6 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
             audioPlayer.play().catch(error => {
                 console.error('Playback failed', error);
             });
+
+            if (currentPlaying) {
+                currentPlaying.classList.remove('playing'); // Remove a classe 'playing' da estação anterior
+            }
+            li.classList.add('playing'); // Adiciona a classe 'playing' à estação atual
+            currentPlaying = li; // Atualiza a estação atual
         });
         stationList.appendChild(li);
     });
