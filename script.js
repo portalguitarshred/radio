@@ -54,4 +54,75 @@ document.addEventListener('DOMContentLoaded', () => {
             statusMessage.textContent = 'Carregando...'; // Mensagem de carregamento
             statusMessage.classList.add('show'); // Mostrar mensagem de status
 
-            audioPlayer.play
+            audioPlayer.play().then(() => {
+                statusMessage.textContent = ''; // Limpa a mensagem de carregamento
+                statusMessage.classList.remove('show'); // Esconde a mensagem de status
+            }).catch(error => {
+                console.error('Playback failed', error);
+                statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.'; // Mensagem de erro
+            });
+
+            audioPlayer.oncanplay = () => {
+                statusMessage.textContent = ''; // Limpa a mensagem de carregamento
+                statusMessage.classList.remove('show'); // Esconde a mensagem de status
+            };
+
+            audioPlayer.onerror = () => {
+                statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.'; // Mensagem de erro
+            };
+
+            if (currentPlaying) {
+                currentPlaying.classList.remove('playing'); // Remove a classe 'playing' da estação anterior
+            }
+            li.classList.add('playing'); // Adiciona a classe 'playing' à estação atual
+            currentPlaying = li; // Atualiza a estação atual
+        });
+
+        stationList.appendChild(li);
+    });
+
+    // Controle de volume
+    volumeControl.addEventListener('input', (e) => {
+        audioPlayer.volume = e.target.value;
+        console.log(`Volume: ${audioPlayer.volume}`);
+    });
+
+    // Lógica do Temporizador
+    const clockIcon = document.getElementById('clock-icon');
+    const timerModal = document.getElementById('timerModal');
+    const closeModal = document.getElementById('closeModal');
+    const setTimerButton = document.getElementById('setTimer');
+    const timerInput = document.getElementById('timer');
+
+    clockIcon.addEventListener('click', () => {
+        timerModal.style.display = 'block';
+    });
+
+    closeModal.addEventListener('click', () => {
+        timerModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === timerModal) {
+            timerModal.style.display = 'none';
+        }
+    });
+
+    setTimerButton.addEventListener('click', () => {
+        const minutes = parseInt(timerInput.value, 10);
+        if (isNaN(minutes) || minutes <= 0) {
+            alert('Por favor, insira um valor válido de minutos.');
+            return;
+        }
+
+        const milliseconds = minutes * 60 * 1000;
+        setTimeout(() => {
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0; // Reinicia o áudio
+            alert('O temporizador desligou a rádio.');
+        }, milliseconds);
+
+        timerModal.style.display = 'none';
+        alert(`Temporizador definido para ${minutes} minutos.`);
+    });
+});
