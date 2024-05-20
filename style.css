@@ -111,7 +111,7 @@ li:hover {
 }
 
 #volume-control {
-    width: 150px; /* Ajuste o tamanho da barra de volume */
+    width: 100%; /* Ajuste o tamanho da barra de volume */
     margin-left: 10px; /* Espaçamento entre o texto e a barra */
     background-color: #333;
     border: none;
