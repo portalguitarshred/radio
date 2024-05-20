@@ -54,7 +54,7 @@ h1, h2 {
 ul {
     list-style-type: none;
     padding: 0;
-    width: calc(100% - 40px); /* Ajusta a largura das estações */
+    width: calc(100% - 40px); /* Ajusta a largura das estações para o tamanho do player */
     box-sizing: border-box; /* Inclui padding e border na largura total */
 }
 
@@ -90,7 +90,7 @@ li:hover {
 
 #stations {
     margin-bottom: 20px;
-    width: calc(100% - 40px); /* Ajusta a largura das estações */
+    width: calc(100% - 40px); /* Ajusta a largura das estações para o tamanho do player */
     padding: 0 20px;
     box-sizing: border-box; /* Inclui padding e border na largura total */
 }
@@ -105,7 +105,7 @@ li:hover {
     display: flex;
     align-items: center;
     margin-top: 10px;
-    width: 100%;
+    width: calc(100% - 40px); /* Ajusta a largura do container de volume para o tamanho do player */
     padding: 0 20px;
     box-sizing: border-box; /* Inclui padding e border na largura total */
 }
