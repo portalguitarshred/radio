@@ -95,18 +95,52 @@ li::after {
     right: 10px;
     width: 20px;
     height: 20px;
-    background: repeating-linear-gradient(
-        45deg,
-        #ffffff,
-        #ffffff 5px,
-        #333333 5px,
-        #333333 10px
-    );
-    animation: spectrum 1s infinite linear;
 }
 
 li.playing::after {
-    display: block;
+    display: flex;
+    gap: 2px;
+}
+
+li.playing::after div {
+    width: 2px;
+    background: #ffffff;
+    animation: bar-animation 1s infinite;
+    animation-timing-function: linear;
+}
+
+li.playing::after div:nth-child(1) {
+    height: 10px;
+    animation-delay: 0s;
+}
+
+li.playing::after div:nth-child(2) {
+    height: 14px;
+    animation-delay: 0.1s;
+}
+
+li.playing::after div:nth-child(3) {
+    height: 8px;
+    animation-delay: 0.2s;
+}
+
+li.playing::after div:nth-child(4) {
+    height: 16px;
+    animation-delay: 0.3s;
+}
+
+li.playing::after div:nth-child(5) {
+    height: 12px;
+    animation-delay: 0.4s;
+}
+
+@keyframes bar-animation {
+    0%, 100% {
+        transform: scaleY(1);
+    }
+    50% {
+        transform: scaleY(0.5);
+    }
 }
 
 #audio-player {
@@ -163,11 +197,6 @@ li.playing::after {
     background: #05d26d;
     border-radius: 50%;
     cursor: pointer;
-}
-
-@keyframes spectrum {
-    0% { background-position: 0 0; }
-    100% { background-position: 20px 20px; }
 }
 
 #status-message {
