@@ -69,6 +69,7 @@ li {
     box-sizing: border-box; /* Inclui padding e border na largura total */
     display: flex;
     align-items: center;
+    position: relative; /* Necessário para posicionar o canvas dentro do li */
 }
 
 li:hover {
