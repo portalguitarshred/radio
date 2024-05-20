@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Adiciona ícone de coração
         const heartIcon = document.createElement('span');
-        heartIcon.innerHTML = '&#10084;'; // Ícone de coração
+        heartIcon.innerHTML = '&#9829;'; // Ícone de coração similar ao Instagram
         heartIcon.classList.add('heart-icon');
         if (favorites.includes(station.url)) {
             heartIcon.classList.add('favorited');
