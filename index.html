@@ -8,7 +8,7 @@
     <style>
         .clock-icon {
             cursor: pointer;
-            margin-left: 50px;
+            margin-right: auto;
             font-size: 1.2em;
             color: #ffffff;
         }
@@ -17,19 +17,20 @@
             cursor: pointer;
             margin-left: auto;
             font-size: 1.2em;
-            color: #ffffff;
+            position: absolute;
+            right: 10px;
+            color: #000000;
             transition: color 0.3s;
-            margin-right: 10px; /* Adiciona uma margem à direita do ícone de coração */
         }
 
         .heart-icon.favorited {
-            color: #05d26d; /* Cor do coração favoritado */
+            color: #ffffff;
         }
 
         .spectrum {
             display: flex;
             gap: 2px;
-            margin-right: 20px; /* Adiciona uma margem à direita do espectro de áudio */
+            margin-right: 30px; /* Margem ajustada para 20px + 10px do ícone de coração */
         }
 
         .spectrum div {
@@ -37,6 +38,15 @@
             background: #ffffff;
             animation: bar-animation 1s infinite;
             animation-timing-function: linear;
+        }
+
+        @keyframes bar-animation {
+            0%, 100% {
+                transform: scaleY(1);
+            }
+            50% {
+                transform: scaleY(0.5);
+            }
         }
 
         /* Estilos para o modal */
