@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const audioPlayer = document.getElementById('audio-player');
 
     const stations = [
-        { name: 'Rock Guitar', url: 'https://80s80srock.radio.net' }, // URL funcional para Rock
+        { name: 'Rock Guitar', url: 'https://21933.live.streamtheworld.com/RADIO_89FM_ADP.aac?1716174521095' }, // URL funcional para Rock
         { name: 'Jazz Guitar', url: 'http://streaming.tdiradio.com:8000/house.mp3' },
         { name: 'Blues Guitar', url: 'http://ice1.somafm.com/bootliquor-128-mp3' },
         { name: 'Heavy Metal Guitar', url: 'http://ice1.somafm.com/thistle-128-mp3' },
