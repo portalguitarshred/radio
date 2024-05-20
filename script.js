@@ -23,7 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (source.title) {
                     trackTitle.textContent = source.title;
                     trackArtist.textContent = source.artist || 'Artista Desconhecido';
-                    trackArt.src = 'default_art.jpg'; // Adicione uma lógica para a imagem se disponível
+                    trackArt.src = source.art || 'default_art.jpg'; // Use 'default_art.jpg' como imagem padrão
+                    trackArt.style.display = 'block';
+                } else {
+                    trackTitle.textContent = 'Título da Música';
+                    trackArtist.textContent = 'Artista Desconhecido';
+                    trackArt.src = 'default_art.jpg';
                     trackArt.style.display = 'block';
                 }
             })
