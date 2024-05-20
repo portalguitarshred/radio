@@ -83,3 +83,9 @@ li:hover {
     height: 100px;
     background-color: #000;
 }
+
+.playing::before {
+    content: '▶'; /* Ícone de play */
+    color: #ffffff; /* Cor branca */
+    margin-right: 10px; /* Espaçamento entre o ícone e o texto */
+}
