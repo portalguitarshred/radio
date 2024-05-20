@@ -26,6 +26,19 @@
             color: #05d26d; /* Cor do coração favoritado */
         }
 
+        .spectrum {
+            display: flex;
+            gap: 2px;
+            margin-right: 20px; /* Adiciona uma margem à direita do espectro de áudio */
+        }
+
+        .spectrum div {
+            width: 2px;
+            background: #ffffff;
+            animation: bar-animation 1s infinite;
+            animation-timing-function: linear;
+        }
+
         /* Estilos para o modal */
         .modal {
             display: none; /* Oculto por padrão */
