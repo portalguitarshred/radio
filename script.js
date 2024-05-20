@@ -34,5 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Controle de volume
     volumeControl.addEventListener('input', (e) => {
         audioPlayer.volume = e.target.value;
+        console.log(`Volume: ${audioPlayer.volume}`); // Adicione esta linha para verificar o valor do volume
     });
 });
