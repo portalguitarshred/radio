@@ -2,10 +2,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const stationList = document.getElementById('station-list');
     const audioPlayer = document.getElementById('audio-player');
     const volumeControl = document.getElementById('volume-control');
-    let currentPlaying = null; // Variável para acompanhar a estação tocando
+    const currentSongTitle = document.getElementById('current-song-title');
+    const statusMessage = document.createElement('div'); // Elemento para mensagens de status
+    statusMessage.id = 'status-message';
+    document.body.appendChild(statusMessage); // Adiciona o elemento de status ao corpo do documento
+    let currentPlaying = null;
 
     const stations = [
-        { name: 'Rock', url: 'https://21933.live.streamtheworld.com/RADIO_89FM_ADP.aac?1716174521095' }, // URL funcional para Rock
+        { name: 'Rock', url: 'https://21933.live.streamtheworld.com/RADIO_89FM_ADP.aac?1716174521095' },
         { name: 'Jazz', url: 'https://server01.ouvir.radio.br:8006/stream?1716175071041' },
         { name: 'Blues', url: 'https://stream-172.zeno.fm/5npyxpydys8uv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiI1bnB5eHB5ZHlzOHV2IiwiaG9zdCI6InN0cmVhbS0xNzIuemVuby5mbSIsInJ0dGwiOjUsImp0aSI6InhoZFV4UGNNUUc2eWsxR0I5ZzdENFEiLCJpYXQiOjE3MTYxNzUxMzksImV4cCI6MTcxNjE3NTE5OX0.-H5QPR8KYpGEe4-i0vuClifNYM0sWZzNvkTHhRqPUuM&1716175139266' },
         { name: 'Metal', url: 'https://stm39.stmsrv.com:8382/;?1716176724313' },
@@ -18,9 +22,19 @@ document.addEventListener('DOMContentLoaded', () => {
         li.addEventListener('click', () => {
             console.log(`Playing: ${station.name} - URL: ${station.url}`);
             audioPlayer.src = station.url;
+            statusMessage.textContent = 'Carregando...'; // Mensagem de carregamento
             audioPlayer.play().catch(error => {
                 console.error('Playback failed', error);
+                statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.'; // Mensagem de erro
             });
+
+            audioPlayer.oncanplay = () => {
+                statusMessage.textContent = ''; // Limpa a mensagem de carregamento
+            };
+
+            audioPlayer.onerror = () => {
+                statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.'; // Mensagem de erro
+            };
 
             if (currentPlaying) {
                 currentPlaying.classList.remove('playing'); // Remove a classe 'playing' da estação anterior
@@ -34,6 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Controle de volume
     volumeControl.addEventListener('input', (e) => {
         audioPlayer.volume = e.target.value;
-        console.log(`Volume: ${audioPlayer.volume}`); // Adicione esta linha para verificar o valor do volume
+        console.log(`Volume: ${audioPlayer.volume}`);
     });
 });
