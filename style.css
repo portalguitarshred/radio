@@ -88,17 +88,13 @@ li.playing {
 }
 
 /* Adicionando o espectro de áudio falso */
-li::after {
+li.playing::after {
     content: '';
-    display: none;
+    display: flex;
     position: absolute;
     right: 10px;
     width: 20px;
     height: 20px;
-}
-
-li.playing::after {
-    display: flex;
     gap: 2px;
 }
 
@@ -201,7 +197,7 @@ li.playing::after div:nth-child(5) {
 
 #status-message {
     color: #ffffff;
-    background-color: #ff0000;
+    background-color: #05d26d; /* Mensagem de status em verde */
     padding: 10px;
     margin-top: 20px;
     text-align: center;
