@@ -175,4 +175,3 @@ document.addEventListener('DOMContentLoaded', () => {
         window.open(twitterUrl, '_blank');
     });
 });
-
