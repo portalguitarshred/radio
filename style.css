@@ -88,44 +88,41 @@ li.playing {
 }
 
 /* Adicionando o espectro de áudio falso */
-li.playing::after {
-    content: '';
+li.playing .spectrum {
     display: flex;
+    gap: 2px;
     position: absolute;
     right: 10px;
-    width: 20px;
-    height: 20px;
-    gap: 2px;
 }
 
-li.playing::after div {
+li.playing .spectrum div {
     width: 2px;
     background: #ffffff;
     animation: bar-animation 1s infinite;
     animation-timing-function: linear;
 }
 
-li.playing::after div:nth-child(1) {
+li.playing .spectrum div:nth-child(1) {
     height: 10px;
     animation-delay: 0s;
 }
 
-li.playing::after div:nth-child(2) {
+li.playing .spectrum div:nth-child(2) {
     height: 14px;
     animation-delay: 0.1s;
 }
 
-li.playing::after div:nth-child(3) {
+li.playing .spectrum div:nth-child(3) {
     height: 8px;
     animation-delay: 0.2s;
 }
 
-li.playing::after div:nth-child(4) {
+li.playing .spectrum div:nth-child(4) {
     height: 16px;
     animation-delay: 0.3s;
 }
 
-li.playing::after div:nth-child(5) {
+li.playing .spectrum div:nth-child(5) {
     height: 12px;
     animation-delay: 0.4s;
 }
