@@ -29,10 +29,20 @@
             color: #ffffff; /* Branco quando favoritado */
         }
 
+        .share-icon {
+            cursor: pointer;
+            margin-left: auto;
+            font-size: 1.2em;
+            position: absolute;
+            right: 40px; /* Ajuste conforme necessário */
+            color: #ffffff;
+            transition: color 0.3s;
+        }
+
         .spectrum {
             display: flex;
             gap: 2px;
-            margin-right: 40px; /* Margem ajustada para 30px + 10px adicionais */
+            margin-right: 60px; /* Margem ajustada para acomodar ícones adicionais */
         }
 
         .spectrum div {
@@ -104,6 +114,26 @@
         .timer-button:hover {
             background-color: #04b65c;
         }
+
+        .share-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .share-options button {
+            background-color: #05d26d;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .share-options button:hover {
+            background-color: #04b65c;
+        }
     </style>
 </head>
 <body>
@@ -139,6 +169,19 @@
             <label for="timer">Desligar após (minutos):</label>
             <input type="number" id="timer" min="1" max="120" value="30">
             <button class="timer-button" id="setTimer">Definir o tempo</button> <!-- Botão ajustado -->
+        </div>
+    </div>
+
+    <!-- Modal para opções de compartilhamento -->
+    <div id="shareModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeShareModal">&times;</span>
+            <h3>Compartilhar estação</h3>
+            <div class="share-options">
+                <button id="copyLink">Copiar link</button>
+                <button id="shareFacebook">Compartilhar no Facebook</button>
+                <button id="shareTwitter">Compartilhar no Twitter</button>
+            </div>
         </div>
     </div>
 
