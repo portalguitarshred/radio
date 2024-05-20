@@ -3,46 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guitar Shred Radio</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- Ícones Font Awesome -->
+    <title>Guitar Radio</title>
+    <!-- Link para a biblioteca Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .clock-icon {
+            cursor: pointer;
+            margin-left: 50px;
+            font-size: 1.2em;
+            color: #ffffff;
+        }
+
+        .heart-icon {
+            cursor: pointer;
+            margin-left: auto;
+            font-size: 1.2em;
+            position: absolute;
+            right: 10px;
+            color: #121212; /* Preto quando não favoritado */
+            transition: color 0.3s;
+        }
+
+        .heart-icon.favorited {
+            color: #ffffff; /* Branco quando favoritado */
+        }
+
+        .share-icon {
+            cursor: pointer;
+            margin-left: auto;
+            font-size: 1.2em;
+            position: absolute;
+            right: 40px; /* Ajuste conforme necessário */
+            color: #ffffff;
+            transition: color 0.3s;
+        }
+
+        .spectrum {
+            display: flex;
+            gap: 2px;
+            margin-right: 60px; /* Margem ajustada para acomodar ícones adicionais */
+        }
+
+        .spectrum div {
+            width: 2px;
+            background: #ffffff;
+            animation: bar-animation 1s infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes bar-animation {
+            0%, 100% {
+                transform: scaleY(1);
+            }
+            50% {
+                transform: scaleY(0.5);
+            }
+        }
+
+        /* Estilos para o modal */
+        .modal {
+            display: none; /* Oculto por padrão */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #1f1f1f;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 300px;
+            color: #ffffff;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #ffffff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .timer-button {
+            background-color: #05d26d;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .timer-button:hover {
+            background-color: #04b65c;
+        }
+
+        .share-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .share-options button {
+            background-color: #05d26d;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .share-options button:hover {
+            background-color: #04b65c;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <img src="logo.png" alt="Guitar Shred Radio" class="logo">
-        <h1 class="tagline">The best rock and metal hits!</h1>
+        <img src="logo.png" alt="Guitar Radio Logo" class="logo">
+        <p class="tagline">Músicas para quem curte guitarra</p>
     </header>
     <main>
-        <h2>Stations</h2>
-        <ul id="station-list">
-            <!-- Estações serão geradas dinamicamente pelo JavaScript -->
-        </ul>
-        <audio id="audio-player" controls></audio>
-        <div id="audio-visualizer"></div>
-        <div id="volume-container">
-            <label for="volume-control">Volume:</label>
-            <input type="range" id="volume-control" min="0" max="1" step="0.01">
-        </div>
+        <section id="stations">
+            <h2>Escolha a estação
+                <span class="clock-icon" id="clock-icon">&#128339;</span> <!-- Ícone de relógio -->
+            </h2>
+            <ul id="station-list">
+                <!-- Stations will be dynamically added here -->
+            </ul>
+        </section>
+        <section id="player">
+            <audio id="audio-player" controls>
+                Your browser does not support the audio element.
+            </audio>
+            <div id="volume-container">
+                <label for="volume-control">Volume:</label>
+                <input type="range" id="volume-control" min="0" max="1" step="0.01" value="1">
+            </div>
+        </section>
     </main>
 
-    <!-- Modal de Temporizador -->
+    <!-- Modal para a programação do temporizador -->
     <div id="timerModal" class="modal">
         <div class="modal-content">
-            <span id="closeModal" class="close">&times;</span>
-            <h2>Definir Temporizador</h2>
-            <input type="number" id="timer" placeholder="Minutos">
-            <button id="setTimer">Definir Temporizador</button>
+            <span class="close" id="closeModal">&times;</span>
+            <h3>Hora de dormir</h3> <!-- Frase ajustada -->
+            <label for="timer">Desligar após (minutos):</label>
+            <input type="number" id="timer" min="1" max="120" value="30">
+            <button class="timer-button" id="setTimer">Definir o tempo</button> <!-- Botão ajustado -->
         </div>
     </div>
 
-    <!-- Modal de Compartilhamento -->
+    <!-- Modal para opções de compartilhamento -->
     <div id="shareModal" class="modal">
         <div class="modal-content">
-            <span id="closeShareModal" class="close">&times;</span>
-            <h2>Compartilhar Estação</h2>
-            <button id="copyLink">Copiar Link</button>
-            <button id="shareFacebook">Compartilhar no Facebook</button>
-            <button id="shareTwitter">Compartilhar no Twitter</button>
+            <span class="close" id="closeShareModal">&times;</span>
+            <h3>Compartilhar estação</h3>
+            <div class="share-options">
+                <button id="copyLink">Copiar link</button>
+                <button id="shareFacebook">Compartilhar no Facebook</button>
+                <button id="shareTwitter">Compartilhar no Twitter</button>
+            </div>
         </div>
     </div>
 
