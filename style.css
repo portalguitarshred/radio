@@ -137,3 +137,38 @@ li:hover {
     border-radius: 50%;
     cursor: pointer;
 }
+
+#current-track {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    width: calc(100% - 40px); /* Ajusta a largura para corresponder ao player */
+    padding: 0 20px;
+    box-sizing: border-box;
+    background-color: #1f1f1f;
+    border-radius: 8px;
+}
+
+#track-art {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    border-radius: 4px;
+    display: none; /* Esconde por padrão */
+}
+
+#track-info {
+    display: flex;
+    flex-direction: column;
+}
+
+#track-title {
+    font-size: 1.2em;
+    margin: 0;
+}
+
+#track-artist {
+    font-size: 1em;
+    margin: 0;
+    color: #aaaaaa;
+}
