@@ -1,1 +1,119 @@
+/* Adicionando o espectro de áudio falso */
+li.playing .spectrum {
+    display: flex;
+    gap: 2px;
+    position: absolute;
+    right: 10px;
+}
+
+li.playing .spectrum div {
+    width: 2px;
+    background: #ffffff;
+    animation: bar-animation 0.5s infinite; /* Duração da animação ajustada para 0.5s */
+    animation-timing-function: linear;
+}
+
+li.playing .spectrum div:nth-child(1) {
+    height: 10px;
+    animation-delay: 0s;
+}
+
+li.playing .spectrum div:nth-child(2) {
+    height: 14px;
+    animation-delay: 0.1s;
+}
+
+li.playing .spectrum div:nth-child(3) {
+    height: 8px;
+    animation-delay: 0.2s;
+}
+
+li.playing .spectrum div:nth-child(4) {
+    height: 16px;
+    animation-delay: 0.3s;
+}
+
+li.playing .spectrum div:nth-child(5) {
+    height: 12px;
+    animation-delay: 0.4s;
+}
+
+@keyframes bar-animation {
+    0%, 100% {
+        transform: scaleY(1);
+    }
+    50% {
+        transform: scaleY(0.5);
+    }
+}
+
+#audio-player {
+    width: calc(100% - 40px); /* Ajusta a largura do player */
+    margin: 20px; /* Adiciona margem de 20px em todas as direções */
+    box-sizing: border-box; /* Inclui padding e border na largura total */
+}
+
+#stations {
+    margin-bottom: 20px;
+    width: calc(100%); /* Ajusta a largura das estações para o tamanho do player */
+    padding: 0 20px;
+    box-sizing: border-box; /* Inclui padding e border na largura total */
+}
+
+#audio-visualizer {
+    width: 100%;
+    height: 100px;
+    background-color: #000;
+}
+
+#volume-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    width: 100%; /* Ajusta a largura do container de volume para o tamanho do player */
+    padding: 0 20px;
+    box-sizing: border-box; /* Inclui padding e border na largura total */
+}
+
+#volume-control {
+    width: 100%; /* Ajuste o tamanho da barra de volume */
+    margin-left: 10px; /* Espaçamento entre o texto e a barra */
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+    height: 8px;
+    appearance: none;
+    cursor: pointer;
+}
+
+#volume-control::-webkit-slider-thumb {
+    width: 16px;
+    height: 16px;
+    background: #05d26d;
+    border-radius: 50%;
+    cursor: pointer;
+    appearance: none;
+}
+
+#volume-control::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #05d26d;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#status-message {
+    color: #ffffff;
+    background-color: #05d26d; /* Mensagem de status em verde */
+    padding: 10px;
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 5px;
+    display: none; /* Escondido por padrão */
+}
+
+#status-message.show {
+    display: block; /* Mostrar quando necessário */
+}
 
