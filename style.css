@@ -83,6 +83,27 @@ li:hover {
     display: inline-block; /* Garante que o ícone apareça corretamente */
 }
 
+li::after {
+    content: '';
+    display: none;
+    position: absolute;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    background: repeating-linear-gradient(
+        45deg,
+        #ffffff,
+        #ffffff 5px,
+        #333333 5px,
+        #333333 10px
+    );
+    animation: spectrum 1s infinite linear;
+}
+
+li.playing::after {
+    display: block;
+}
+
 #audio-player {
     width: calc(100% - 40px); /* Ajusta a largura do player */
     margin: 20px; /* Adiciona margem de 20px em todas as direções */
@@ -139,6 +160,11 @@ li:hover {
     cursor: pointer;
 }
 
+@keyframes spectrum {
+    0% { background-position: 0 0; }
+    100% { background-position: 20px 20px; }
+}
+
 #status-message {
     color: #ffffff;
     background-color: #ff0000;
@@ -151,30 +177,4 @@ li:hover {
 
 #status-message.show {
     display: block; /* Mostrar quando necessário */
-}
-
-li {
-    background-color: #333333;
-    margin: 0.5em 0;
-    padding: 0.5em;
-    border: 1px solid #444444;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    box-sizing: border-box; /* Inclui padding e border na largura total */
-    display: flex;
-    align-items: center;
-    position: relative; /* Necessário para posicionar o canvas dentro do li */
-}
-
-li canvas {
-    position: absolute;
-    right: 10px;
-    height: 20px; /* Altura do espectro */
-    width: 60px; /* Largura do espectro */
-    display: none; /* Escondido por padrão */
-}
-
-li.playing canvas {
-    display: block; /* Mostrar o canvas quando a estação estiver tocando */
 }
