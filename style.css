@@ -7,9 +7,9 @@ body {
     align-items: center;
     background-color: #121212;
     color: #ffffff;
-    overflow-x: hidden; /* Evita movimento horizontal */
-    width: 100vw; /* Define a largura do body para 100% da viewport */
-    box-sizing: border-box; /* Inclui padding e border na largura total */
+    overflow-x: hidden;
+    width: 100vw;
+    box-sizing: border-box;
 }
 
 header {
@@ -19,7 +19,7 @@ header {
     width: 100%;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box; /* Inclui padding e border na largura total */
+    box-sizing: border-box;
 }
 
 .logo {
@@ -41,7 +41,7 @@ main {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     margin-top: 20px;
-    box-sizing: border-box; /* Inclui padding e border na largura total */
+    box-sizing: border-box;
 }
 
 h1, h2 {
@@ -54,8 +54,8 @@ h1, h2 {
 ul {
     list-style-type: none;
     padding: 0;
-    width: 100%; /* Ajusta a largura das estações para o tamanho do player */
-    box-sizing: border-box; /* Inclui padding e border na largura total */
+    width: 100%;
+    box-sizing: border-box;
 }
 
 li {
@@ -66,87 +66,83 @@ li {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
-    box-sizing: border-box; /* Inclui padding e border na largura total */
+    box-sizing: border-box;
     display: flex;
     align-items: center;
-    position: relative; /* Necessário para posicionar o espectro dentro do li */
+    justify-content: space-between;
 }
 
 li:hover {
     background-color: #05d26d;
 }
 
-li.playing {
-    background-color: #05d26d; /* Cor verde para a estação ativa */
-}
-
 .playing::before {
-    content: '▶'; /* Ícone de play */
-    color: #ffffff; /* Cor branca */
-    margin-right: 10px; /* Espaçamento entre o ícone e o texto */
-    display: inline-block; /* Garante que o ícone apareça corretamente */
+    content: '▶';
+    color: #ffffff;
+    margin-right: 10px;
+    display: inline-block;
 }
 
-/* Adicionando o espectro de áudio falso */
-li.playing .spectrum {
+.fa-heart {
+    margin-right: 10px;
+}
+
+.fa-heart.favorited {
+    color: red;
+}
+
+.spectrum {
     display: flex;
-    gap: 2px;
-    position: absolute;
-    right: 10px;
+    align-items: center;
 }
 
-li.playing .spectrum div {
-    width: 2px;
-    background: #ffffff;
-    animation: bar-animation 0.5s infinite; /* Duração da animação ajustada para 0.5s */
-    animation-timing-function: linear;
-}
-
-li.playing .spectrum div:nth-child(1) {
+.spectrum div {
+    width: 4px;
     height: 10px;
-    animation-delay: 0s;
+    margin: 0 1px;
+    background-color: #05d26d;
+    animation: spectrum-animation 0.5s infinite;
 }
 
-li.playing .spectrum div:nth-child(2) {
-    height: 14px;
-    animation-delay: 0.1s;
+@keyframes spectrum-animation {
+    0% { height: 10px; }
+    50% { height: 30px; }
+    100% { height: 10px; }
 }
 
-li.playing .spectrum div:nth-child(3) {
-    height: 8px;
-    animation-delay: 0.2s;
+#status-message {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333333;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    z-index: 1000;
 }
 
-li.playing .spectrum div:nth-child(4) {
-    height: 16px;
-    animation-delay: 0.3s;
+#status-message.show {
+    display: block;
 }
 
-li.playing .spectrum div:nth-child(5) {
-    height: 12px;
-    animation-delay: 0.4s;
-}
-
-@keyframes bar-animation {
-    0%, 100% {
-        transform: scaleY(1);
-    }
-    50% {
-        transform: scaleY(0.5);
-    }
+.share-icon {
+    margin-left: 10px;
+    cursor: pointer;
 }
 
 #audio-player {
-    width: calc(100% - 40px); /* Ajusta a largura do player */
-    margin: 20px; /* Adiciona margem de 20px em todas as direções */
-    box-sizing: border-box; /* Inclui padding e border na largura total */
+    width: calc(100% - 40px);
+    margin: 20px;
+    box-sizing: border-box;
 }
 
 #stations {
     margin-bottom: 20px;
-    width: calc(100%); /* Ajusta a largura das estações para o tamanho do player */
+    width: calc(100%);
     padding: 0 20px;
-    box-sizing: border-box; /* Inclui padding e border na largura total */
+    box-sizing: border-box;
 }
 
 #audio-visualizer {
@@ -159,14 +155,14 @@ li.playing .spectrum div:nth-child(5) {
     display: flex;
     align-items: center;
     margin-top: 10px;
-    width: 100%; /* Ajusta a largura do container de volume para o tamanho do player */
+    width: 100%;
     padding: 0 20px;
-    box-sizing: border-box; /* Inclui padding e border na largura total */
+    box-sizing: border-box;
 }
 
 #volume-control {
-    width: 100%; /* Ajuste o tamanho da barra de volume */
-    margin-left: 10px; /* Espaçamento entre o texto e a barra */
+    width: 100%;
+    margin-left: 10px;
     background-color: #333;
     border: none;
     border-radius: 5px;
@@ -192,16 +188,76 @@ li.playing .spectrum div:nth-child(5) {
     cursor: pointer;
 }
 
-#status-message {
-    color: #ffffff;
-    background-color: #05d26d; /* Mensagem de status em verde */
-    padding: 10px;
-    margin-top: 20px;
-    text-align: center;
-    border-radius: 5px;
-    display: none; /* Escondido por padrão */
+/* Estilos para o modal de temporizador */
+#timerModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
 }
 
-#status-message.show {
-    display: block; /* Mostrar quando necessário */
+#timerModal .modal-content {
+    background-color: #333333;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    color: #ffffff;
+}
+
+#timerModal .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#timerModal .close:hover,
+#timerModal .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Estilos para o modal de compartilhamento */
+#shareModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+#shareModal .modal-content {
+    background-color: #333333;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    color: #ffffff;
+}
+
+#shareModal .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#shareModal .close:hover,
+#shareModal .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }
