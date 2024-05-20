@@ -11,6 +11,10 @@
             margin-left: 10px;
             font-size: 1.2em;
             color: #ffffff;
+            position: absolute;
+            right: 20px; /* Alinha o ícone à direita */
+            top: 50%;
+            transform: translateY(-50%);
         }
 
         /* Estilos para o modal */
@@ -74,7 +78,7 @@
         <p class="tagline">Músicas para quem curte guitarra</p>
     </header>
     <main>
-        <section id="stations">
+        <section id="stations" style="position: relative;">
             <h2>Escolha a estação
                 <span class="clock-icon" id="clock-icon">&#128339;</span> <!-- Ícone de relógio -->
             </h2>
@@ -100,7 +104,7 @@
             <h3>Hora de dormir</h3> <!-- Frase ajustada -->
             <label for="timer">Desligar após (minutos):</label>
             <input type="number" id="timer" min="1" max="120" value="30">
-            <button class="timer-button" id="setTimer">Definir Temporizador</button>
+            <button class="timer-button" id="setTimer">Definir o tempo</button> <!-- Botão ajustado -->
         </div>
     </div>
 
