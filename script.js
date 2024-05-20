@@ -16,9 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     function fetchTrackInfo(station) {
+        console.log('Fetching track info from:', station.statusUrl); // Log de debug
         fetch(station.statusUrl)
-            .then(response => response.json())
+            .then(response => {
+                console.log('Response received:', response); // Log de debug
+                return response.json();
+            })
             .then(data => {
+                console.log('Data received:', data); // Log de debug
                 const source = data.icestats.source;
                 if (source.title) {
                     trackTitle.textContent = source.title;
