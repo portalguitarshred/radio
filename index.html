@@ -370,6 +370,18 @@
         .accordion-active + .song-info {
             display: block;
         }
+
+        
+        /* Ajuste para que a estação ativa fique verde e o texto branco em todas as telas */
+        li.playing {
+            background-color: #05d26d; /* Cor verde para a estação ativa */
+            color: #ffffff !important; /* Texto branco para melhor contraste */
+        }
+        
+        /* Ajuste para que o ícone de play na estação ativa também fique branco */
+        li.playing::before {
+            color: #ffffff !important; /* Ícone de play branco para contraste */
+        }
         
     </style>
 </head>
