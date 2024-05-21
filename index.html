@@ -111,6 +111,10 @@
             text-align: left;
         }
 
+        h2 {
+            font-size: 1.2em; /* Ajuste este valor conforme necessário */
+        }
+
         ul {
             list-style-type: none;
             padding: 0;
@@ -487,49 +491,49 @@
         }
 
         /* Estilos para o carrossel */
-.carousel-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
+        .carousel-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
 
-.carousel-controls {
-    display: flex;
-    align-items: center;
-}
+        .carousel-controls {
+            display: flex;
+            align-items: center;
+        }
 
-.carousel {
-    overflow: hidden;
-    width: 100%;
-    position: relative;
-}
+        .carousel {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
 
-.carousel-track {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-}
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
 
-.carousel img {
-    width: calc((100% - 40px) / 3); /* Ajusta as imagens */
-    margin: 0 5px;
-    border-radius: 8px;
-}
+        .carousel img {
+            width: calc((100% - 40px) / 3); /* Ajusta as imagens */
+            margin: 0 5px;
+            border-radius: 8px;
+        }
 
-.carousel-button {
-    background-color: #05d26d;
-    color: #ffffff;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin: 0 5px;
-    font-size: 0.8em; /* Reduzir o tamanho da fonte das setas */
-}
+        .carousel-button {
+            background-color: #05d26d;
+            color: #ffffff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 0 5px;
+            font-size: 0.8em; /* Reduzir o tamanho da fonte das setas */
+        }
 
-.carousel-button:hover {
-    background-color: #04b65c;
-}
+        .carousel-button:hover {
+            background-color: #04b65c;
+        }
 
         /* Estilos para a área de detalhes do álbum */
         .album-details {
@@ -622,9 +626,9 @@
             </div>
             <div class="carousel">
                 <div class="carousel-track">
-                    <a href="#" class="album-link" data-album="1"><img src="capa1.jpg" alt="Capa 1" class="carousel-item"></a>
-                    <a href="#" class="album-link" data-album="2"><img src="capa2.jpg" alt="Capa 2" class="carousel-item"></a>
-                    <a href="#" class="album-link" data-album="3"><img src="capa3.jpg" alt="Capa 3" class="carousel-item"></a>
+                    <a href="#" class="album-link"><img src="capa1.jpg" alt="Capa 1"></a>
+                    <a href="#" class="album-link"><img src="capa2.jpg" alt="Capa 2"></a>
+                    <a href="#" class="album-link"><img src="capa3.jpg" alt="Capa 3"></a>
                 </div>
             </div>
         </section>
@@ -645,13 +649,14 @@
                 <input type="range" id="volume-control" min="0" max="1" step="0.01" value="1">
             </div>
         </section>
-        <!-- Nova seção para detalhes do álbum -->
+        
+        <!-- Detalhes do álbum (atualizado) -->
         <section id="album-details" class="album-details">
             <div class="album-info">
                 <img id="album-cover" src="" alt="Capa do álbum">
                 <div>
                     <h3 id="album-name">Nome do Álbum</h3>
-                    <p id="album-artist">Nome da Banda</p>
+                    <p id="band-name">Nome da Banda</p>
                 </div>
             </div>
             <audio id="album-player" class="album-player" controls>
