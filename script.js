@@ -50,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-        const transformValue = -currentIndex * ((100 + 10) / coversToShow);
-        carouselTrack.style.transform = `translateX(${transformValue}%)`;
+    const transformValue = -currentIndex * ((100 + 10) / coversToShow);
+    carouselTrack.style.transform = `translateX(${transformValue}%)`;
 
         document.querySelectorAll('.album-link').forEach(link => {
         link.addEventListener('click', (event) => {
