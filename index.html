@@ -487,50 +487,50 @@
         }
 
         /* Estilos para o carrossel */
-.carousel-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
+        .carousel-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
 
-.carousel-controls {
-    display: flex;
-    align-items: center;
-}
+        .carousel-controls {
+            display: flex;
+            align-items: center;
+        }
+        
+        .carousel {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+            padding: 0 10px; /* Adiciona espaço de borda */
+        }
 
-.carousel {
-    overflow: hidden;
-    width: 100%;
-    position: relative;
-    padding: 0 10px; /* Adiciona espaço de borda */
-}
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        .carousel img {
+            width: calc((100% - 20px) / 3); /* Considera a margem total */
+            margin: 0 5px;
+            border-radius: 8px;
+        }
 
-.carousel-track {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-}
-
-.carousel img {
-    width: calc((100% - 20px) / 3); /* Considera a margem total */
-    margin: 0 5px;
-    border-radius: 8px;
-}
-
-.carousel-button {
-    background-color: #05d26d;
-    color: #ffffff;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin: 0 5px;
-    font-size: 0.8em; /* Reduzir o tamanho da fonte das setas */
-}
-
-.carousel-button:hover {
-    background-color: #04b65c;
-}
+        .carousel-button {
+            background-color: #05d26d;
+            color: #ffffff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 0 5px;
+            font-size: 0.8em; /* Reduzir o tamanho da fonte das setas */
+        }
+        
+        .carousel-button:hover {
+            background-color: #04b65c;
+        }
     </style>
 </head>
 <body>
