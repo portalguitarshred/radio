@@ -280,3 +280,52 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const carouselTrack = document.querySelector('.carousel-track');
+    const prevButton = document.getElementById('carousel-prev');
+    const nextButton = document.getElementById('carousel-next');
+    let currentIndex = 0;
+
+    const cdCovers = [
+        'url1.jpg', // Substitua pelos URLs reais das capas
+        'url2.jpg',
+        'url3.jpg',
+        'url4.jpg',
+        'url5.jpg',
+        'url6.jpg'
+    ];
+
+    function updateCarousel() {
+        carouselTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    function loadCovers() {
+        carouselTrack.innerHTML = '';
+        for (let i = currentIndex; i < currentIndex + 3 && i < cdCovers.length; i++) {
+            const img = document.createElement('img');
+            img.src = cdCovers[i];
+            carouselTrack.appendChild(img);
+        }
+    }
+
+    prevButton.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex -= 3;
+            loadCovers();
+            updateCarousel();
+        }
+    });
+
+    nextButton.addEventListener('click', () => {
+        if (currentIndex < cdCovers.length - 3) {
+            currentIndex += 3;
+            loadCovers();
+            updateCarousel();
+        }
+    });
+
+    // Carregar as primeiras capas ao iniciar
+    loadCovers();
+});
+
