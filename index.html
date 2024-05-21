@@ -490,13 +490,18 @@
         .carousel-container {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
             margin-bottom: 20px;
+        }
+
+        .carousel-controls {
+            display: flex;
+            align-items: center;
         }
 
         .carousel {
             overflow: hidden;
-            width: calc(100% - 60px); /* Ajuste conforme necessário */
+            width: 100%;
             position: relative;
         }
 
@@ -515,11 +520,11 @@
             background-color: #05d26d;
             color: #ffffff;
             border: none;
-            padding: 10px;
+            padding: 5px 10px;
             cursor: pointer;
             border-radius: 5px;
-            margin: 0 10px;
-            font-size: 1.2em;
+            margin: 0 5px;
+            font-size: 1em;
         }
 
         .carousel-button:hover {
@@ -543,15 +548,17 @@
     </header>
     <main>
         <section id="highlights">
-            <h2>Destaques</h2>
             <div class="carousel-container">
-                <button class="carousel-button" id="carousel-prev">&#9664;</button>
-                <div class="carousel">
-                    <div class="carousel-track">
-                        <!-- Imagens das capas dos CDs serão adicionadas aqui -->
-                    </div>
+                <h2>Destaques</h2>
+                <div class="carousel-controls">
+                    <button class="carousel-button" id="carousel-prev">&#9664;</button>
+                    <button class="carousel-button" id="carousel-next">&#9654;</button>
                 </div>
-                <button class="carousel-button" id="carousel-next">&#9654;</button>
+            </div>
+            <div class="carousel">
+                <div class="carousel-track">
+                    <!-- Imagens das capas dos CDs serão adicionadas aqui -->
+                </div>
             </div>
         </section>
         <section id="stations">
