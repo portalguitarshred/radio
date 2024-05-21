@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <p><strong>Música:</strong> <span class="song-name"></span></p>
             <p><strong>Artista/Banda:</strong> <span class="artist-name"></span></p>
         `;
-        li.appendChild(songInfo);
+        li.after(songInfo); // Adiciona o contêiner abaixo da estação
 
         li.addEventListener('click', () => {
             console.log(`Playing: ${station.name} - URL: ${station.url}`);
@@ -91,8 +91,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
             if (currentPlaying) {
                 currentPlaying.classList.remove('playing', 'accordion-active');
+                currentPlaying.nextElementSibling.style.display = 'none'; // Oculta o contêiner anterior
             }
             li.classList.add('playing', 'accordion-active');
+            songInfo.style.display = 'block'; // Exibe o contêiner atual
             currentPlaying = li;
         });
 
