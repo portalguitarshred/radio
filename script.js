@@ -63,8 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <p><strong>Música:</strong> <span class="song-name"></span></p>
             <p><strong>Artista/Banda:</strong> <span class="artist-name"></span></p>
         `;
-        li.appendChild(songInfo); // Adiciona o contêiner dentro do li temporariamente
-
         li.addEventListener('click', () => {
             console.log(`Playing: ${station.name} - URL: ${station.url}`);
             audioPlayer.src = station.url;
@@ -91,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
             if (currentPlaying) {
                 currentPlaying.classList.remove('playing', 'accordion-active');
-                currentPlaying.querySelector('.song-info').style.display = 'none'; // Oculta o contêiner anterior
+                currentPlaying.nextElementSibling.style.display = 'none'; // Oculta o contêiner anterior
             }
             li.classList.add('playing', 'accordion-active');
             songInfo.style.display = 'block'; // Exibe o contêiner atual
@@ -99,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         stationList.appendChild(li);
+        stationList.appendChild(songInfo); // Adiciona o contêiner abaixo do item da lista
     });
 
     function fetchSongInfo(url, songInfo) {
