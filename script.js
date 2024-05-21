@@ -12,72 +12,72 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     function updateCarousel() {
-    const totalCovers = cdCovers.length;
-    const coversToShow = 3; // Número de capas visíveis
-    const offset = currentIndex % totalCovers;
-    const endIndex = (offset + coversToShow) % totalCovers;
+        const totalCovers = cdCovers.length;
+        const coversToShow = 3; // Número de capas visíveis
+        const offset = currentIndex % totalCovers;
+        const endIndex = (offset + coversToShow) % totalCovers;
 
-    carouselTrack.innerHTML = '';
+        carouselTrack.innerHTML = '';
 
-    if (endIndex > offset) {
-        for (let i = offset; i < endIndex; i++) {
-            const img = document.createElement('img');
-            img.src = cdCovers[i];
-            const link = document.createElement('a');
-            link.href = '#';
-            link.classList.add('album-link');
-            link.appendChild(img);
-            carouselTrack.appendChild(link);
+        if (endIndex > offset) {
+            for (let i = offset; i < endIndex; i++) {
+                const img = document.createElement('img');
+                img.src = cdCovers[i];
+                const link = document.createElement('a');
+                link.href = '#';
+                link.classList.add('album-link');
+                link.appendChild(img);
+                carouselTrack.appendChild(link);
+            }
+        } else {
+            for (let i = offset; i < totalCovers; i++) {
+                const img = document.createElement('img');
+                img.src = cdCovers[i];
+                const link = document.createElement('a');
+                link.href = '#';
+                link.classList.add('album-link');
+                link.appendChild(img);
+                carouselTrack.appendChild(link);
+            }
+            for (let i = 0; i < endIndex; i++) {
+                const img = document.createElement('img');
+                img.src = cdCovers[i];
+                const link = document.createElement('a');
+                link.href = '#';
+                link.classList.add('album-link');
+                link.appendChild(img);
+                carouselTrack.appendChild(link);
+            }
         }
-    } else {
-        for (let i = offset; i < totalCovers; i++) {
-            const img = document.createElement('img');
-            img.src = cdCovers[i];
-            const link = document.createElement('a');
-            link.href = '#';
-            link.classList.add('album-link');
-            link.appendChild(img);
-            carouselTrack.appendChild(link);
-        }
-        for (let i = 0; i < endIndex; i++) {
-            const img = document.createElement('img');
-            img.src = cdCovers[i];
-            const link = document.createElement('a');
-            link.href = '#';
-            link.classList.add('album-link');
-            link.appendChild(img);
-            carouselTrack.appendChild(link);
-        }
-    }
 
-    const transformValue = -currentIndex * ((100 + 10) / coversToShow);
-    carouselTrack.style.transform = `translateX(${transformValue}%)`;
+        const transformValue = -currentIndex * ((100 + 10) / coversToShow);
+        carouselTrack.style.transform = `translateX(${transformValue}%)`;
 
         document.querySelectorAll('.album-link').forEach(link => {
-        link.addEventListener('click', (event) => {
-            event.preventDefault();
-            const img = link.querySelector('img');
-            const albumData = albums[img.src.split('/').pop()];
-            if (albumData) {
-                document.getElementById('album-cover').src = img.src;
-                document.getElementById('album-name').textContent = albumData.album;
-                document.getElementById('band-name').textContent = albumData.band;
-                const albumTrackList = document.getElementById('album-track-list');
-                albumTrackList.innerHTML = '';
-                albumData.tracks.forEach(track => {
-                    const li = document.createElement('li');
-                    li.textContent = track.name;
-                    li.addEventListener('click', () => {
-                        document.getElementById('album-audio-player').src = track.url;
-                        document.getElementById('album-audio-player').play();
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const img = link.querySelector('img');
+                const albumData = albums[img.src.split('/').pop()];
+                if (albumData) {
+                    document.getElementById('album-cover').src = img.src;
+                    document.getElementById('album-name').textContent = albumData.album;
+                    document.getElementById('band-name').textContent = albumData.band;
+                    const albumTrackList = document.getElementById('album-track-list');
+                    albumTrackList.innerHTML = '';
+                    albumData.tracks.forEach(track => {
+                        const li = document.createElement('li');
+                        li.textContent = track.name;
+                        li.addEventListener('click', () => {
+                            document.getElementById('album-audio-player').src = track.url;
+                            document.getElementById('album-audio-player').play();
+                        });
+                        albumTrackList.appendChild(li);
                     });
-                    albumTrackList.appendChild(li);
-                });
-                document.getElementById('album-details').style.display = 'block';
-            }
+                    document.getElementById('album-details').style.display = 'block';
+                }
+            });
         });
-    });
-}
+    }
 
     prevButton.addEventListener('click', () => {
         currentIndex = (currentIndex - 1 + cdCovers.length) % cdCovers.length;
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Adiciona ícone de compartilhamento
         const shareIcon = document.createElement('i');
-        shareIcon.classList.add('fa', 'fa-share', 'share-icon'); // Alterado para 'fa-share'
+        shareIcon.classList.add('fa', 'fa-share', 'share-icon');
         shareIcon.addEventListener('click', (e) => {
             e.stopPropagation();
             openShareModal(station.url);
@@ -186,6 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
         audioPlayer.volume = e.target.value;
         console.log(`Volume: ${audioPlayer.volume}`);
     });
+});
 
     // Lógica do Temporizador
     const clockIcon = document.getElementById('clock-icon');
