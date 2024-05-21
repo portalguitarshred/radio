@@ -175,3 +175,17 @@ document.addEventListener('DOMContentLoaded', () => {
         window.open(twitterUrl, '_blank');
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const menu = document.querySelector('.menu');
+    
+    menuToggle.addEventListener('click', () => {
+        if (menu.style.display === 'none' || menu.style.display === '') {
+            menu.style.display = 'flex';
+        } else {
+            menu.style.display = 'none';
+        }
+    });
+});
+
