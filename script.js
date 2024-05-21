@@ -64,56 +64,59 @@ document.addEventListener('DOMContentLoaded', () => {
             <p><strong>Artista/Banda:</strong> <span class="artist-name"></span></p>
         `;
         li.addEventListener('click', () => {
-    console.log(`Playing: ${station.name} - URL: ${station.url}`);
-    audioPlayer.src = station.url;
-    statusMessage.textContent = 'Carregando...';
-    statusMessage.classList.add('show');
+            console.log(`Playing: ${station.name} - URL: ${station.url}`);
+            audioPlayer.src = station.url;
+            statusMessage.textContent = 'Carregando...';
+            statusMessage.classList.add('show');
 
-    audioPlayer.play().then(() => {
-        statusMessage.textContent = '';
-        statusMessage.classList.remove('show');
-        fetchSongInfo(station.url, songInfo); // Atualiza as informações da música
-    }).catch(error => {
-        console.error('Playback failed', error);
-        statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.';
+            audioPlayer.play().then(() => {
+                statusMessage.textContent = '';
+                statusMessage.classList.remove('show');
+                fetchSongInfo(station.url, songInfo); // Atualiza as informações da música
+            }).catch(error => {
+                console.error('Playback failed', error);
+                statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.';
+            });
+
+            audioPlayer.oncanplay = () => {
+                statusMessage.textContent = '';
+                statusMessage.classList.remove('show');
+            };
+
+            audioPlayer.onerror = () => {
+                statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.';
+            };
+
+            if (currentPlaying) {
+                currentPlaying.classList.remove('playing', 'accordion-active');
+                currentPlaying.nextElementSibling.style.display = 'none'; // Oculta o contêiner anterior
+            }
+            li.classList.add('playing', 'accordion-active');
+            songInfo.style.display = 'block'; // Exibe o contêiner atual
+            currentPlaying = li;
+        });
+
+        stationList.appendChild(li);
+        stationList.appendChild(songInfo); // Adiciona o contêiner abaixo do item da lista
     });
 
-    audioPlayer.oncanplay = () => {
-        statusMessage.textContent = '';
-        statusMessage.classList.remove('show');
-    };
-
-    audioPlayer.onerror = () => {
-        statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.';
-    };
-
-    if (currentPlaying) {
-        currentPlaying.classList.remove('playing', 'accordion-active');
-        currentPlaying.nextElementSibling.style.display = 'none'; // Oculta o contêiner anterior
-    }
-    li.classList.add('playing', 'accordion-active');
-    songInfo.style.display = 'block'; // Exibe o contêiner atual
-    currentPlaying = li;
-});
-
     function fetchSongInfo(stationUrl, songInfo) {
-    const zenoApiUrl = `https://stream.zeno.fm/qupiusi3w5puv/current_song.json`; // Ajuste conforme necessário
+        const zenoApiUrl = `https://stream.zeno.fm/qupiusi3w5puv/current_song.json`; // Ajuste conforme necessário
 
-    fetch(zenoApiUrl)
-        .then(response => response.json())
-        .then(data => {
-            const songName = data.song ? data.song.title : "Desconhecido";
-            const artistName = data.song ? data.song.artist : "Desconhecido";
-            songInfo.querySelector('.song-name').textContent = songName;
-            songInfo.querySelector('.artist-name').textContent = artistName;
-        })
-        .catch(error => {
-            console.error('Erro ao obter informações da música', error);
-            songInfo.querySelector('.song-name').textContent = "Erro ao obter informações";
-            songInfo.querySelector('.artist-name').textContent = "";
-        });
-}
-
+        fetch(zenoApiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const songName = data.song ? data.song.title : "Desconhecido";
+                const artistName = data.song ? data.song.artist : "Desconhecido";
+                songInfo.querySelector('.song-name').textContent = songName;
+                songInfo.querySelector('.artist-name').textContent = artistName;
+            })
+            .catch(error => {
+                console.error('Erro ao obter informações da música', error);
+                songInfo.querySelector('.song-name').textContent = "Erro ao obter informações";
+                songInfo.querySelector('.artist-name').textContent = "";
+            });
+    }
 
     volumeControl.addEventListener('input', (e) => {
         audioPlayer.volume = e.target.value;
