@@ -22,10 +22,10 @@ jobs:
       run: npm install
 
     - name: Deploy to Hostgator
-      uses: SamKirkland/FTP-Deploy-Action@4.1.0
+      uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
-        ftp-server: ${{ secrets.FTP_SERVER }}
-        ftp-username: ${{ secrets.FTP_USERNAME }}
-        ftp-password: ${{ secrets.FTP_PASSWORD }}
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
         local-dir: public  # Diretório local que contém os arquivos a serem enviados
         server-dir: /public_html/radio/radio.guitarshred.com.br  # Diretório no servidor onde os arquivos serão enviados
