@@ -98,7 +98,6 @@
             color: #ffffff;
             margin-right: 10px;
             display: inline-block;
-            background-color: #05d26d; /* Cor verde para a estação ativa */
         }
 
         .heart-icon {
@@ -352,37 +351,6 @@
                 transform: scaleY(0.5);
             }
         }
-
-        .song-info {
-            display: none;
-            padding: 10px;
-            background-color: #2a2a2a;
-            border-top: 1px solid #444;
-            border-radius: 0 0 4px 4px;
-            box-sizing: border-box;
-            transition: max-height 0.3s ease-out;
-        }
-        
-        .song-info p {
-            margin: 0;
-        }
-        
-        .accordion-active + .song-info {
-            display: block;
-        }
-
-        
-        /* Ajuste para que a estação ativa fique verde e o texto branco em todas as telas */
-        li.playing {
-            background-color: #05d26d; /* Cor verde para a estação ativa */
-            color: #ffffff !important; /* Texto branco para melhor contraste */
-        }
-        
-        /* Ajuste para que o ícone de play na estação ativa também fique branco */
-        li.playing::before {
-            color: #ffffff !important; /* Ícone de play branco para contraste */
-        }
-        
     </style>
 </head>
 <body>
