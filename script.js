@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <p><strong>Música:</strong> <span class="song-name"></span></p>
             <p><strong>Artista/Banda:</strong> <span class="artist-name"></span></p>
         `;
+        
         li.addEventListener('click', () => {
             console.log(`Playing: ${station.name} - URL: ${station.url}`);
             audioPlayer.src = station.url;
@@ -106,8 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(zenoApiUrl)
             .then(response => response.json())
             .then(data => {
-                const songName = data.song ? data.song.title : "Desconhecido";
-                const artistName = data.song ? data.song.artist : "Desconhecido";
+                const songName = data.title ? data.title : "Desconhecido"; // Ajuste conforme o formato da API
+                const artistName = data.artist ? data.artist : "Desconhecido"; // Ajuste conforme o formato da API
                 songInfo.querySelector('.song-name').textContent = songName;
                 songInfo.querySelector('.artist-name').textContent = artistName;
             })
