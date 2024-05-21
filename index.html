@@ -455,7 +455,7 @@
             cursor: pointer;
         }
 
-        .register-button {
+        .register-button, .login-button {
             background-color: #05d26d;
             color: #ffffff;
             border: none;
@@ -465,7 +465,7 @@
             border-radius: 5px;
         }
 
-        .register-button:hover {
+        .register-button:hover, .login-button:hover {
             background-color: #04b65c;
         }
 
@@ -493,6 +493,7 @@
         <img src="logo.png" alt="Guitar Radio Logo" class="logo">
         <p class="tagline">Músicas para quem curte guitarra</p>
         <nav class="menu">
+            <a href="#" id="login-link"><i class="fas fa-sign-in-alt"></i> Login</a>
             <a href="#" id="register-link"><i class="fas fa-user"></i> Registro</a>
             <a href="https://guitarshred.com.br" target="_blank"><i class="fas fa-newspaper"></i> Notícias</a>
             <a href="https://guitarshredacademy.com.br" target="_blank"><i class="fas fa-guitar"></i> Cursos de Guitarra</a>
@@ -541,6 +542,19 @@
                 <button id="shareFacebook">Compartilhar no Facebook</button>
                 <button id="shareTwitter">Compartilhar no Twitter</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Modal para login de usuário -->
+    <div id="loginModal" class="modal-register">
+        <div class="modal-content-register">
+            <span class="close-register" id="closeLoginModal">&times;</span>
+            <h3>Faça seu login</h3>
+            <label for="login-email">Email:</label>
+            <input type="email" id="login-email" required>
+            <label for="login-password">Senha:</label>
+            <input type="password" id="login-password" required>
+            <button class="login-button" id="loginButton">Login</button>
         </div>
     </div>
 
