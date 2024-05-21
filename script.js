@@ -65,11 +65,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPlaying = null;
     let favorites = JSON.parse(localStorage.getItem('favorites')) || []; // Carrega favoritos do localStorage
 
+    // **Aqui você substitui a definição das estações**
     const stations = [
-    { name: 'Rock', url: 'https://stream.zeno.fm/qupiusi3w5puv' },
-    { name: 'Metal', url: 'https://stm39.stmsrv.com:8382/;?1716176724313' },
-    { name: 'Anos 80', url: 'https://stream-158.zeno.fm/3ywickpd3rkvv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiIzeXdpY2twZDNya3Z2IiwiaG9zdCI6InN0cmVhbS0xNTguemVuby5mbSIsInJ0dGwiOjUsImp0aSI6IjVNUzljTlY0VG02VWlBZFVvazBqcFEiLCJpYXQiOjE3MTYxNzg2ODcsImV4cCI6MTcxNjE3ODc0N30.Umsbo62LR5tbHfFHYA63nvU1B6z38tBmwLqOZ07L50c&1716178687366' }
-];
+        { name: 'Rock', url: 'https://stream.zeno.fm/qupiusi3w5puv' },
+        { name: 'Metal', url: 'https://stm39.stmsrv.com:8382/;?1716176724313' },
+        { name: 'Anos 80', url: 'https://stream-158.zeno.fm/3ywickpd3rkvv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiIzeXdpY2twZDNya3Z2IiwiaG9zdCI6InN0cmVhbS0xNTguemVuby5mbSIsInJ0dGwiOjUsImp0aSI6IjVNUzljTlY0VG02VWlBZFVvazBqcFEiLCJpYXQiOjE3MTYxNzg2ODcsImV4cCI6MTcxNjE3ODc0N30.Umsbo62LR5tbHfFHYA63nvU1B6z38tBmwLqOZ07L50c&1716178687366' }
+    ];
 
     stations.forEach(station => {
         const li = document.createElement('li');
