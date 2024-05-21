@@ -647,13 +647,13 @@
     let currentSlide = 0;
 
     nextButton.addEventListener('click', () => {
-        currentSlide = (currentSlide + 3) % carouselImages.length;
+        currentSlide = (currentSlide + 1) % carouselImages.length;
         const amountToMove = -imageWidth * currentSlide;
         carouselTrack.style.transform = `translateX(${amountToMove}px)`;
     });
 
     prevButton.addEventListener('click', () => {
-        currentSlide = (currentSlide - 3 + carouselImages.length) % carouselImages.length;
+        currentSlide = (currentSlide - 1 + carouselImages.length) % carouselImages.length;
         const amountToMove = -imageWidth * currentSlide;
         carouselTrack.style.transform = `translateX(${amountToMove}px)`;
     });
