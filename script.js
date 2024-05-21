@@ -1,4 +1,61 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Inicialização do carrossel
+    const carouselTrack = document.querySelector('.carousel-track');
+    const prevButton = document.getElementById('carousel-prev');
+    const nextButton = document.getElementById('carousel-next');
+    let currentIndex = 0;
+
+    const cdCovers = [
+        'capa1.jpg', // URLs reais das capas
+        'capa2.jpg',
+        'capa3.jpg'
+    ];
+
+    function updateCarousel() {
+        const totalCovers = cdCovers.length;
+        const coversToShow = 3; // Número de capas visíveis
+        const offset = currentIndex % totalCovers;
+        const endIndex = (offset + coversToShow) % totalCovers;
+
+        carouselTrack.innerHTML = '';
+
+        if (endIndex > offset) {
+            for (let i = offset; i < endIndex; i++) {
+                const img = document.createElement('img');
+                img.src = cdCovers[i];
+                carouselTrack.appendChild(img);
+            }
+        } else {
+            for (let i = offset; i < totalCovers; i++) {
+                const img = document.createElement('img');
+                img.src = cdCovers[i];
+                carouselTrack.appendChild(img);
+            }
+            for (let i = 0; i < endIndex; i++) {
+                const img = document.createElement('img');
+                img.src = cdCovers[i];
+                carouselTrack.appendChild(img);
+            }
+        }
+
+        const transformValue = -offset * (100 / coversToShow);
+        carouselTrack.style.transform = `translateX(${transformValue}%)`;
+    }
+
+    prevButton.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + cdCovers.length) % cdCovers.length;
+        updateCarousel();
+    });
+
+    nextButton.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % cdCovers.length;
+        updateCarousel();
+    });
+
+    // Carregar as primeiras capas ao iniciar
+    updateCarousel();
+
+    // Lógica do player de rádio
     const stationList = document.getElementById('station-list');
     const audioPlayer = document.getElementById('audio-player');
     const volumeControl = document.getElementById('volume-control');
@@ -39,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         li.appendChild(heartIcon);
 
         // Adiciona ícone de compartilhamento
-                const shareIcon = document.createElement('i');
+        const shareIcon = document.createElement('i');
         shareIcon.classList.add('fa', 'fa-share', 'share-icon'); // Alterado para 'fa-share'
         shareIcon.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -78,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
             audioPlayer.onerror = () => {
                 statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.'; // Mensagem de erro
             };
-        
+
             if (currentPlaying) {
                 currentPlaying.classList.remove('playing'); // Remove a classe 'playing' da estação anterior
             }
@@ -280,52 +337,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
-document.addEventListener('DOMContentLoaded', () => {
-    const carouselTrack = document.querySelector('.carousel-track');
-    const prevButton = document.getElementById('carousel-prev');
-    const nextButton = document.getElementById('carousel-next');
-    let currentIndex = 0;
-
-    const cdCovers = [
-        'url1.jpg', // Substitua pelos URLs reais das capas
-        'url2.jpg',
-        'url3.jpg',
-        'url4.jpg',
-        'url5.jpg',
-        'url6.jpg'
-    ];
-
-    function updateCarousel() {
-        carouselTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
-    }
-
-    function loadCovers() {
-        carouselTrack.innerHTML = '';
-        for (let i = currentIndex; i < currentIndex + 3 && i < cdCovers.length; i++) {
-            const img = document.createElement('img');
-            img.src = cdCovers[i];
-            carouselTrack.appendChild(img);
-        }
-    }
-
-    prevButton.addEventListener('click', () => {
-        if (currentIndex > 0) {
-            currentIndex -= 3;
-            loadCovers();
-            updateCarousel();
-        }
-    });
-
-    nextButton.addEventListener('click', () => {
-        if (currentIndex < cdCovers.length - 3) {
-            currentIndex += 3;
-            loadCovers();
-            updateCarousel();
-        }
-    });
-
-    // Carregar as primeiras capas ao iniciar
-    loadCovers();
-});
-
