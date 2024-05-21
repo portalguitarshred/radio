@@ -623,12 +623,12 @@
                 </div>
             </div>
             <div class="carousel">
-                <div class="carousel-track">
-                    <a href="#" class="album-link"><img src="capa1.jpg" alt="Capa 1"></a>
-                    <a href="#" class="album-link"><img src="capa2.jpg" alt="Capa 2"></a>
-                    <a href="#" class="album-link"><img src="capa3.jpg" alt="Capa 3"></a>
-                </div>
-            </div>
+    <div class="carousel-track">
+        <a href="#" class="album-link"><img src="capa1.jpg" alt="Capa 1"></a>
+        <a href="#" class="album-link"><img src="capa2.jpg" alt="Capa 2"></a>
+        <a href="#" class="album-link"><img src="capa3.jpg" alt="Capa 3"></a>
+    </div>
+</div>
         </section>
         <section id="stations">
             <h2>Escolha a estação
@@ -717,7 +717,13 @@
         </ul>
     </section>
 </section>
-
+<div id="album-details" style="display: none;">
+    <img id="album-cover" src="" alt="Capa do Álbum">
+    <h3 id="band-name"></h3>
+    <h4 id="album-name"></h4>
+    <ul id="album-track-list"></ul>
+    <audio id="album-audio-player" controls></audio>
+</div>
     <script src="script.js"></script>
 </body>
 </html>
