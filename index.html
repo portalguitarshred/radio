@@ -536,9 +536,67 @@
         }
 
         #player {
-        position: relative;
-        top: -20px; /* Ajuste este valor conforme necessário */
-    }
+            position: relative;
+            top: -20px; /* Ajuste este valor conforme necessário */
+        }
+
+                #album-details {
+            background-color: #1f1f1f;
+            padding: 1em;
+            max-width: 800px;
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .album-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        #album-cover {
+            max-width: 150px;
+            margin-right: 20px;
+        }
+        
+        .album-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #album-name {
+            font-size: 1.5em;
+            margin: 0;
+        }
+        
+        #band-name {
+            font-size: 1.2em;
+            color: #ccc;
+        }
+        
+        #album-player {
+            margin-top: 20px;
+        }
+        
+        #album-track-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        #album-track-list li {
+            background-color: #333333;
+            margin: 0.5em 0;
+            padding: 0.5em;
+            border: 1px solid #444444;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        #album-track-list li:hover {
+            background-color: #05d26d;
+        }
     </style>
 </head>
 <body>
@@ -642,6 +700,23 @@
             <button class="register-button" id="registerButton">Registrar</button>
         </div>
     </div>
+    <section id="album-details" style="display: none;">
+    <div class="album-container">
+        <img src="" alt="Album Cover" id="album-cover">
+        <div class="album-info">
+            <h2 id="album-name">Nome do Álbum</h2>
+            <p id="band-name">Nome da Banda</p>
+        </div>
+    </div>
+    <section id="album-player">
+        <audio id="album-audio-player" controls>
+            Seu navegador não suporta o elemento de áudio.
+        </audio>
+        <ul id="album-track-list">
+            <!-- As músicas serão adicionadas aqui dinamicamente -->
+        </ul>
+    </section>
+</section>
 
     <script src="script.js"></script>
 </body>
