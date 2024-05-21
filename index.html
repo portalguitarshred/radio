@@ -634,31 +634,6 @@
         </div>
     </div>
 
-    <script src="script.js">
-
-    document.addEventListener('DOMContentLoaded', () => {
-    // Inicialização do carrossel
-    const carouselTrack = document.querySelector('.carousel-track');
-    const carouselImages = Array.from(carouselTrack.children);
-    const prevButton = document.getElementById('carousel-prev');
-    const nextButton = document.getElementById('carousel-next');
-    const imageWidth = carouselImages[0].getBoundingClientRect().width;
-
-    let currentSlide = 0;
-
-    nextButton.addEventListener('click', () => {
-        currentSlide = (currentSlide + 1) % carouselImages.length;
-        const amountToMove = -imageWidth * currentSlide;
-        carouselTrack.style.transform = `translateX(${amountToMove}px)`;
-    });
-
-    prevButton.addEventListener('click', () => {
-        currentSlide = (currentSlide - 1 + carouselImages.length) % carouselImages.length;
-        const amountToMove = -imageWidth * currentSlide;
-        carouselTrack.style.transform = `translateX(${amountToMove}px)`;
-    });
-});
-  
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
