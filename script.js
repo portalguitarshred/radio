@@ -65,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPlaying = null;
     let favorites = JSON.parse(localStorage.getItem('favorites')) || []; // Carrega favoritos do localStorage
 
-    // **Aqui você substitui a definição das estações**
     const stations = [
         { name: 'Rock', url: 'https://stream.zeno.fm/qupiusi3w5puv' },
         { name: 'Metal', url: 'https://stm39.stmsrv.com:8382/;?1716176724313' },
@@ -335,15 +334,19 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Por favor, preencha todos os campos.');
         }
     });
-});
 
-document.addEventListener('DOMContentLoaded', () => {
-    const albumDetails = document.getElementById('album-details');
-    const albumCover = document.getElementById('album-cover');
-    const albumName = document.getElementById('album-name');
-    const bandName = document.getElementById('band-name');
-    const albumAudioPlayer = document.getElementById('album-audio-player');
-    const albumTrackList = document.getElementById('album-track-list');
+    // Lógica do álbum
+    const albumDetails = document.createElement('div');
+    albumDetails.id = 'album-details';
+    albumDetails.style.display = 'none';
+    albumDetails.innerHTML = `
+        <img id="album-cover" src="" alt="Capa do Álbum">
+        <h3 id="band-name"></h3>
+        <h4 id="album-name"></h4>
+        <ul id="album-track-list"></ul>
+        <audio id="album-audio-player" controls></audio>
+    `;
+    document.body.appendChild(albumDetails);
 
     const albums = {
         'capa1.jpg': {
@@ -354,24 +357,45 @@ document.addEventListener('DOMContentLoaded', () => {
                 { name: 'Música 2', url: 'url-da-musica-2.mp3' },
                 { name: 'Música 3', url: 'url-da-musica-3.mp3' }
             ]
+        },
+        'capa2.jpg': {
+            band: 'Nome da Banda 2',
+            album: 'Nome do Álbum 2',
+            tracks: [
+                { name: 'Música A', url: 'url-da-musica-A.mp3' },
+                { name: 'Música B', url: 'url-da-musica-B.mp3' },
+                { name: 'Música C', url: 'url-da-musica-C.mp3' }
+            ]
+        },
+        'capa3.jpg': {
+            band: 'Nome da Banda 3',
+            album: 'Nome do Álbum 3',
+            tracks: [
+                { name: 'Música X', url: 'url-da-musica-X.mp3' },
+                { name: 'Música Y', url: 'url-da-musica-Y.mp3' },
+                { name: 'Música Z', url: 'url-da-musica-Z.mp3' }
+            ]
         }
         // Adicione outros álbuns conforme necessário
     };
 
-    document.querySelectorAll('.carousel img').forEach(img => {
-        img.addEventListener('click', () => {
+    document.querySelectorAll('.album-link').forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const img = link.querySelector('img');
             const albumData = albums[img.src.split('/').pop()];
             if (albumData) {
-                albumCover.src = img.src;
-                albumName.textContent = albumData.album;
-                bandName.textContent = albumData.band;
+                document.getElementById('album-cover').src = img.src;
+                document.getElementById('album-name').textContent = albumData.album;
+                document.getElementById('band-name').textContent = albumData.band;
+                const albumTrackList = document.getElementById('album-track-list');
                 albumTrackList.innerHTML = '';
                 albumData.tracks.forEach(track => {
                     const li = document.createElement('li');
                     li.textContent = track.name;
                     li.addEventListener('click', () => {
-                        albumAudioPlayer.src = track.url;
-                        albumAudioPlayer.play();
+                        document.getElementById('album-audio-player').src = track.url;
+                        document.getElementById('album-audio-player').play();
                     });
                     albumTrackList.appendChild(li);
                 });
