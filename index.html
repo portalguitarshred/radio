@@ -501,9 +501,9 @@
 
 .carousel {
     overflow: hidden;
-    width: calc(100% - 40px); /* Ajuste para margens */
+    width: 100%;
     position: relative;
-    margin: 0 20px; /* Margem de 10px nas laterais */
+    padding: 0 10px; /* Adiciona espaço de borda */
 }
 
 .carousel-track {
@@ -512,7 +512,7 @@
 }
 
 .carousel img {
-    width: calc((100% - 30px) / 3); /* Ajuste para 3 capas com margem */
+    width: calc((100% - 20px) / 3); /* Considera a margem total */
     margin: 0 5px;
     border-radius: 8px;
 }
