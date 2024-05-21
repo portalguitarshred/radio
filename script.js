@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        const transformValue = -offset * (100 / coversToShow);
+        const transformValue = -currentIndex * ((100 + 10) / coversToShow);
         carouselTrack.style.transform = `translateX(${transformValue}%)`;
     }
 
@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Carregar as primeiras capas ao iniciar
     updateCarousel();
+});
 
     // Lógica do player de rádio
     const stationList = document.getElementById('station-list');
