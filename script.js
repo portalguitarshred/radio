@@ -175,34 +175,3 @@ document.addEventListener('DOMContentLoaded', () => {
         window.open(twitterUrl, '_blank');
     });
 });
-
-const muteButton = document.getElementById('mute-button');
-muteButton.addEventListener('click', () => {
-    if (audioPlayer.muted) {
-        audioPlayer.muted = false;
-        muteButton.textContent = '🔇';
-    } else {
-        audioPlayer.muted = true;
-        muteButton.textContent = '🔊';
-    }
-});
-
-function showNotification(songName, artistName) {
-    if (Notification.permission === 'granted') {
-        new Notification('Tocando agora', {
-            body: `${songName} - ${artistName}`,
-            icon: 'path_to_icon.png' // Caminho para o ícone da notificação
-        });
-    }
-}
-
-// Solicite permissão para notificações, se ainda não concedida
-if (Notification.permission !== 'denied' && Notification.permission !== 'granted') {
-    Notification.requestPermission().then(permission => {
-        if (permission === 'granted') {
-            showNotification('Bem-vindo', 'Guitar Shred');
-        }
-    });
-}
-
-// Chame a função showNotification quando atualizar as informações da música
