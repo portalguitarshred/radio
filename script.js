@@ -187,6 +187,53 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Lógica do Login de Usuário
+    const loginLink = document.getElementById('login-link');
+    const loginModal = document.getElementById('loginModal');
+    const closeLoginModal = document.getElementById('closeLoginModal');
+    const loginButton = document.getElementById('loginButton');
+
+    loginLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginModal.style.display = 'block';
+    });
+
+    closeLoginModal.addEventListener('click', () => {
+        loginModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === loginModal) {
+            loginModal.style.display = 'none';
+        }
+    });
+
+    loginButton.addEventListener('click', async () => {
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+
+        if (email && password) {
+            const response = await fetch('http://localhost:3000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                alert('Login realizado com sucesso!');
+                loginModal.style.display = 'none';
+                // Aqui você pode salvar o token JWT ou outra informação de autenticação
+            } else {
+                alert('Erro ao realizar login. Verifique suas credenciais.');
+            }
+        } else {
+            alert('Por favor, preencha todos os campos.');
+        }
+    });
+
     // Lógica do Registro de Usuário
     const registerLink = document.getElementById('register-link');
     const registerModal = document.getElementById('registerModal');
@@ -208,15 +255,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    registerButton.addEventListener('click', () => {
+    registerButton.addEventListener('click', async () => {
         const username = document.getElementById('username').value;
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
         if (username && email && password) {
-            // Aqui você pode adicionar a lógica para salvar os dados do usuário
-            alert('Usuário registrado com sucesso!');
-            registerModal.style.display = 'none';
+            const response = await fetch('http://localhost:3000/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, email, password })
+            });
+
+            if (response.ok) {
+                alert('Usuário registrado com sucesso!');
+                registerModal.style.display = 'none';
+            } else {
+                alert('Erro ao registrar usuário. Tente novamente.');
+            }
         } else {
             alert('Por favor, preencha todos os campos.');
         }
