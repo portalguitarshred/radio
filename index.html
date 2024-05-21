@@ -512,9 +512,9 @@
         
         .carousel img {
             width: calc((100% - 40px) / 3); /* Ajusta as imagens */
-            margin: 0 5px;
+            margin: 0 10px; /* Margem entre as imagens */
             border-radius: 8px;
-            cursor: pointer; /* Adiciona o cursor pointer */
+            max-height: 250px; /* Ajusta a altura máxima das imagens */
         }
 
         .carousel-button {
@@ -623,9 +623,9 @@
             </div>
             <div class="carousel">
                 <div class="carousel-track">
-                    <img src="capa1.jpg" alt="Capa 1" class="carousel-item" data-album="1">
-                    <img src="capa2.jpg" alt="Capa 2" class="carousel-item" data-album="2">
-                    <img src="capa3.jpg" alt="Capa 3" class="carousel-item" data-album="3">
+                    <a href="#" class="album-link" data-album="1"><img src="capa1.jpg" alt="Capa 1" class="carousel-item"></a>
+                    <a href="#" class="album-link" data-album="2"><img src="capa2.jpg" alt="Capa 2" class="carousel-item"></a>
+                    <a href="#" class="album-link" data-album="3"><img src="capa3.jpg" alt="Capa 3" class="carousel-item"></a>
                 </div>
             </div>
         </section>
