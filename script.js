@@ -54,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Carregar as primeiras capas ao iniciar
     updateCarousel();
-});
 
     // Lógica do player de rádio
     const stationList = document.getElementById('station-list');
