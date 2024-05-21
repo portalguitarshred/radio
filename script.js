@@ -111,80 +111,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     window.addEventListener('click', (event) => {
-        if (event.target === timerModal) {
-            timerModal.style.display = 'none';
+        if (event.target === registerModal) {
+            registerModal.style.display = 'none';
         }
     });
 
-    setTimerButton.addEventListener('click', () => {
-        const minutes = parseInt(timerInput.value, 10);
-        if (isNaN(minutes) || minutes <= 0) {
-            alert('Por favor, insira um valor válido de minutos.');
-            return;
-        }
+    registerButton.addEventListener('click', () => {
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
 
-        const milliseconds = minutes * 60 * 1000;
-        setTimeout(() => {
-            audioPlayer.pause();
-            audioPlayer.currentTime = 0; // Reinicia o áudio
-            alert('O temporizador desligou a rádio.');
-        }, milliseconds);
-
-        timerModal.style.display = 'none';
-        alert(`Temporizador definido para ${minutes} minutos.`);
-    });
-
-    // Lógica do Compartilhamento
-    const shareModal = document.getElementById('shareModal');
-    const closeShareModal = document.getElementById('closeShareModal');
-    const copyLinkButton = document.getElementById('copyLink');
-    const shareFacebookButton = document.getElementById('shareFacebook');
-    const shareTwitterButton = document.getElementById('shareTwitter');
-    let currentShareUrl = '';
-
-    closeShareModal.addEventListener('click', () => {
-        shareModal.style.display = 'none';
-    });
-
-    window.addEventListener('click', (event) => {
-        if (event.target === shareModal) {
-            shareModal.style.display = 'none';
-        }
-    });
-
-    function openShareModal(url) {
-        currentShareUrl = url;
-        shareModal.style.display = 'block';
-    }
-
-    copyLinkButton.addEventListener('click', () => {
-        navigator.clipboard.writeText(currentShareUrl).then(() => {
-            alert('Link copiado para a área de transferência.');
-        }).catch(err => {
-            console.error('Erro ao copiar o link: ', err);
-        });
-    });
-
-    shareFacebookButton.addEventListener('click', () => {
-        const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentShareUrl)}`;
-        window.open(facebookUrl, '_blank');
-    });
-
-    shareTwitterButton.addEventListener('click', () => {
-        const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentShareUrl)}`;
-        window.open(twitterUrl, '_blank');
-    });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const menuToggle = document.querySelector('.menu-toggle');
-    const menu = document.querySelector('.menu');
-    
-    menuToggle.addEventListener('click', () => {
-        if (menu.style.display === 'none' || menu.style.display === '') {
-            menu.style.display = 'flex';
+        if (username && email && password) {
+            // Aqui você pode adicionar a lógica para salvar os dados do usuário
+            alert('Usuário registrado com sucesso!');
+            registerModal.style.display = 'none';
         } else {
-            menu.style.display = 'none';
+            alert('Por favor, preencha todos os campos.');
         }
     });
 });
