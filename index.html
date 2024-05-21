@@ -111,10 +111,6 @@
             text-align: left;
         }
 
-        h2 {
-            font-size: 1.2em; /* Ajuste este valor conforme necessário */
-        }
-
         ul {
             list-style-type: none;
             padding: 0;
@@ -518,6 +514,7 @@
             width: calc((100% - 40px) / 3); /* Ajusta as imagens */
             margin: 0 5px;
             border-radius: 8px;
+            cursor: pointer; /* Adiciona o cursor pointer */
         }
 
         .carousel-button {
@@ -535,56 +532,57 @@
             background-color: #04b65c;
         }
 
-        #player {
-            position: relative;
-            top: -20px; /* Ajuste este valor conforme necessário */
+        /* Estilos para a área de detalhes do álbum */
+        .album-details {
+            display: none; /* Ocultar por padrão */
+            flex-direction: column;
+            align-items: center;
+            padding: 1em;
+            background-color: #1f1f1f;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+            box-sizing: border-box;
+            width: 100%;
         }
 
-                #album-details {
-            background-color: #1f1f1f;
-            padding: 1em;
-            max-width: 800px;
-            width: 100%;
-            margin-top: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .album-container {
+        .album-info {
             display: flex;
             align-items: center;
+            margin-bottom: 20px;
         }
-        
-        #album-cover {
-            max-width: 150px;
+
+        .album-info img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
             margin-right: 20px;
+            border-radius: 8px;
         }
-        
-        .album-info {
+
+        .album-info div {
             display: flex;
             flex-direction: column;
         }
-        
-        #album-name {
-            font-size: 1.5em;
+
+        .album-info h3, .album-info p {
             margin: 0;
         }
-        
-        #band-name {
-            font-size: 1.2em;
-            color: #ccc;
-        }
-        
-        #album-player {
+
+        .album-player {
+            width: 100%;
             margin-top: 20px;
         }
-        
-        #album-track-list {
+
+        .album-tracks {
             list-style-type: none;
             padding: 0;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 20px;
         }
-        
-        #album-track-list li {
+
+        .album-tracks li {
             background-color: #333333;
             margin: 0.5em 0;
             padding: 0.5em;
@@ -592,9 +590,10 @@
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s;
+            box-sizing: border-box;
         }
-        
-        #album-track-list li:hover {
+
+        .album-tracks li:hover {
             background-color: #05d26d;
         }
     </style>
@@ -623,12 +622,12 @@
                 </div>
             </div>
             <div class="carousel">
-    <div class="carousel-track">
-        <a href="#" class="album-link"><img src="capa1.jpg" alt="Capa 1"></a>
-        <a href="#" class="album-link"><img src="capa2.jpg" alt="Capa 2"></a>
-        <a href="#" class="album-link"><img src="capa3.jpg" alt="Capa 3"></a>
-    </div>
-</div>
+                <div class="carousel-track">
+                    <img src="capa1.jpg" alt="Capa 1" class="carousel-item" data-album="1">
+                    <img src="capa2.jpg" alt="Capa 2" class="carousel-item" data-album="2">
+                    <img src="capa3.jpg" alt="Capa 3" class="carousel-item" data-album="3">
+                </div>
+            </div>
         </section>
         <section id="stations">
             <h2>Escolha a estação
@@ -646,6 +645,22 @@
                 <label for="volume-control">Volume:</label>
                 <input type="range" id="volume-control" min="0" max="1" step="0.01" value="1">
             </div>
+        </section>
+        <!-- Nova seção para detalhes do álbum -->
+        <section id="album-details" class="album-details">
+            <div class="album-info">
+                <img id="album-cover" src="" alt="Capa do álbum">
+                <div>
+                    <h3 id="album-name">Nome do Álbum</h3>
+                    <p id="album-artist">Nome da Banda</p>
+                </div>
+            </div>
+            <audio id="album-player" class="album-player" controls>
+                Your browser does not support the audio element.
+            </audio>
+            <ul id="album-tracks" class="album-tracks">
+                <!-- Tracks will be dynamically added here -->
+            </ul>
         </section>
     </main>
 
@@ -700,30 +715,7 @@
             <button class="register-button" id="registerButton">Registrar</button>
         </div>
     </div>
-    <section id="album-details" style="display: none;">
-    <div class="album-container">
-        <img src="" alt="Album Cover" id="album-cover">
-        <div class="album-info">
-            <h2 id="album-name">Nome do Álbum</h2>
-            <p id="band-name">Nome da Banda</p>
-        </div>
-    </div>
-    <section id="album-player">
-        <audio id="album-audio-player" controls>
-            Seu navegador não suporta o elemento de áudio.
-        </audio>
-        <ul id="album-track-list">
-            <!-- As músicas serão adicionadas aqui dinamicamente -->
-        </ul>
-    </section>
-</section>
-<div id="album-details" style="display: none;">
-    <img id="album-cover" src="" alt="Capa do Álbum">
-    <h3 id="band-name"></h3>
-    <h4 id="album-name"></h4>
-    <ul id="album-track-list"></ul>
-    <audio id="album-audio-player" controls></audio>
-</div>
+
     <script src="script.js"></script>
 </body>
 </html>
