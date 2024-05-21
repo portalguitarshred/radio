@@ -1,0 +1,31 @@
+name: Deploy to Hostgator via FTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Deploy to Hostgator
+      uses: SamKirkland/FTP-Deploy-Action@4.1.0
+      with:
+        ftp-server: ${{ secrets.FTP_SERVER }}
+        ftp-username: ${{ secrets.FTP_USERNAME }}
+        ftp-password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: public  # Diretório local que contém os arquivos a serem enviados
+        server-dir: /public_html/radio/radio.guitarshred.com.br  # Diretório no servidor onde os arquivos serão enviados
