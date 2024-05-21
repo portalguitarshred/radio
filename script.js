@@ -111,6 +111,98 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     window.addEventListener('click', (event) => {
+        if (event.target === timerModal) {
+            timerModal.style.display = 'none';
+        }
+    });
+
+    setTimerButton.addEventListener('click', () => {
+        const minutes = parseInt(timerInput.value, 10);
+        if (isNaN(minutes) || minutes <= 0) {
+            alert('Por favor, insira um valor válido de minutos.');
+            return;
+        }
+
+        const milliseconds = minutes * 60 * 1000;
+        setTimeout(() => {
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0; // Reinicia o áudio
+            alert('O temporizador desligou a rádio.');
+        }, milliseconds);
+
+        timerModal.style.display = 'none';
+        alert(`Temporizador definido para ${minutes} minutos.`);
+    });
+
+    // Lógica do Compartilhamento
+    const shareModal = document.getElementById('shareModal');
+    const closeShareModal = document.getElementById('closeShareModal');
+    const copyLinkButton = document.getElementById('copyLink');
+    const shareFacebookButton = document.getElementById('shareFacebook');
+    const shareTwitterButton = document.getElementById('shareTwitter');
+    let currentShareUrl = '';
+
+    closeShareModal.addEventListener('click', () => {
+        shareModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === shareModal) {
+            shareModal.style.display = 'none';
+        }
+    });
+
+    function openShareModal(url) {
+        currentShareUrl = url;
+        shareModal.style.display = 'block';
+    }
+
+    copyLinkButton.addEventListener('click', () => {
+        navigator.clipboard.writeText(currentShareUrl).then(() => {
+            alert('Link copiado para a área de transferência.');
+        }).catch(err => {
+            console.error('Erro ao copiar o link: ', err);
+        });
+    });
+
+    shareFacebookButton.addEventListener('click', () => {
+        const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentShareUrl)}`;
+        window.open(facebookUrl, '_blank');
+    });
+
+    shareTwitterButton.addEventListener('click', () => {
+        const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentShareUrl)}`;
+        window.open(twitterUrl, '_blank');
+    });
+
+    // Lógica do Menu Sanduíche
+    const menuToggle = document.querySelector('.menu-toggle');
+    const menu = document.querySelector('.menu');
+    
+    menuToggle.addEventListener('click', () => {
+        if (menu.style.display === 'none' || menu.style.display === '') {
+            menu.style.display = 'flex';
+        } else {
+            menu.style.display = 'none';
+        }
+    });
+
+    // Lógica do Registro de Usuário
+    const registerLink = document.getElementById('register-link');
+    const registerModal = document.getElementById('registerModal');
+    const closeRegisterModal = document.getElementById('closeRegisterModal');
+    const registerButton = document.getElementById('registerButton');
+    
+    registerLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        registerModal.style.display = 'block';
+    });
+
+    closeRegisterModal.addEventListener('click', () => {
+        registerModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
         if (event.target === registerModal) {
             registerModal.style.display = 'none';
         }
