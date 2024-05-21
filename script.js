@@ -336,3 +336,47 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const albumDetails = document.getElementById('album-details');
+    const albumCover = document.getElementById('album-cover');
+    const albumName = document.getElementById('album-name');
+    const bandName = document.getElementById('band-name');
+    const albumAudioPlayer = document.getElementById('album-audio-player');
+    const albumTrackList = document.getElementById('album-track-list');
+
+    const albums = {
+        'capa1.jpg': {
+            band: 'Nome da Banda 1',
+            album: 'Nome do Álbum 1',
+            tracks: [
+                { name: 'Música 1', url: 'url-da-musica-1.mp3' },
+                { name: 'Música 2', url: 'url-da-musica-2.mp3' },
+                { name: 'Música 3', url: 'url-da-musica-3.mp3' }
+            ]
+        }
+        // Adicione outros álbuns conforme necessário
+    };
+
+    document.querySelectorAll('.carousel img').forEach(img => {
+        img.addEventListener('click', () => {
+            const albumData = albums[img.src.split('/').pop()];
+            if (albumData) {
+                albumCover.src = img.src;
+                albumName.textContent = albumData.album;
+                bandName.textContent = albumData.band;
+                albumTrackList.innerHTML = '';
+                albumData.tracks.forEach(track => {
+                    const li = document.createElement('li');
+                    li.textContent = track.name;
+                    li.addEventListener('click', () => {
+                        albumAudioPlayer.src = track.url;
+                        albumAudioPlayer.play();
+                    });
+                    albumTrackList.appendChild(li);
+                });
+                albumDetails.style.display = 'block';
+            }
+        });
+    });
+});
