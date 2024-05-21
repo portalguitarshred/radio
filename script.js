@@ -2,11 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const stationList = document.getElementById('station-list');
     const audioPlayer = document.getElementById('audio-player');
     const volumeControl = document.getElementById('volume-control');
-    const statusMessage = document.createElement('div'); // Elemento para mensagens de status
+    const statusMessage = document.createElement('div');
     statusMessage.id = 'status-message';
-    document.body.appendChild(statusMessage); // Adiciona o elemento de status ao corpo do documento
+    document.body.appendChild(statusMessage);
     let currentPlaying = null;
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || []; // Carrega favoritos do localStorage
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
     const stations = [
         { name: 'Rock', url: 'https://stream.zeno.fm/qupiusi3w5puv' },
@@ -56,46 +56,64 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         li.appendChild(spectrum);
 
+        // Adiciona contêiner para informações da música
+        const songInfo = document.createElement('div');
+        songInfo.classList.add('song-info');
+        songInfo.innerHTML = `
+            <p><strong>Música:</strong> <span class="song-name"></span></p>
+            <p><strong>Artista/Banda:</strong> <span class="artist-name"></span></p>
+        `;
+        li.appendChild(songInfo);
+
         li.addEventListener('click', () => {
             console.log(`Playing: ${station.name} - URL: ${station.url}`);
             audioPlayer.src = station.url;
-            statusMessage.textContent = 'Carregando...'; // Mensagem de carregamento
-            statusMessage.classList.add('show'); // Mostrar mensagem de status
+            statusMessage.textContent = 'Carregando...';
+            statusMessage.classList.add('show');
         
             audioPlayer.play().then(() => {
-                statusMessage.textContent = ''; // Limpa a mensagem de carregamento
-                statusMessage.classList.remove('show'); // Esconde a mensagem de status
+                statusMessage.textContent = '';
+                statusMessage.classList.remove('show');
+                fetchSongInfo(station.url, songInfo); // Atualiza as informações da música
             }).catch(error => {
                 console.error('Playback failed', error);
-                statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.'; // Mensagem de erro
+                statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.';
             });
         
             audioPlayer.oncanplay = () => {
-                statusMessage.textContent = ''; // Limpa a mensagem de carregamento
-                statusMessage.classList.remove('show'); // Esconde a mensagem de status
+                statusMessage.textContent = '';
+                statusMessage.classList.remove('show');
             };
         
             audioPlayer.onerror = () => {
-                statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.'; // Mensagem de erro
+                statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.';
             };
         
             if (currentPlaying) {
-                currentPlaying.classList.remove('playing'); // Remove a classe 'playing' da estação anterior
+                currentPlaying.classList.remove('playing', 'accordion-active');
             }
-            li.classList.add('playing'); // Adiciona a classe 'playing' à estação atual
-            currentPlaying = li; // Atualiza a estação atual
+            li.classList.add('playing', 'accordion-active');
+            currentPlaying = li;
         });
 
         stationList.appendChild(li);
     });
 
-    // Controle de volume
+    function fetchSongInfo(url, songInfo) {
+        // Simulação de atualização de informações da música
+        setTimeout(() => {
+            const songName = "Nome da Música"; // Isso seria obtido da API do stream
+            const artistName = "Artista/Banda"; // Isso seria obtido da API do stream
+            songInfo.querySelector('.song-name').textContent = songName;
+            songInfo.querySelector('.artist-name').textContent = artistName;
+        }, 1000);
+    }
+
     volumeControl.addEventListener('input', (e) => {
         audioPlayer.volume = e.target.value;
         console.log(`Volume: ${audioPlayer.volume}`);
     });
 
-    // Lógica do Temporizador
     const clockIcon = document.getElementById('clock-icon');
     const timerModal = document.getElementById('timerModal');
     const closeModal = document.getElementById('closeModal');
@@ -126,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const milliseconds = minutes * 60 * 1000;
         setTimeout(() => {
             audioPlayer.pause();
-            audioPlayer.currentTime = 0; // Reinicia o áudio
+            audioPlayer.currentTime = 0;
             alert('O temporizador desligou a rádio.');
         }, milliseconds);
 
@@ -134,7 +152,6 @@ document.addEventListener('DOMContentLoaded', () => {
         alert(`Temporizador definido para ${minutes} minutos.`);
     });
 
-    // Lógica do Compartilhamento
     const shareModal = document.getElementById('shareModal');
     const closeShareModal = document.getElementById('closeShareModal');
     const copyLinkButton = document.getElementById('copyLink');
