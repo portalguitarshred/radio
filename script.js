@@ -2,11 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const stationList = document.getElementById('station-list');
     const audioPlayer = document.getElementById('audio-player');
     const volumeControl = document.getElementById('volume-control');
-    const statusMessage = document.createElement('div');
+    const statusMessage = document.createElement('div'); // Elemento para mensagens de status
     statusMessage.id = 'status-message';
-    document.body.appendChild(statusMessage);
+    document.body.appendChild(statusMessage); // Adiciona o elemento de status ao corpo do documento
     let currentPlaying = null;
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || []; // Carrega favoritos do localStorage
 
     const stations = [
         { name: 'Rock', url: 'https://stream.zeno.fm/qupiusi3w5puv' },
@@ -56,74 +56,46 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         li.appendChild(spectrum);
 
-        // Adiciona contêiner para informações da música
-        const songInfo = document.createElement('div');
-        songInfo.classList.add('song-info');
-        songInfo.innerHTML = `
-            <p><strong>Música:</strong> <span class="song-name"></span></p>
-            <p><strong>Artista/Banda:</strong> <span class="artist-name"></span></p>
-        `;
-        
         li.addEventListener('click', () => {
             console.log(`Playing: ${station.name} - URL: ${station.url}`);
             audioPlayer.src = station.url;
-            statusMessage.textContent = 'Carregando...';
-            statusMessage.classList.add('show');
-
+            statusMessage.textContent = 'Carregando...'; // Mensagem de carregamento
+            statusMessage.classList.add('show'); // Mostrar mensagem de status
+        
             audioPlayer.play().then(() => {
-                statusMessage.textContent = '';
-                statusMessage.classList.remove('show');
-                fetchSongInfo(station.url, songInfo); // Atualiza as informações da música
+                statusMessage.textContent = ''; // Limpa a mensagem de carregamento
+                statusMessage.classList.remove('show'); // Esconde a mensagem de status
             }).catch(error => {
                 console.error('Playback failed', error);
-                statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.';
+                statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.'; // Mensagem de erro
             });
-
+        
             audioPlayer.oncanplay = () => {
-                statusMessage.textContent = '';
-                statusMessage.classList.remove('show');
+                statusMessage.textContent = ''; // Limpa a mensagem de carregamento
+                statusMessage.classList.remove('show'); // Esconde a mensagem de status
             };
-
+        
             audioPlayer.onerror = () => {
-                statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.';
+                statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.'; // Mensagem de erro
             };
-
+        
             if (currentPlaying) {
-                currentPlaying.classList.remove('playing', 'accordion-active');
-                currentPlaying.nextElementSibling.style.display = 'none'; // Oculta o contêiner anterior
+                currentPlaying.classList.remove('playing'); // Remove a classe 'playing' da estação anterior
             }
-            li.classList.add('playing', 'accordion-active');
-            songInfo.style.display = 'block'; // Exibe o contêiner atual
-            currentPlaying = li;
+            li.classList.add('playing'); // Adiciona a classe 'playing' à estação atual
+            currentPlaying = li; // Atualiza a estação atual
         });
 
         stationList.appendChild(li);
-        stationList.appendChild(songInfo); // Adiciona o contêiner abaixo do item da lista
     });
 
-    function fetchSongInfo(stationUrl, songInfo) {
-        const zenoApiUrl = `https://stream.zeno.fm/qupiusi3w5puv/current_song.json`; // Ajuste conforme necessário
-
-        fetch(zenoApiUrl)
-            .then(response => response.json())
-            .then(data => {
-                const songName = data.title ? data.title : "Desconhecido"; // Ajuste conforme o formato da API
-                const artistName = data.artist ? data.artist : "Desconhecido"; // Ajuste conforme o formato da API
-                songInfo.querySelector('.song-name').textContent = songName;
-                songInfo.querySelector('.artist-name').textContent = artistName;
-            })
-            .catch(error => {
-                console.error('Erro ao obter informações da música', error);
-                songInfo.querySelector('.song-name').textContent = "Erro ao obter informações";
-                songInfo.querySelector('.artist-name').textContent = "";
-            });
-    }
-
+    // Controle de volume
     volumeControl.addEventListener('input', (e) => {
         audioPlayer.volume = e.target.value;
         console.log(`Volume: ${audioPlayer.volume}`);
     });
 
+    // Lógica do Temporizador
     const clockIcon = document.getElementById('clock-icon');
     const timerModal = document.getElementById('timerModal');
     const closeModal = document.getElementById('closeModal');
@@ -154,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const milliseconds = minutes * 60 * 1000;
         setTimeout(() => {
             audioPlayer.pause();
-            audioPlayer.currentTime = 0;
+            audioPlayer.currentTime = 0; // Reinicia o áudio
             alert('O temporizador desligou a rádio.');
         }, milliseconds);
 
@@ -162,6 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
         alert(`Temporizador definido para ${minutes} minutos.`);
     });
 
+    // Lógica do Compartilhamento
     const shareModal = document.getElementById('shareModal');
     const closeShareModal = document.getElementById('closeShareModal');
     const copyLinkButton = document.getElementById('copyLink');
