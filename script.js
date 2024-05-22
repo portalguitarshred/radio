@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Função para adicionar estações
     const stationList = document.getElementById('station-list');
     const audioPlayer = document.getElementById('audio-player');
     const volumeControl = document.getElementById('volume-control');
@@ -11,11 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const stations = [
         { name: 'Rock', url: 'https://stream.zeno.fm/qupiusi3w5puv' },
+        { name: 'Jazz', url: 'https://server01.ouvir.radio.br:8006/stream?1716175071041' },
+        { name: 'Blues', url: 'https://stream-172.zeno.fm/5npyxpydys8uv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiI1bnB5eHB5ZHlzOHV2IiwiaG9zdCI6InN0cmVhbS0xNzIuemVuby5mbSIsInJ0dGwiOjUsImp0aSI6InhoZFV4UGNNUUc2eWsxR0I5ZzdENFEiLCJpYXQiOjE3MTYxNzUxMzksImV4cCI6MTcxNjE3NTE5OX0.-H5QPR8KYpGEe4-i0vuClifNYM0sWZzNvkTHhRqPUuM&1716175139266' },
         { name: 'Metal', url: 'https://stm39.stmsrv.com:8382/;?1716176724313' },
         { name: 'Anos 80', url: 'https://stream-158.zeno.fm/3ywickpd3rkvv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiIzeXdpY2twZDNya3Z2IiwiaG9zdCI6InN0cmVhbS0xNTguemVuby5mbSIsInJ0dGwiOjUsImp0aSI6IjVNUzljTlY0VG02VWlBZFVvazBqcFEiLCJpYXQiOjE3MTYxNzg2ODcsImV4cCI6MTcxNjE3ODc0N30.Umsbo62LR5tbHfFHYA63nvU1B6z38tBmwLqOZ07L50c&1716178687366' }
     ];
-
-    console.log("Adding stations:", stations); // Verificação das estações
 
     stations.forEach(station => {
         const li = document.createElement('li');
@@ -41,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Adiciona ícone de compartilhamento
         const shareIcon = document.createElement('i');
-        shareIcon.classList.add('fa', 'fa-share', 'share-icon');
+        shareIcon.classList.add('fa', 'fa-share-alt', 'share-icon');
         shareIcon.addEventListener('click', (e) => {
             e.stopPropagation();
             openShareModal(station.url);
@@ -79,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
             audioPlayer.onerror = () => {
                 statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.'; // Mensagem de erro
             };
-
+        
             if (currentPlaying) {
                 currentPlaying.classList.remove('playing'); // Remove a classe 'playing' da estação anterior
             }
@@ -87,7 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
             currentPlaying = li; // Atualiza a estação atual
         });
 
-        console.log("Adding station element:", li); // Verificação do elemento da estação
         stationList.appendChild(li);
     });
 
@@ -280,19 +278,5 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             alert('Por favor, preencha todos os campos.');
         }
-    });
-
-    // Lógica do carrossel
-    const carouselTrack = document.querySelector('.carousel-track');
-    const cdCovers = [
-        'capa1.jpg', // URLs reais das capas
-        'capa2.jpg',
-        'capa3.jpg'
-    ];
-
-    cdCovers.forEach(src => {
-        const img = document.createElement('img');
-        img.src = src;
-        carouselTrack.appendChild(img);
     });
 });
