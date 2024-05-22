@@ -500,18 +500,22 @@
         }
 
         .carousel {
-            overflow: hidden;
             width: 100%;
-            position: relative;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
         }
-
+        
         .carousel-track {
             display: flex;
-            transition: transform 0.5s ease-in-out;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 800px;
         }
 
-        .carousel img {
-            width: calc((100% - 10px) / 3); /* Dividido por 3 capas com 5px de espaçamento */
+
+        .carousel-track img {
+            width: calc(33.33% - 10px);
             margin: 0 5px;
             border-radius: 8px;
         }
@@ -548,19 +552,17 @@
     </header>
     <main>
         <section id="highlights">
-            <div class="carousel-container">
-                <h2>Destaques</h2>
-                <div class="carousel-controls">
-                    <button class="carousel-button" id="carousel-prev">&#9664;</button>
-                    <button class="carousel-button" id="carousel-next">&#9654;</button>
-                </div>
-            </div>
-            <div class="carousel">
-                <div class="carousel-track">
-                    <!-- Imagens das capas dos CDs serão adicionadas aqui -->
-                </div>
-            </div>
-        </section>
+    <div class="carousel-container">
+        <h2>Destaques</h2>
+    </div>
+    <div class="carousel">
+        <div class="carousel-track">
+            <img src="capa1.jpg" alt="Capa 1">
+            <img src="capa2.jpg" alt="Capa 2">
+            <img src="capa3.jpg" alt="Capa 3">
+        </div>
+    </div>
+</section>
         <section id="stations">
             <h2>Escolha a estação
                 <span class="clock-icon" id="clock-icon">&#128339;</span> <!-- Ícone de relógio -->
