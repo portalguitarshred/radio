@@ -499,26 +499,46 @@
         }
 
         .carousel-controls {
-            display: none;
+            display: flex;
+            align-items: center;
         }
         
         .carousel {
-            display: flex;
-            justify-content: space-around;
+            overflow: hidden;
             width: 100%;
+            position: relative;
         }
 
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        
         .carousel img {
-            width: 30%;
+            width: calc((100% - 40px) / 3); /* Ajusta as imagens */
             margin: 0 5px;
             border-radius: 8px;
+        }
+
+        .carousel-button {
+            background-color: #05d26d;
+            color: #ffffff;
+            border: none;
+            padding: 5px 10px;
             cursor: pointer;
+            border-radius: 5px;
+            margin: 0 5px;
+            font-size: 0.8em; /* Reduzir o tamanho da fonte das setas */
+        }
+        
+        .carousel-button:hover {
+            background-color: #04b65c;
         }
 
         #player {
-            position: relative;
-            top: -20px; /* Ajuste este valor conforme necessário */
-        }
+        position: relative;
+        top: -20px; /* Ajuste este valor conforme necessário */
+    }
     </style>
 </head>
 <body>
@@ -539,11 +559,17 @@
         <section id="highlights">
             <div class="carousel-container">
                 <h2>Destaques</h2>
+                <div class="carousel-controls">
+                    <button class="carousel-button" id="carousel-prev">&#9664;</button>
+                    <button class="carousel-button" id="carousel-next">&#9654;</button>
+                </div>
             </div>
             <div class="carousel">
-                <a href="album.html?album=capa1"><img src="capa1.jpg" alt="Capa 1"></a>
-                <a href="album.html?album=capa2"><img src="capa2.jpg" alt="Capa 2"></a>
-                <a href="album.html?album=capa3"><img src="capa3.jpg" alt="Capa 3"></a>
+                <div class="carousel-track">
+                    <img src="capa1.jpg" alt="Capa 1">
+                    <img src="capa2.jpg" alt="Capa 2">
+                    <img src="capa3.jpg" alt="Capa 3">
+                </div>
             </div>
         </section>
         <section id="stations">
