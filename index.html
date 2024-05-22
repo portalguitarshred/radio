@@ -7,6 +7,7 @@
     <!-- Link para a biblioteca Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* CSS existente */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -350,6 +351,7 @@
             cursor: pointer;
         }
 
+        /* Adicionando o espectro de áudio falso */
         li.playing .spectrum {
             display: flex;
             gap: 2px;
@@ -360,7 +362,7 @@
         li.playing .spectrum div {
             width: 2px;
             background: #ffffff;
-            animation: bar-animation 0.5s infinite;
+            animation: bar-animation 0.5s infinite; /* Duração da animação ajustada para 0.5s */
             animation-timing-function: linear;
         }
 
@@ -488,22 +490,55 @@
             color: #ffffff;
         }
 
-        /* Estilos para o destaque de capas */
-        .highlights {
+        /* Estilos para o carrossel */
+        .carousel-container {
             display: flex;
+            align-items: center;
             justify-content: space-between;
             margin-bottom: 20px;
         }
+
+        .carousel-controls {
+            display: flex;
+            align-items: center;
+        }
         
-        .highlights img {
-            width: 30%;
+        .carousel {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        .carousel img {
+            width: calc((100% - 40px) / 3); /* Ajusta as imagens */
+            margin: 0 5px;
             border-radius: 8px;
         }
 
-        #player {
-            position: relative;
-            top: -20px; /* Ajuste este valor conforme necessário */
+        .carousel-button {
+            background-color: #05d26d;
+            color: #ffffff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 0 5px;
+            font-size: 0.8em; /* Reduzir o tamanho da fonte das setas */
         }
+        
+        .carousel-button:hover {
+            background-color: #04b65c;
+        }
+
+        #player {
+        position: relative;
+        top: -20px; /* Ajuste este valor conforme necessário */
+    }
     </style>
 </head>
 <body>
@@ -552,10 +587,10 @@
     <div id="timerModal" class="modal">
         <div class="modal-content">
             <span class="close" id="closeModal">&times;</span>
-            <h3>Hora de dormir</h3>
+            <h3>Hora de dormir</h3> <!-- Frase ajustada -->
             <label for="timer">Desligar após (minutos):</label>
             <input type="number" id="timer" min="1" max="120" value="30">
-            <button class="timer-button" id="setTimer">Definir o tempo</button>
+            <button class="timer-button" id="setTimer">Definir o tempo</button> <!-- Botão ajustado -->
         </div>
     </div>
 
@@ -603,3 +638,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
