@@ -514,10 +514,22 @@
             transition: transform 0.5s ease-in-out;
         }
         
-        .carousel img {
+        .carousel a {
+            display: block;
             width: calc((100% - 40px) / 3); /* Ajusta as imagens */
             margin: 0 5px;
             border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .carousel img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s;
+        }
+
+        .carousel img:hover {
+            transform: scale(1.05);
         }
 
         .carousel-button {
@@ -533,17 +545,6 @@
         
         .carousel-button:hover {
             background-color: #04b65c;
-        }
-
-        .cover-image {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            transition: transform 0.3s;
-        }
-
-        .cover-image:hover {
-            transform: scale(1.05);
         }
 
         #player {
