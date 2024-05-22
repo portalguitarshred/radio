@@ -570,16 +570,15 @@
     <ul id="station-list">
         <!-- Stations will be dynamically added here -->
     </ul>
+<section id="player">
+    <audio id="audio-player" controls>
+        Your browser does not support the audio element.
+    </audio>
+    <div id="volume-container">
+        <label for="volume-control">Volume:</label>
+        <input type="range" id="volume-control" min="0" max="1" step="0.01" value="1">
+    </div>
 </section>
-        <section id="player">
-            <audio id="audio-player" controls>
-                Your browser does not support the audio element.
-            </audio>
-            <div id="volume-container">
-                <label for="volume-control">Volume:</label>
-                <input type="range" id="volume-control" min="0" max="1" step="0.01" value="1">
-            </div>
-        </section>
     </main>
 
     <!-- Modal para a programação do temporizador -->
