@@ -504,9 +504,9 @@
         }
         
         .carousel {
+            display: flex;
+            justify-content: center;
             overflow: hidden;
-            width: 100%;
-            position: relative;
         }
 
         .carousel-track {
@@ -515,8 +515,8 @@
         }
         
         .carousel img {
-            width: 100%; /* Faz as imagens ocuparem a largura total do contêiner */
-            height: auto; /* Mantém a proporção da altura */
+            flex: 0 0 auto;
+            width: calc((100% - 40px) / 3); /* Ajusta as imagens para ocupar igualmente o espaço */
             margin: 0 5px;
             border-radius: 8px;
             max-height: 200px; /* Define uma altura máxima */
