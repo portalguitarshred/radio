@@ -55,19 +55,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function createCarouselItem(index) {
-        const link = document.createElement('a');
-        link.href = '#';
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            showAlbumDetails(index);
-        });
+    const link = document.createElement('a');
+    link.href = '#';
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        showAlbumDetails(index);
+    });
 
-        const img = document.createElement('img');
-        img.src = cdCovers[index];
-        img.style.maxHeight = '200px'; // Adicione esta linha para garantir que a altura máxima seja aplicada
-        link.appendChild(img);
-        carouselTrack.appendChild(link);
-    }
+    const img = document.createElement('img');
+    img.src = cdCovers[index];
+    link.appendChild(img);
+    carouselTrack.appendChild(link);
+}
 
     function showAlbumDetails(index) {
         const details = albumDetails[index];
