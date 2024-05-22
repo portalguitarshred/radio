@@ -492,48 +492,42 @@
 
         /* Estilos para o carrossel */
         .carousel-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-        .carousel-controls {
-            display: flex;
-            align-items: center;
-        }
-        
-        .carousel {
-            overflow: hidden;
-            width: 100%;
-            position: relative;
-        }
+.carousel {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
 
-        .carousel-track {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-        
-        .carousel img {
-            width: calc((100% - 40px) / 3); /* Ajusta as imagens */
-            margin: 0 5px;
-            border-radius: 8px;
-        }
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
 
-        .carousel-button {
-            background-color: #05d26d;
-            color: #ffffff;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            margin: 0 5px;
-            font-size: 0.8em; /* Reduzir o tamanho da fonte das setas */
-        }
-        
-        .carousel-button:hover {
-            background-color: #04b65c;
-        }
+.carousel img {
+    width: calc((100% / 3) - 10px);
+    margin: 0 5px;
+    border-radius: 8px;
+}
+
+.carousel-button {
+    background-color: #05d26d;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+}
+
+.carousel-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
 
         #player {
         position: relative;
