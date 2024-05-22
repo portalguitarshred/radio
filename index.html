@@ -413,123 +413,7 @@
         .accordion-active + .song-info {
             display: block;
         }
-
-        /* Estilos para o modal de registro */
-        .modal-register {
-            display: none;
-            position: fixed;
-            z-index: 1001; /* Ajuste para garantir que o modal fique acima do menu */
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0, 0, 0);
-            background-color: rgba(0, 0, 0, 0.4);
-            padding-top: 60px;
-        }
-
-        .modal-content-register {
-            background-color: #1f1f1f;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 400px;
-            color: #ffffff;
-            border-radius: 10px;
-            text-align: left; /* Garante que os labels e inputs estejam alinhados à esquerda */
-        }
-
-        .close-register {
-            color: #aaaaaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close-register:hover,
-        .close-register:focus {
-            color: #ffffff;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .register-button, .login-button {
-           	background-color: #05d26d;
-            color: #ffffff;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            margin-top: 10px;
-            border-radius: 5px;
-        }
-
-        .register-button:hover, .login-button:hover {
-            background-color: #04b65c;
-        }
-
-        .modal-content-register label {
-            display: block;
-            margin-top: 10px;
-        }
-
-        .modal-content-register input {
-            width: calc(100% - 20px); /* Garante 10px de margem de ambos os lados */
-            padding: 8px;
-            margin-top: 5px;
-            margin-bottom: 10px;
-            margin-right: 10px; /* Adiciona a margem direita de 10px */
-            border: 1px solid #444;
-            border-radius: 5px;
-            background-color: #2a2a2a;
-            color: #ffffff;
-        }
-
-        /* Estilos para o carrossel */
-        .carousel-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        .carousel-controls {
-            display: flex;
-            align-items: center;
-        }
-
-        .carousel {
-            overflow: hidden;
-            width: 100%;
-            position: relative;
-        }
-
-        .carousel-track {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .carousel img {
-            width: calc((100% - 10px) / 3); /* Dividido por 3 capas com 5px de espaçamento */
-            margin: 0 5px;
-            border-radius: 8px;
-        }
-
-        .carousel-button {
-            background-color: #05d26d;
-            color: #ffffff;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            margin: 0 5px;
-            font-size: 1em;
-        }
-
-        .carousel-button:hover {
-            background-color: #04b65c;
-        }
+        
     </style>
 </head>
 <body>
@@ -538,8 +422,6 @@
         <img src="logo.png" alt="Guitar Radio Logo" class="logo">
         <p class="tagline">Músicas para quem curte guitarra</p>
         <nav class="menu">
-            <a href="#" id="login-link"><i class="fas fa-sign-in-alt"></i> Login</a>
-            <a href="#" id="register-link"><i class="fas fa-user"></i> Registro</a>
             <a href="https://guitarshred.com.br" target="_blank"><i class="fas fa-newspaper"></i> Notícias</a>
             <a href="https://guitarshredacademy.com.br" target="_blank"><i class="fas fa-guitar"></i> Cursos de Guitarra</a>
             <a href="https://www.youtube.com/guitarshredofficial" target="_blank"><i class="fab fa-youtube"></i> Canal do YouTube</a>
@@ -547,20 +429,6 @@
         </nav>
     </header>
     <main>
-        <section id="highlights">
-       <!--    <div class="carousel-container">
-                <h2>Destaques</h2>
-                <div class="carousel-controls">
-                    <button class="carousel-button" id="carousel-prev">&#9664;</button>
-                    <button class="carousel-button" id="carousel-next">&#9654;</button>
-                </div>
-            </div> -->
-            <div class="carousel">
-                <div class="carousel-track">
-                    <!-- Imagens das capas dos CDs serão adicionadas aqui -->
-                </div>
-            </div>
-        </section>
         <section id="stations">
             <h2>Escolha a estação
                 <span class="clock-icon" id="clock-icon">&#128339;</span> <!-- Ícone de relógio -->
@@ -601,34 +469,6 @@
                 <button id="shareFacebook">Compartilhar no Facebook</button>
                 <button id="shareTwitter">Compartilhar no Twitter</button>
             </div>
-        </div>
-    </div>
-
-    <!-- Modal para login de usuário -->
-    <div id="loginModal" class="modal-register">
-        <div class="modal-content-register">
-            <span class="close-register" id="closeLoginModal">&times;</span>
-            <h3>Faça seu login</h3>
-            <label for="login-email">Email:</label>
-            <input type="email" id="login-email" required>
-            <label for="login-password">Senha:</label>
-            <input type="password" id="login-password" required>
-            <button class="login-button" id="loginButton">Login</button>
-        </div>
-    </div>
-
-    <!-- Modal para registro de usuário -->
-    <div id="registerModal" class="modal-register">
-        <div class="modal-content-register">
-            <span class="close-register" id="closeRegisterModal">&times;</span>
-            <h3>Registro de Usuário</h3>
-            <label for="username">Nome de Usuário:</label>
-            <input type="text" id="username" required>
-            <label for="email">Email:</label>
-            <input type="email" id="email" required>
-            <label for="password">Senha:</label>
-            <input type="password" id="password" required>
-            <button class="register-button" id="registerButton">Registrar</button>
         </div>
     </div>
 
