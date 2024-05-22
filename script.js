@@ -21,20 +21,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (endIndex > offset) {
             for (let i = offset; i < endIndex; i++) {
+                const link = document.createElement('a');
+                link.href = `album.html?album=${cdCovers[i].split('.')[0]}`;
                 const img = document.createElement('img');
                 img.src = cdCovers[i];
-                carouselTrack.appendChild(img);
+                link.appendChild(img);
+                carouselTrack.appendChild(link);
             }
         } else {
             for (let i = offset; i < totalCovers; i++) {
+                const link = document.createElement('a');
+                link.href = `album.html?album=${cdCovers[i].split('.')[0]}`;
                 const img = document.createElement('img');
                 img.src = cdCovers[i];
-                carouselTrack.appendChild(img);
+                link.appendChild(img);
+                carouselTrack.appendChild(link);
             }
             for (let i = 0; i < endIndex; i++) {
+                const link = document.createElement('a');
+                link.href = `album.html?album=${cdCovers[i].split('.')[0]}`;
                 const img = document.createElement('img');
                 img.src = cdCovers[i];
-                carouselTrack.appendChild(img);
+                link.appendChild(img);
+                carouselTrack.appendChild(link);
             }
         }
 
