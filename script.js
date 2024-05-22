@@ -1,59 +1,93 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicialização do carrossel
-    const carouselTrack = document.querySelector('.carousel-track');
-    const prevButton = document.getElementById('carousel-prev');
-    const nextButton = document.getElementById('carousel-next');
-    let currentIndex = 0;
+    // Função para adicionar estações
+    const stationList = document.getElementById('station-list');
+    const audioPlayer = document.getElementById('audio-player');
+    const volumeControl = document.getElementById('volume-control');
+    const statusMessage = document.createElement('div'); // Elemento para mensagens de status
+    statusMessage.id = 'status-message';
+    document.body.appendChild(statusMessage); // Adiciona o elemento de status ao corpo do documento
+    let currentPlaying = null;
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || []; // Carrega favoritos do localStorage
 
-    const cdCovers = [
-        'capa1.jpg', // URLs reais das capas
-        'capa2.jpg',
-        'capa3.jpg'
+    const stations = [
+        { name: 'Rock', url: 'https://stream.zeno.fm/qupiusi3w5puv' },
+        { name: 'Metal', url: 'https://stm39.stmsrv.com:8382/;?1716176724313' },
+        { name: 'Anos 80', url: 'https://stream-158.zeno.fm/3ywickpd3rkvv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiIzeXdpY2twZDNya3Z2IiwiaG9zdCI6InN0cmVhbS0xNTguemVuby5mbSIsInJ0dGwiOjUsImp0aSI6IjVNUzljTlY0VG02VWlBZFVvazBqcFEiLCJpYXQiOjE3MTYxNzg2ODcsImV4cCI6MTcxNjE3ODc0N30.Umsbo62LR5tbHfFHYA63nvU1B6z38tBmwLqOZ07L50c&1716178687366' }
     ];
 
-    function updateCarousel() {
-        const totalCovers = cdCovers.length;
-        const coversToShow = 3; // Número de capas visíveis
-        const offset = currentIndex % totalCovers;
-        const endIndex = (offset + coversToShow) % totalCovers;
+    stations.forEach(station => {
+        const li = document.createElement('li');
+        li.textContent = station.name;
 
-        carouselTrack.innerHTML = '';
-
-        if (endIndex > offset) {
-            for (let i = offset; i < endIndex; i++) {
-                const img = document.createElement('img');
-                img.src = cdCovers[i];
-                carouselTrack.appendChild(img);
-            }
-        } else {
-            for (let i = offset; i < totalCovers; i++) {
-                const img = document.createElement('img');
-                img.src = cdCovers[i];
-                carouselTrack.appendChild(img);
-            }
-            for (let i = 0; i < endIndex; i++) {
-                const img = document.createElement('img');
-                img.src = cdCovers[i];
-                carouselTrack.appendChild(img);
-            }
+        // Adiciona ícone de coração
+        const heartIcon = document.createElement('i');
+        heartIcon.classList.add('fa', 'fa-heart', 'heart-icon');
+        if (favorites.includes(station.url)) {
+            heartIcon.classList.add('favorited');
         }
+        heartIcon.addEventListener('click', (e) => {
+            e.stopPropagation();
+            heartIcon.classList.toggle('favorited');
+            if (heartIcon.classList.contains('favorited')) {
+                favorites.push(station.url);
+            } else {
+                favorites = favorites.filter(fav => fav !== station.url);
+            }
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+        });
+        li.appendChild(heartIcon);
 
-        const transformValue = -currentIndex * ((100 + 10) / coversToShow);
-        carouselTrack.style.transform = `translateX(${transformValue}%)`;
-    }
+        // Adiciona ícone de compartilhamento
+        const shareIcon = document.createElement('i');
+        shareIcon.classList.add('fa', 'fa-share', 'share-icon');
+        shareIcon.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openShareModal(station.url);
+        });
+        li.appendChild(shareIcon);
 
-    prevButton.addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + cdCovers.length) % cdCovers.length;
-        updateCarousel();
+        // Adiciona barras do espectro de áudio
+        const spectrum = document.createElement('div');
+        spectrum.classList.add('spectrum');
+        for (let i = 0; i < 5; i++) {
+            const bar = document.createElement('div');
+            spectrum.appendChild(bar);
+        }
+        li.appendChild(spectrum);
+
+        li.addEventListener('click', () => {
+            console.log(`Playing: ${station.name} - URL: ${station.url}`);
+            audioPlayer.src = station.url;
+            statusMessage.textContent = 'Carregando...'; // Mensagem de carregamento
+            statusMessage.classList.add('show'); // Mostrar mensagem de status
+        
+            audioPlayer.play().then(() => {
+                statusMessage.textContent = ''; // Limpa a mensagem de carregamento
+                statusMessage.classList.remove('show'); // Esconde a mensagem de status
+            }).catch(error => {
+                console.error('Playback failed', error);
+                statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.'; // Mensagem de erro
+            });
+        
+            audioPlayer.oncanplay = () => {
+                statusMessage.textContent = ''; // Limpa a mensagem de carregamento
+                statusMessage.classList.remove('show'); // Esconde a mensagem de status
+            };
+        
+            audioPlayer.onerror = () => {
+                statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.'; // Mensagem de erro
+            };
+
+            if (currentPlaying) {
+                currentPlaying.classList.remove('playing'); // Remove a classe 'playing' da estação anterior
+            }
+            li.classList.add('playing'); // Adiciona a classe 'playing' à estação atual
+            currentPlaying = li; // Atualiza a estação atual
+        });
+
+        stationList.appendChild(li);
     });
-
-    nextButton.addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % cdCovers.length;
-        updateCarousel();
-    });
-
-    // Carregar as primeiras capas ao iniciar
-    updateCarousel();
+});
 
     // Lógica do player de rádio
     const stationList = document.getElementById('station-list');
