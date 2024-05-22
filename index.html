@@ -111,6 +111,10 @@
             text-align: left;
         }
 
+        h2 {
+            font-size: 1.2em; /* Ajuste este valor conforme necessário */
+        }
+
         ul {
             list-style-type: none;
             padding: 0;
@@ -530,6 +534,22 @@
         .carousel-button:hover {
             background-color: #04b65c;
         }
+
+        .cover-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+        .cover-image:hover {
+            transform: scale(1.05);
+        }
+
+        #player {
+            position: relative;
+            top: -20px; /* Ajuste este valor conforme necessário */
+        }
     </style>
 </head>
 <body>
@@ -557,9 +577,15 @@
             </div>
             <div class="carousel">
                 <div class="carousel-track">
-                    <img src="capa1.jpg" alt="Capa 1">
-                    <img src="capa2.jpg" alt="Capa 2">
-                    <img src="capa3.jpg" alt="Capa 3">
+                    <a href="album.html?album=capa1" class="album-link">
+                        <img src="capa1.jpg" alt="Capa 1" class="cover-image">
+                    </a>
+                    <a href="album.html?album=capa2" class="album-link">
+                        <img src="capa2.jpg" alt="Capa 2" class="cover-image">
+                    </a>
+                    <a href="album.html?album=capa3" class="album-link">
+                        <img src="capa3.jpg" alt="Capa 3" class="cover-image">
+                    </a>
                 </div>
             </div>
         </section>
