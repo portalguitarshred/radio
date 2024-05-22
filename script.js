@@ -11,36 +11,49 @@ document.addEventListener('DOMContentLoaded', () => {
         'capa3.jpg'
     ];
 
-    function updateCarousel() {
-        const totalCovers = cdCovers.length;
-        const coversToShow = 3; // Número de capas visíveis
-        const offset = currentIndex % totalCovers;
-        const endIndex = (offset + coversToShow) % totalCovers;
+    // Atualiza o carrossel com novas imagens e torna-as clicáveis
+function updateCarousel() {
+    const totalCovers = cdCovers.length;
+    const coversToShow = 3; // Número de capas visíveis
+    const offset = currentIndex % totalCovers;
+    const endIndex = (offset + coversToShow) % totalCovers;
 
-        carouselTrack.innerHTML = '';
+    carouselTrack.innerHTML = '';
 
-        if (endIndex > offset) {
-            for (let i = offset; i < endIndex; i++) {
-                const img = document.createElement('img');
-                img.src = cdCovers[i];
-                carouselTrack.appendChild(img);
-            }
-        } else {
-            for (let i = offset; i < totalCovers; i++) {
-                const img = document.createElement('img');
-                img.src = cdCovers[i];
-                carouselTrack.appendChild(img);
-            }
-            for (let i = 0; i < endIndex; i++) {
-                const img = document.createElement('img');
-                img.src = cdCovers[i];
-                carouselTrack.appendChild(img);
-            }
+    const urls = [
+        'https://example.com/link1',  // Substitua por seus URLs reais
+        'https://example.com/link2',
+        'https://example.com/link3'
+    ];
+
+    if (endIndex > offset) {
+        for (let i = offset; i < endIndex; i++) {
+            const a = document.createElement('a');
+            a.href = urls[i];  // Adiciona o link para a capa
+            const img = document.createElement('img');
+            img.src = cdCovers[i];
+            a.appendChild(img);  // Adiciona a imagem ao link
+            carouselTrack.appendChild(a);
         }
-
-        const transformValue = -currentIndex * ((100 + 10) / coversToShow);
-        carouselTrack.style.transform = `translateX(${transformValue}%)`;
+    } else {
+        for (let i = offset; i < totalCovers; i++) {
+            const a = document.createElement('a');
+            a.href = urls[i];
+            const img = document.createElement('img');
+            img.src = cdCovers[i];
+            a.appendChild(img);
+            carouselTrack.appendChild(a);
+        }
+        for (let i = 0; i < endIndex; i++) {
+            const a = document.createElement('a');
+            a.href = urls[i];
+            const img = document.createElement('img');
+            img.src = cdCovers[i];
+            a.appendChild(img);
+            carouselTrack.appendChild(a);
+        }
     }
+}
 
     prevButton.addEventListener('click', () => {
         currentIndex = (currentIndex - 1 + cdCovers.length) % cdCovers.length;
