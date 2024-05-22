@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Anos 80', url: 'https://stream-158.zeno.fm/3ywickpd3rkvv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiIzeXdpY2twZDNya3Z2IiwiaG9zdCI6InN0cmVhbS0xNTguemVuby5mbSIsInJ0dGwiOjUsImp0aSI6IjVNUzljTlY0VG02VWlBZFVvazBqcFEiLCJpYXQiOjE3MTYxNzg2ODcsImV4cCI6MTcxNjE3ODc0N30.Umsbo62LR5tbHfFHYA63nvU1B6z38tBmwLqOZ07L50c&1716178687366' }
     ];
 
+    console.log("Adding stations:", stations); // Verificação das estações
+
     stations.forEach(station => {
         const li = document.createElement('li');
         li.textContent = station.name;
@@ -85,9 +87,11 @@ document.addEventListener('DOMContentLoaded', () => {
             currentPlaying = li; // Atualiza a estação atual
         });
 
+        console.log("Adding station element:", li); // Verificação do elemento da estação
         stationList.appendChild(li);
     });
 });
+
 
     // Lógica do player de rádio
     const stationList = document.getElementById('station-list');
