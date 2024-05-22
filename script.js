@@ -1,19 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Código 1: Inicialização do Carrossel
+    // Inicialização do Carrossel
     const carouselTrack = document.querySelector('.carousel-track');
     const prevButton = document.getElementById('carousel-prev');
     const nextButton = document.getElementById('carousel-next');
     let currentIndex = 0;
 
     const cdCovers = [
-        'capa1.jpg', // URLs reais das capas
+        'capa1.jpg', 
         'capa2.jpg',
         'capa3.jpg'
     ];
 
     function updateCarousel() {
         const totalCovers = cdCovers.length;
-        const coversToShow = 3; // Número de capas visíveis
+        const coversToShow = 3;
         const offset = currentIndex % totalCovers;
         const endIndex = (offset + coversToShow) % totalCovers;
 
@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const transformValue = -currentIndex * ((100 + 10) / coversToShow);
         carouselTrack.style.transform = `translateX(${transformValue}%)`;
     }
-
     prevButton.addEventListener('click', () => {
         currentIndex = (currentIndex - 1 + cdCovers.length) % cdCovers.length;
         updateCarousel();
@@ -54,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateCarousel();
 
-    // Código 2: Detalhes do Álbum
+    // Detalhes do Álbum
     const albumDetails = document.getElementById('album-details');
     const albumCoverImg = document.getElementById('album-cover-img');
     const albumName = document.getElementById('album-name');
@@ -91,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         albumDetails.style.display = 'flex';
     }
-
+    
     const albumLinks = document.querySelectorAll('.album-link');
     albumLinks.forEach(link => {
         link.addEventListener('click', (event) => {
@@ -102,8 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-});
-
+    
     prevButton.addEventListener('click', () => {
         currentIndex = (currentIndex - 1 + cdCovers.length) % cdCovers.length;
         updateCarousel();
