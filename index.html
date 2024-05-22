@@ -515,9 +515,11 @@
         }
         
         .carousel img {
-            width: calc((100% - 40px) / 3); /* Ajusta as imagens */
+            width: calc((100% - 40px) / 3); /* Ajusta as imagens para ocupar igualmente o espaço */
             margin: 0 5px;
             border-radius: 8px;
+            max-height: 200px; /* Adiciona esta linha para definir uma altura máxima */
+            object-fit: cover; /* Garante que as imagens mantenham suas proporções */
         }
 
         .carousel-button {
