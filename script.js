@@ -6,55 +6,77 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentIndex = 0;
 
     const cdCovers = [
-        'capa1.jpg', // URLs reais das capas
+        'capa1.jpg',
         'capa2.jpg',
         'capa3.jpg'
     ];
 
+    const albumDetails = [
+        {
+            cover: 'capa1.jpg',
+            name: 'Nome do Álbum 1',
+            artist: 'Nome do Artista 1'
+        },
+        {
+            cover: 'capa2.jpg',
+            name: 'Nome do Álbum 2',
+            artist: 'Nome do Artista 2'
+        },
+        {
+            cover: 'capa3.jpg',
+            name: 'Nome do Álbum 3',
+            artist: 'Nome do Artista 3'
+        }
+    ];
+
     function updateCarousel() {
-    const totalCovers = cdCovers.length;
-    const coversToShow = 3; // Número de capas visíveis
-    const offset = currentIndex % totalCovers;
-    const endIndex = (offset + coversToShow) % totalCovers;
+        const totalCovers = cdCovers.length;
+        const coversToShow = 3; // Número de capas visíveis
+        const offset = currentIndex % totalCovers;
+        const endIndex = (offset + coversToShow) % totalCovers;
 
-    carouselTrack.innerHTML = '';
+        carouselTrack.innerHTML = '';
 
-    const urls = ['url1', 'url2', 'url3']; // Substitua pelos URLs reais
+        if (endIndex > offset) {
+            for (let i = offset; i < endIndex; i++) {
+                createCarouselItem(i);
+            }
+        } else {
+            for (let i = offset; i < totalCovers; i++) {
+                createCarouselItem(i);
+            }
+            for (let i = 0; i < endIndex; i++) {
+                createCarouselItem(i);
+            }
+        }
 
-    if (endIndex > offset) {
-        for (let i = offset; i < endIndex; i++) {
-            const link = document.createElement('a');
-            link.href = urls[i];
-            link.target = '_blank';
-            const img = document.createElement('img');
-            img.src = cdCovers[i];
-            link.appendChild(img);
-            carouselTrack.appendChild(link);
-        }
-    } else {
-        for (let i = offset; i < totalCovers; i++) {
-            const link = document.createElement('a');
-            link.href = urls[i];
-            link.target = '_blank';
-            const img = document.createElement('img');
-            img.src = cdCovers[i];
-            link.appendChild(img);
-            carouselTrack.appendChild(link);
-        }
-        for (let i = 0; i < endIndex; i++) {
-            const link = document.createElement('a');
-            link.href = urls[i];
-            link.target = '_blank';
-            const img = document.createElement('img');
-            img.src = cdCovers[i];
-            link.appendChild(img);
-            carouselTrack.appendChild(link);
-        }
+        const transformValue = -currentIndex * ((100 + 10) / coversToShow);
+        carouselTrack.style.transform = `translateX(${transformValue}%)`;
     }
 
-    const transformValue = -currentIndex * ((100 + 10) / coversToShow);
-    carouselTrack.style.transform = `translateX(${transformValue}%)`;
-}
+    function createCarouselItem(index) {
+        const link = document.createElement('a');
+        link.href = '#';
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            showAlbumDetails(index);
+        });
+
+        const img = document.createElement('img');
+        img.src = cdCovers[index];
+        link.appendChild(img);
+        carouselTrack.appendChild(link);
+    }
+
+    function showAlbumDetails(index) {
+        const details = albumDetails[index];
+        document.getElementById('album-cover').src = details.cover;
+        document.getElementById('album-name').textContent = details.name;
+        document.getElementById('artist-name').textContent = details.artist;
+
+        document.getElementById('album-details').style.display = 'flex';
+    }
+
     prevButton.addEventListener('click', () => {
         currentIndex = (currentIndex - 1 + cdCovers.length) % cdCovers.length;
         updateCarousel();
@@ -67,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Carregar as primeiras capas ao iniciar
     updateCarousel();
+});
 
     // Lógica do player de rádio
     const stationList = document.getElementById('station-list');
