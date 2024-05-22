@@ -303,7 +303,7 @@
 
         #stations {
             margin-bottom: 20px;
-            width: 100%;
+            width: calc(100%);
             padding: 0 20px;
             box-sizing: border-box;
         }
@@ -504,25 +504,22 @@
         }
         
         .carousel {
-            display: flex;
-            justify-content: center;
             overflow: hidden;
             width: 100%;
+            position: relative;
         }
-        
+
         .carousel-track {
             display: flex;
             transition: transform 0.5s ease-in-out;
-            width: calc(100% + 10px); /* Corrige a largura do track */
         }
         
         .carousel img {
-            flex: 0 0 calc(33.33% - 10px); /* Ajusta as imagens para ocupar igualmente o espaço */
+            width: calc((100% - 40px) / 3); /* Ajusta as imagens */
             margin: 0 5px;
             border-radius: 8px;
-            max-height: 200px; /* Define uma altura máxima */
-            object-fit: cover; /* Garante que as imagens mantenham suas proporções */
         }
+
         .carousel-button {
             background-color: #05d26d;
             color: #ffffff;
@@ -542,29 +539,6 @@
         position: relative;
         top: -20px; /* Ajuste este valor conforme necessário */
     }
-
-        #album-details {
-        display: flex;
-        align-items: flex-start;
-        background-color: #1f1f1f;
-        color: #ffffff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        margin-top: 20px;
-        box-sizing: border-box;
-        max-width: 800px;
-        width: calc(100% - 40px);
-    }
-    
-    #album-details img {
-        max-width: 200px;
-        margin-right: 20px;
-    }
-    
-    #album-details h3, #album-details p {
-        margin: 0;
-    }
     </style>
 </head>
 <body>
@@ -583,36 +557,38 @@
     </header>
     <main>
         <section id="highlights">
-        <div class="carousel-container">
-            <h2>Destaques</h2>
-            <div class="carousel-controls">
-                <button class="carousel-button" id="carousel-prev">&#9664;</button>
-                <button class="carousel-button" id="carousel-next">&#9654;</button>
+            <div class="carousel-container">
+                <h2>Destaques</h2>
+                <div class="carousel-controls">
+                    <button class="carousel-button" id="carousel-prev">&#9664;</button>
+                    <button class="carousel-button" id="carousel-next">&#9654;</button>
+                </div>
             </div>
-        </div>
-        <div class="carousel">
-            <div class="carousel-track">
-                <!-- Itens do carrossel serão adicionados dinamicamente -->
+            <div class="carousel">
+                <div class="carousel-track">
+                    <img src="capa1.jpg" alt="Capa 1">
+                    <img src="capa2.jpg" alt="Capa 2">
+                    <img src="capa3.jpg" alt="Capa 3">
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
         <section id="stations">
-        <h2>Escolha a estação
-            <span class="clock-icon" id="clock-icon">&#128339;</span> <!-- Ícone de relógio -->
-        </h2>
-        <ul id="station-list">
-            <!-- Stations will be dynamically added here -->
-        </ul>
-    </section>
-    <section id="player">
-        <audio id="audio-player" controls>
-            Your browser does not support the audio element.
-        </audio>
-        <div id="volume-container">
-            <label for="volume-control">Volume:</label>
-            <input type="range" id="volume-control" min="0" max="1" step="0.01" value="1">
-        </div>
-    </section>
+            <h2>Escolha a estação
+                <span class="clock-icon" id="clock-icon">&#128339;</span> <!-- Ícone de relógio -->
+            </h2>
+            <ul id="station-list">
+                <!-- Stations will be dynamically added here -->
+            </ul>
+        </section>
+        <section id="player">
+            <audio id="audio-player" controls>
+                Your browser does not support the audio element.
+            </audio>
+            <div id="volume-container">
+                <label for="volume-control">Volume:</label>
+                <input type="range" id="volume-control" min="0" max="1" step="0.01" value="1">
+            </div>
+        </section>
     </main>
 
     <!-- Modal para a programação do temporizador -->
@@ -666,13 +642,6 @@
             <button class="register-button" id="registerButton">Registrar</button>
         </div>
     </div>
-    <section id="album-details" style="display: none;">
-        <img id="album-cover" src="" alt="Album Cover" style="max-width: 200px; float: left; margin-right: 20px;">
-        <div>
-            <h3 id="album-name"></h3>
-            <p id="artist-name"></p>
-        </div>
-    </section>
 
     <script src="script.js"></script>
 </body>
