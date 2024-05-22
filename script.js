@@ -1,19 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicialização do Carrossel
+    // Inicialização do carrossel
     const carouselTrack = document.querySelector('.carousel-track');
     const prevButton = document.getElementById('carousel-prev');
     const nextButton = document.getElementById('carousel-next');
     let currentIndex = 0;
 
     const cdCovers = [
-        'capa1.jpg', 
+        'capa1.jpg', // URLs reais das capas
         'capa2.jpg',
         'capa3.jpg'
     ];
 
     function updateCarousel() {
         const totalCovers = cdCovers.length;
-        const coversToShow = 3;
+        const coversToShow = 3; // Número de capas visíveis
         const offset = currentIndex % totalCovers;
         const endIndex = (offset + coversToShow) % totalCovers;
 
@@ -41,67 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const transformValue = -currentIndex * ((100 + 10) / coversToShow);
         carouselTrack.style.transform = `translateX(${transformValue}%)`;
     }
-    prevButton.addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + cdCovers.length) % cdCovers.length;
-        updateCarousel();
-    });
 
-    nextButton.addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % cdCovers.length;
-        updateCarousel();
-    });
-
-    updateCarousel();
-
-    // Detalhes do Álbum
-    const albumDetails = document.getElementById('album-details');
-    const albumCoverImg = document.getElementById('album-cover-img');
-    const albumName = document.getElementById('album-name');
-    const artistName = document.getElementById('artist-name');
-    const trackList = document.getElementById('track-list');
-    const albumAudioPlayer = document.getElementById('album-audio-player');
-
-    const albumData = {
-        cover: 'capa1.jpg',
-        name: 'Nome do Álbum',
-        artist: 'Nome do Artista',
-        tracks: [
-            { title: 'Música 1', url: 'url_da_musica1.mp3' },
-            { title: 'Música 2', url: 'url_da_musica2.mp3' },
-            { title: 'Música 3', url: 'url_da_musica3.mp3' }
-        ]
-    };
-
-    function updateAlbumDetails(album) {
-        albumCoverImg.src = album.cover;
-        albumName.textContent = album.name;
-        artistName.textContent = album.artist;
-        trackList.innerHTML = '';
-
-        album.tracks.forEach(track => {
-            const li = document.createElement('li');
-            li.textContent = track.title;
-            li.addEventListener('click', () => {
-                albumAudioPlayer.src = track.url;
-                albumAudioPlayer.play();
-            });
-            trackList.appendChild(li);
-        });
-
-        albumDetails.style.display = 'flex';
-    }
-    
-    const albumLinks = document.querySelectorAll('.album-link');
-    albumLinks.forEach(link => {
-        link.addEventListener('click', (event) => {
-            event.preventDefault();
-            const albumId = link.getAttribute('data-album');
-            if (albumId === 'capa1') {
-                updateAlbumDetails(albumData);
-            }
-        });
-    });
-    
     prevButton.addEventListener('click', () => {
         currentIndex = (currentIndex - 1 + cdCovers.length) % cdCovers.length;
         updateCarousel();
