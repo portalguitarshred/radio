@@ -12,35 +12,42 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     function updateCarousel() {
-        const totalCovers = cdCovers.length;
-        const coversToShow = 3; // Número de capas visíveis
-        const offset = currentIndex % totalCovers;
-        const endIndex = (offset + coversToShow) % totalCovers;
+    const totalCovers = cdCovers.length;
+    const coversToShow = 3; // Número de capas visíveis
+    const offset = currentIndex % totalCovers;
+    const endIndex = (offset + coversToShow) % totalCovers;
 
-        carouselTrack.innerHTML = '';
+    carouselTrack.innerHTML = '';
 
-        if (endIndex > offset) {
-            for (let i = offset; i < endIndex; i++) {
-                const img = document.createElement('img');
-                img.src = cdCovers[i];
-                carouselTrack.appendChild(img);
-            }
-        } else {
-            for (let i = offset; i < totalCovers; i++) {
-                const img = document.createElement('img');
-                img.src = cdCovers[i];
-                carouselTrack.appendChild(img);
-            }
-            for (let i = 0; i < endIndex; i++) {
-                const img = document.createElement('img');
-                img.src = cdCovers[i];
-                carouselTrack.appendChild(img);
-            }
+    if (endIndex > offset) {
+        for (let i = offset; i < endIndex; i++) {
+            const img = document.createElement('img');
+            img.src = cdCovers[i];
+            carouselTrack.appendChild(img);
         }
-
-        const transformValue = -currentIndex * ((100 + 10) / coversToShow);
-        carouselTrack.style.transform = `translateX(${transformValue}%)`;
+    } else {
+        for (let i = offset; i < totalCovers; i++) {
+            const img = document.createElement('img');
+            img.src = cdCovers[i];
+            carouselTrack.appendChild(img);
+        }
+        for (let i = 0; i < endIndex; i++) {
+            const img = document.createElement('img');
+            img.src = cdCovers[i];
+            carouselTrack.appendChild(img);
+        }
     }
+
+    const transformValue = -currentIndex * ((100 + 10) / coversToShow);
+    carouselTrack.style.transform = `translateX(${transformValue}%)`;
+
+    // Torna as capas clicáveis
+    carouselTrack.querySelectorAll('img').forEach((img, index) => {
+        img.addEventListener('click', () => {
+            showAlbumDetails(cdCovers[(currentIndex + index) % cdCovers.length]);
+        });
+    });
+}
 
     prevButton.addEventListener('click', () => {
         currentIndex = (currentIndex - 1 + cdCovers.length) % cdCovers.length;
