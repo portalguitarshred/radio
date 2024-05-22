@@ -90,7 +90,11 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Adding station element:", li); // Verificação do elemento da estação
         stationList.appendChild(li);
     });
+
+    // Funções adicionais como temporizador, compartilhamento, login, registro, etc., se houverem
+    // Adicione aqui o restante do código das outras funcionalidades, se necessário.
 });
+
 
 
     // Lógica do player de rádio
