@@ -491,13 +491,10 @@
         }
 
         /* Estilos para o carrossel */
-        .carousel-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+       .carousel-container {
+            text-align: center;
             margin-bottom: 20px;
         }
-
         .carousel-controls {
             display: flex;
             align-items: center;
@@ -507,7 +504,10 @@
             overflow: hidden;
             width: 100%;
             position: relative;
+            display: flex;
+            justify-content: center;
         }
+
         
         .carousel-track {
             display: flex;
@@ -515,20 +515,23 @@
         }
         
         .carousel img {
-            width: calc((100% - 40px) / 3); /* Ajusta as imagens */
+            width: calc(100% / 3 - 10px);
             margin: 0 5px;
             border-radius: 8px;
         }
 
         .carousel-button {
             background-color: #05d26d;
-            color: #ffffff;
             border: none;
-            padding: 5px 10px;
+            padding: 10px;
             cursor: pointer;
-            border-radius: 5px;
-            margin: 0 5px;
-            font-size: 0.8em; /* Reduzir o tamanho da fonte das setas */
+            color: white;
+            font-size: 16px;
+        }
+        
+        .carousel-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
         }
         
         .carousel-button:hover {
