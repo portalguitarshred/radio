@@ -1,60 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicialização do carrossel
-    const carouselTrack = document.querySelector('.carousel-track');
-    const prevButton = document.getElementById('carousel-prev');
-    const nextButton = document.getElementById('carousel-next');
-    let currentIndex = 0;
-
-    const cdCovers = [
-        'capa1.jpg', // URLs reais das capas
-        'capa2.jpg',
-        'capa3.jpg'
-    ];
-
-    function updateCarousel() {
-        const totalCovers = cdCovers.length;
-        const coversToShow = 3; // Número de capas visíveis
-        const offset = currentIndex % totalCovers;
-        const endIndex = (offset + coversToShow) % totalCovers;
-
-        carouselTrack.innerHTML = '';
-
-        if (endIndex > offset) {
-            for (let i = offset; i < endIndex; i++) {
-                const img = document.createElement('img');
-                img.src = cdCovers[i];
-                carouselTrack.appendChild(img);
-            }
-        } else {
-            for (let i = offset; i < totalCovers; i++) {
-                const img = document.createElement('img');
-                img.src = cdCovers[i];
-                carouselTrack.appendChild(img);
-            }
-            for (let i = 0; i < endIndex; i++) {
-                const img = document.createElement('img');
-                img.src = cdCovers[i];
-                carouselTrack.appendChild(img);
-            }
-        }
-
-        const transformValue = -currentIndex * ((100 + 10) / coversToShow);
-        carouselTrack.style.transform = `translateX(${transformValue}%)`;
-    }
-
-    prevButton.addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + cdCovers.length) % cdCovers.length;
-        updateCarousel();
-    });
-
-    nextButton.addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % cdCovers.length;
-        updateCarousel();
-    });
-
-    // Carregar as primeiras capas ao iniciar
-    updateCarousel();
-
+    // Inicialização do carrossel (Removida para simplificação)
     // Lógica do player de rádio
     const stationList = document.getElementById('station-list');
     const audioPlayer = document.getElementById('audio-player');
@@ -96,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Adiciona ícone de compartilhamento
         const shareIcon = document.createElement('i');
-        shareIcon.classList.add('fa', 'fa-share', 'share-icon'); // Alterado para 'fa-share'
+        shareIcon.classList.add('fa', 'fa-share', 'share-icon');
         shareIcon.addEventListener('click', (e) => {
             e.stopPropagation();
             openShareModal(station.url);
@@ -334,5 +279,22 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             alert('Por favor, preencha todos os campos.');
         }
+    });
+
+    // Adiciona as capas dos álbuns sem carrossel
+    const cdCoversContainer = document.querySelector('.carousel');
+    const cdCovers = [
+        'capa1.jpg',
+        'capa2.jpg',
+        'capa3.jpg'
+    ];
+
+    cdCovers.forEach(cdCover => {
+        const link = document.createElement('a');
+        link.href = `album.html?album=${cdCover.split('.')[0]}`;
+        const img = document.createElement('img');
+        img.src = cdCover;
+        link.appendChild(img);
+        cdCoversContainer.appendChild(link);
     });
 });
