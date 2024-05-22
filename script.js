@@ -1,301 +1,605 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Capas estáticas
-    const coversContainer = document.querySelector('.covers-container');
-    const cdCovers = [
-        'capa1.jpg', // URLs reais das capas
-        'capa2.jpg',
-        'capa3.jpg'
-    ];
-
-    cdCovers.forEach((cover, index) => {
-        const link = document.createElement('a');
-        link.href = `album.html?album=${cover.split('.')[0]}`;
-        const img = document.createElement('img');
-        img.src = cover;
-        img.alt = `Capa ${index + 1}`;
-        img.classList.add('cd-cover');
-        link.appendChild(img);
-        coversContainer.appendChild(link);
-    });
-
-    // Lógica do player de rádio
-    const stationList = document.getElementById('station-list');
-    const audioPlayer = document.getElementById('audio-player');
-    const volumeControl = document.getElementById('volume-control');
-    const statusMessage = document.createElement('div'); // Elemento para mensagens de status
-    statusMessage.id = 'status-message';
-    document.body.appendChild(statusMessage); // Adiciona o elemento de status ao corpo do documento
-    let currentPlaying = null;
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || []; // Carrega favoritos do localStorage
-
-    // **Aqui você substitui a definição das estações**
-    const stations = [
-        { name: 'Rock', url: 'https://stream.zeno.fm/qupiusi3w5puv' },
-        { name: 'Metal', url: 'https://stm39.stmsrv.com:8382/;?1716176724313' },
-        { name: 'Anos 80', url: 'https://stream-158.zeno.fm/3ywickpd3rkvv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiIzeXdpY2twZDNya3Z2IiwiaG9zdCI6InN0cmVhbS0xNTguemVuby5mbSIsInJ0dGwiOjUsImp0aSI6IjVNUzljTlY0VG02VWlBZFVvazBqcFEiLCJpYXQiOjE3MTYxNzg2ODcsImV4cCI6MTcxNjE3ODc0N30.Umsbo62LR5tbHfFHYA63nvU1B6z38tBmwLqOZ07L50c&1716178687366' }
-    ];
-
-    stations.forEach(station => {
-        const li = document.createElement('li');
-        li.textContent = station.name;
-
-        // Adiciona ícone de coração
-        const heartIcon = document.createElement('i');
-        heartIcon.classList.add('fa', 'fa-heart', 'heart-icon');
-        if (favorites.includes(station.url)) {
-            heartIcon.classList.add('favorited');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guitar Radio</title>
+    <!-- Link para a biblioteca Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #121212;
+            color: #ffffff;
+            overflow-x: hidden;
+            width: 100vw;
+            box-sizing: border-box;
         }
-        heartIcon.addEventListener('click', (e) => {
-            e.stopPropagation();
-            heartIcon.classList.toggle('favorited');
-            if (heartIcon.classList.contains('favorited')) {
-                favorites.push(station.url);
-            } else {
-                favorites = favorites.filter(fav => fav !== station.url);
+
+        header {
+            background-color: #1f1f1f;
+            color: #ffffff;
+            padding: 1em;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .menu-toggle {
+            position: absolute;
+            top: 1em;
+            left: 1em;
+            cursor: pointer;
+            font-size: 1.5em;
+            color: #ffffff;
+        }
+
+        .menu {
+            display: none;
+            flex-direction: column;
+            align-items: flex-start;
+            background-color: #ffffff;
+            color: #000000;
+            position: absolute;
+            top: 60px;
+            left: 10px;
+            width: 200px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            padding: 10px;
+            z-index: 1000; /* Garante que o menu fique acima de outros elementos */
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            text-decoration: none;
+            color: #000000;
+            width: 100%;
+        }
+
+        .menu a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .menu i {
+            margin-right: 10px;
+        }
+
+        .clock-icon {
+            cursor: pointer;
+            margin-left: 45px;
+            font-size: 1.2em;
+            color: #ffffff;
+        }
+
+        .logo {
+            max-width: 150px;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            font-family: Arial, sans-serif;
+            font-size: 1.2em;
+            margin-top: 0;
+        }
+
+        main {
+            padding: 1em;
+            max-width: 800px;
+            width: 100%;
+            background-color: #1f1f1f;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+            box-sizing: border-box;
+        }
+
+        h1, h2 {
+            margin: 0.5em 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        h2 {
+            font-size: 1.2em; /* Ajuste este valor conforme necessário */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        li {
+            background-color: #333333;
+            margin: 0.5em 0;
+            padding: 0.5em;
+            border: 1px solid #444444;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            position: relative;
+        }
+
+        li:hover {
+            background-color: #05d26d;
+        }
+
+        li.playing::before {
+            content: '▶';
+            color: #ffffff;
+            margin-right: 10px;
+            display: inline-block;
+        }
+
+        .heart-icon {
+            cursor: pointer;
+            margin-right: 10px;
+            font-size: 1.2em;
+            position: absolute;
+            right: 50px;
+            color: #121212; /* Preto quando não favoritado */
+            transition: color 0.3s;
+        }
+
+        .heart-icon.favorited {
+            color: #ffffff; /* Branco quando favoritado */
+        }
+
+        .share-icon {
+            cursor: pointer;
+            font-size: 1.2em;
+            position: absolute;
+            right: 10px;
+            color: #ffffff;
+            transition: color 0.3s;
+            margin-right: 10px;
+        }
+
+        .spectrum {
+            display: none;
+            gap: 2px;
+            position: absolute;
+            right: 90px;
+            margin-right: 95px;
+        }
+
+        .spectrum div {
+            width: 2px;
+            background: #ffffff;
+            animation: bar-animation 0.5s infinite;
+            animation-timing-function: linear;
+        }
+
+        .spectrum div:nth-child(1) {
+            height: 10px;
+            animation-delay: 0s;
+        }
+
+        .spectrum div:nth-child(2) {
+            height: 14px;
+            animation-delay: 0.1s;
+        }
+
+        .spectrum div:nth-child(3) {
+            height: 8px;
+            animation-delay: 0.2s;
+        }
+
+        .spectrum div:nth-child(4) {
+            height: 16px;
+            animation-delay: 0.3s;
+        }
+
+        .spectrum div:nth-child(5) {
+            height: 12px;
+            animation-delay: 0.4s;
+        }
+
+        @keyframes bar-animation {
+            0%, 100% {
+                transform: scaleY(1);
             }
-            localStorage.setItem('favorites', JSON.stringify(favorites));
-        });
-        li.appendChild(heartIcon);
-
-        // Adiciona ícone de compartilhamento
-        const shareIcon = document.createElement('i');
-        shareIcon.classList.add('fa', 'fa-share', 'share-icon'); // Alterado para 'fa-share'
-        shareIcon.addEventListener('click', (e) => {
-            e.stopPropagation();
-            openShareModal(station.url);
-        });
-        li.appendChild(shareIcon);
-
-        // Adiciona barras do espectro de áudio
-        const spectrum = document.createElement('div');
-        spectrum.classList.add('spectrum');
-        for (let i = 0; i < 5; i++) {
-            const bar = document.createElement('div');
-            spectrum.appendChild(bar);
+            50% {
+                transform: scaleY(0.5);
+            }
         }
-        li.appendChild(spectrum);
 
-        li.addEventListener('click', () => {
-            console.log(`Playing: ${station.name} - URL: ${station.url}`);
-            audioPlayer.src = station.url;
-            statusMessage.textContent = 'Carregando...'; // Mensagem de carregamento
-            statusMessage.classList.add('show'); // Mostrar mensagem de status
+        /* Estilos para o modal */
+        .modal {
+            display: none; /* Oculto por padrão */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #1f1f1f;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 300px;
+            color: #ffffff;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #ffffff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .timer-button {
+            background-color: #05d26d;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .timer-button:hover {
+            background-color: #04b65c;
+        }
+
+        .share-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .share-options button {
+            background-color: #05d26d;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .share-options button:hover {
+            background-color: #04b65c;
+        }
+
+        #audio-player {
+            width: calc(100% - 40px);
+            margin: 20px;
+            box-sizing: border-box;
+        }
+
+        #stations {
+            margin-bottom: 20px;
+            width: calc(100%);
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        #audio-visualizer {
+            width: 100%;
+            height: 100px;
+            background-color: #000;
+        }
+
+        #volume-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        #volume-control {
+            width: 100%;
+            margin-left: 10px;
+            background-color: #333;
+            border: none;
+            border-radius: 5px;
+            height: 8px;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        #volume-control::-webkit-slider-thumb {
+            width: 16px;
+            height: 16px;
+            background: #05d26d;
+            border-radius: 50%;
+            cursor: pointer;
+            appearance: none;
+        }
+
+        #volume-control::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: #05d26d;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        li.playing .spectrum {
+            display: flex;
+            gap: 2px;
+            position: absolute;
+            right: 10px;
+        }
+
+        li.playing .spectrum div {
+            width: 2px;
+            background: #ffffff;
+            animation: bar-animation 0.5s infinite;
+            animation-timing-function: linear;
+        }
+
+        li.playing .spectrum div:nth-child(1) {
+            height: 10px;
+            animation-delay: 0s;
+        }
+
+        li.playing .spectrum div:nth-child(2) {
+            height: 14px;
+            animation-delay: 0.1s;
+        }
+
+        li.playing .spectrum div:nth-child(3) {
+            height: 8px;
+            animation-delay: 0.2s;
+        }
+
+        li.playing .spectrum div:nth-child(4) {
+            height: 16px;
+            animation-delay: 0.3s;
+        }
+
+        li.playing .spectrum div:nth-child(5) {
+            height: 12px;
+            animation-delay: 0.4s;
+        }
+
+        @keyframes bar-animation {
+            0%, 100% {
+                transform: scaleY(1);
+            }
+            50% {
+                transform: scaleY(0.5);
+            }
+        }
+
+        .song-info {
+            display: none;
+            padding: 10px;
+            background-color: #2a2a2a;
+            border-top: 1px solid #444;
+            border-radius: 0 0 4px 4px;
+            box-sizing: border-box;
+            transition: max-height 0.3s ease-out;
+        }
         
-            audioPlayer.play().then(() => {
-                statusMessage.textContent = ''; // Limpa a mensagem de carregamento
-                statusMessage.classList.remove('show'); // Esconde a mensagem de status
-            }).catch(error => {
-                console.error('Playback failed', error);
-                statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.'; // Mensagem de erro
-            });
+        .song-info p {
+            margin: 0;
+        }
         
-            audioPlayer.oncanplay = () => {
-                statusMessage.textContent = ''; // Limpa a mensagem de carregamento
-                statusMessage.classList.remove('show'); // Esconde a mensagem de status
-            };
+        .accordion-active + .song-info {
+            display: block;
+        }
+
+        /* Estilos para o modal de registro */
+        .modal-register {
+            display: none;
+            position: fixed;
+            z-index: 1001; /* Ajuste para garantir que o modal fique acima do menu */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content-register {
+            background-color: #1f1f1f;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            color: #ffffff;
+            border-radius: 10px;
+            text-align: left; /* Garante que os labels e inputs estejam alinhados à esquerda */
+        }
+
+        .close-register {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-register:hover,
+        .close-register:focus {
+            color: #ffffff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .register-button, .login-button {
+            background-color: #05d26d;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .register-button:hover, .login-button:hover {
+            background-color: #04b65c;
+        }
+
+        .modal-content-register label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .modal-content-register input {
+            width: calc(100% - 20px); /* Garante 10px de margem de ambos os lados */
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            margin-right: 10px; /* Adiciona a margem direita de 10px */
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #2a2a2a;
+            color: #ffffff;
+        }
+
+        /* Estilos para o destaque de capas */
+        .highlights {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
         
-            audioPlayer.onerror = () => {
-                statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.'; // Mensagem de erro
-            };
-
-            if (currentPlaying) {
-                currentPlaying.classList.remove('playing'); // Remove a classe 'playing' da estação anterior
-            }
-            li.classList.add('playing'); // Adiciona a classe 'playing' à estação atual
-            currentPlaying = li; // Atualiza a estação atual
-        });
-
-        stationList.appendChild(li);
-    });
-
-    // Controle de volume
-    volumeControl.addEventListener('input', (e) => {
-        audioPlayer.volume = e.target.value;
-        console.log(`Volume: ${audioPlayer.volume}`);
-    });
-
-    // Lógica do Temporizador
-    const clockIcon = document.getElementById('clock-icon');
-    const timerModal = document.getElementById('timerModal');
-    const closeModal = document.getElementById('closeModal');
-    const setTimerButton = document.getElementById('setTimer');
-    const timerInput = document.getElementById('timer');
-
-    clockIcon.addEventListener('click', () => {
-        timerModal.style.display = 'block';
-    });
-
-    closeModal.addEventListener('click', () => {
-        timerModal.style.display = 'none';
-    });
-
-    window.addEventListener('click', (event) => {
-        if (event.target === timerModal) {
-            timerModal.style.display = 'none';
-        }
-    });
-
-    setTimerButton.addEventListener('click', () => {
-        const minutes = parseInt(timerInput.value, 10);
-        if (isNaN(minutes) || minutes <= 0) {
-            alert('Por favor, insira um valor válido de minutos.');
-            return;
+        .highlights img {
+            width: 30%;
+            border-radius: 8px;
         }
 
-        const milliseconds = minutes * 60 * 1000;
-        setTimeout(() => {
-            audioPlayer.pause();
-            audioPlayer.currentTime = 0; // Reinicia o áudio
-            alert('O temporizador desligou a rádio.');
-        }, milliseconds);
-
-        timerModal.style.display = 'none';
-        alert(`Temporizador definido para ${minutes} minutos.`);
-    });
-
-    // Lógica do Compartilhamento
-    const shareModal = document.getElementById('shareModal');
-    const closeShareModal = document.getElementById('closeShareModal');
-    const copyLinkButton = document.getElementById('copyLink');
-    const shareFacebookButton = document.getElementById('shareFacebook');
-    const shareTwitterButton = document.getElementById('shareTwitter');
-    let currentShareUrl = '';
-
-    closeShareModal.addEventListener('click', () => {
-        shareModal.style.display = 'none';
-    });
-
-    window.addEventListener('click', (event) => {
-        if (event.target === shareModal) {
-            shareModal.style.display = 'none';
+        #player {
+            position: relative;
+            top: -20px; /* Ajuste este valor conforme necessário */
         }
-    });
+    </style>
+</head>
+<body>
+    <header>
+        <i class="fas fa-bars menu-toggle"></i>
+        <img src="logo.png" alt="Guitar Radio Logo" class="logo">
+        <p class="tagline">Músicas para quem curte guitarra</p>
+        <nav class="menu">
+            <a href="#" id="login-link"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <a href="#" id="register-link"><i class="fas fa-user"></i> Registro</a>
+            <a href="https://guitarshred.com.br" target="_blank"><i class="fas fa-newspaper"></i> Notícias</a>
+            <a href="https://guitarshredacademy.com.br" target="_blank"><i class="fas fa-guitar"></i> Cursos de Guitarra</a>
+            <a href="https://www.youtube.com/guitarshredofficial" target="_blank"><i class="fab fa-youtube"></i> Canal do YouTube</a>
+            <a href="https://www.instagram.com/portalguitarshred" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+        </nav>
+    </header>
+    <main>
+        <section id="highlights">
+            <h2>Destaques</h2>
+            <div class="highlights">
+                <a href="album.html?album=capa1"><img src="capa1.jpg" alt="Capa 1"></a>
+                <a href="album.html?album=capa2"><img src="capa2.jpg" alt="Capa 2"></a>
+                <a href="album.html?album=capa3"><img src="capa3.jpg" alt="Capa 3"></a>
+            </div>
+        </section>
+        <section id="stations">
+            <h2>Escolha a estação
+                <span class="clock-icon" id="clock-icon">&#128339;</span> <!-- Ícone de relógio -->
+            </h2>
+            <ul id="station-list">
+                <!-- Stations will be dynamically added here -->
+            </ul>
+        </section>
+        <section id="player">
+            <audio id="audio-player" controls>
+                Your browser does not support the audio element.
+            </audio>
+            <div id="volume-container">
+                <label for="volume-control">Volume:</label>
+                <input type="range" id="volume-control" min="0" max="1" step="0.01" value="1">
+            </div>
+        </section>
+    </main>
 
-    function openShareModal(url) {
-        currentShareUrl = url;
-        shareModal.style.display = 'block';
-    }
+    <!-- Modal para a programação do temporizador -->
+    <div id="timerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h3>Hora de dormir</h3>
+            <label for="timer">Desligar após (minutos):</label>
+            <input type="number" id="timer" min="1" max="120" value="30">
+            <button class="timer-button" id="setTimer">Definir o tempo</button>
+        </div>
+    </div>
 
-    copyLinkButton.addEventListener('click', () => {
-        navigator.clipboard.writeText(currentShareUrl).then(() => {
-            alert('Link copiado para a área de transferência.');
-        }).catch(err => {
-            console.error('Erro ao copiar o link: ', err);
-        });
-    });
+    <!-- Modal para opções de compartilhamento -->
+    <div id="shareModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeShareModal">&times;</span>
+            <h3>Compartilhar estação</h3>
+            <div class="share-options">
+                <button id="copyLink">Copiar link</button>
+                <button id="shareFacebook">Compartilhar no Facebook</button>
+                <button id="shareTwitter">Compartilhar no Twitter</button>
+            </div>
+        </div>
+    </div>
 
-    shareFacebookButton.addEventListener('click', () => {
-        const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentShareUrl)}`;
-        window.open(facebookUrl, '_blank');
-    });
+    <!-- Modal para login de usuário -->
+    <div id="loginModal" class="modal-register">
+        <div class="modal-content-register">
+            <span class="close-register" id="closeLoginModal">&times;</span>
+            <h3>Faça seu login</h3>
+            <label for="login-email">Email:</label>
+            <input type="email" id="login-email" required>
+            <label for="login-password">Senha:</label>
+            <input type="password" id="login-password" required>
+            <button class="login-button" id="loginButton">Login</button>
+        </div>
+    </div>
 
-    shareTwitterButton.addEventListener('click', () => {
-        const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentShareUrl)}`;
-        window.open(twitterUrl, '_blank');
-    });
+    <!-- Modal para registro de usuário -->
+    <div id="registerModal" class="modal-register">
+        <div class="modal-content-register">
+            <span class="close-register" id="closeRegisterModal">&times;</span>
+            <h3>Registro de Usuário</h3>
+            <label for="username">Nome de Usuário:</label>
+            <input type="text" id="username" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" required>
+            <button class="register-button" id="registerButton">Registrar</button>
+        </div>
+    </div>
 
-    // Lógica do Menu Sanduíche
-    const menuToggle = document.querySelector('.menu-toggle');
-    const menu = document.querySelector('.menu');
-    
-    menuToggle.addEventListener('click', () => {
-        if (menu.style.display === 'none' || menu.style.display === '') {
-            menu.style.display = 'flex';
-        } else {
-            menu.style.display = 'none';
-        }
-    });
-
-    // Lógica do Login de Usuário
-    const loginLink = document.getElementById('login-link');
-    const loginModal = document.getElementById('loginModal');
-    const closeLoginModal = document.getElementById('closeLoginModal');
-    const loginButton = document.getElementById('loginButton');
-
-    loginLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        loginModal.style.display = 'block';
-    });
-
-    closeLoginModal.addEventListener('click', () => {
-        loginModal.style.display = 'none';
-    });
-
-    window.addEventListener('click', (event) => {
-        if (event.target === loginModal) {
-            loginModal.style.display = 'none';
-        }
-    });
-
-    loginButton.addEventListener('click', async () => {
-        const email = document.getElementById('login-email').value;
-        const password = document.getElementById('login-password').value;
-
-        if (email && password) {
-            const response = await fetch('http://localhost:3000/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, password })
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                alert('Login realizado com sucesso!');
-                loginModal.style.display = 'none';
-                // Aqui você pode salvar o token JWT ou outra informação de autenticação
-            } else {
-                alert('Erro ao realizar login. Verifique suas credenciais.');
-            }
-        } else {
-            alert('Por favor, preencha todos os campos.');
-        }
-    });
-
-    // Lógica do Registro de Usuário
-    const registerLink = document.getElementById('register-link');
-    const registerModal = document.getElementById('registerModal');
-    const closeRegisterModal = document.getElementById('closeRegisterModal');
-    const registerButton = document.getElementById('registerButton');
-    
-    registerLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        registerModal.style.display = 'block';
-    });
-
-    closeRegisterModal.addEventListener('click', () => {
-        registerModal.style.display = 'none';
-    });
-
-    window.addEventListener('click', (event) => {
-        if (event.target === registerModal) {
-            registerModal.style.display = 'none';
-        }
-    });
-
-    registerButton.addEventListener('click', async () => {
-        const username = document.getElementById('username').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-
-        if (username && email && password) {
-            const response = await fetch('http://localhost:3000/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, email, password })
-            });
-
-            if (response.ok) {
-                alert('Usuário registrado com sucesso!');
-                registerModal.style.display = 'none';
-            } else {
-                alert('Erro ao registrar usuário. Tente novamente.');
-            }
-        } else {
-            alert('Por favor, preencha todos os campos.');
-        }
-    });
-});
+    <script src="script.js"></script>
+</body>
+</html>
