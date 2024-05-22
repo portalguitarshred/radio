@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateCarousel() {
         const offset = currentIndex % totalCovers;
-        const transformValue = -offset * ((100 + 10) / coversToShow);
+        const transformValue = -offset * (100 / coversToShow);
         carouselTrack.style.transform = `translateX(${transformValue}%)`;
     }
 
@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentIndex = (currentIndex - 1 + totalCovers) % totalCovers;
         updateCarousel();
     });
+    
     // Lógica do player de rádio
     const stationList = document.getElementById('station-list');
     const audioPlayer = document.getElementById('audio-player');
