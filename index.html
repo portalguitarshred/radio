@@ -131,6 +131,7 @@
             align-items: center;
             justify-content: flex-start;
             position: relative;
+            width: 100%;
         }
 
         li:hover {
@@ -299,8 +300,17 @@
 
         #stations {
             margin-bottom: 20px;
-            width: calc(100%);
+            width: 100%;
             padding: 0 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #station-list {
+            width: 100%;
+            max-width: 800px;
             box-sizing: border-box;
         }
 
