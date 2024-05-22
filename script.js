@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Adiciona ícone de compartilhamento
         const shareIcon = document.createElement('i');
-        shareIcon.classList.add('fa', 'fa-share-alt', 'share-icon');
+        shareIcon.classList.add('fa', 'fa fa-share', 'share-icon');
         shareIcon.addEventListener('click', (e) => {
             e.stopPropagation();
             openShareModal(station.url);
