@@ -12,81 +12,34 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     function updateCarousel() {
-    const totalCovers = cdCovers.length;
-    const coversToShow = 3; // Número de capas visíveis
-    const offset = currentIndex % totalCovers;
-    const endIndex = (offset + coversToShow) % totalCovers;
+        const totalCovers = cdCovers.length;
+        const coversToShow = 3; // Número de capas visíveis
+        const offset = currentIndex % totalCovers;
+        const endIndex = (offset + coversToShow) % totalCovers;
 
-    carouselTrack.innerHTML = '';
+        carouselTrack.innerHTML = '';
 
-    if (endIndex > offset) {
-        for (let i = offset; i < endIndex; i++) {
-            const img = document.createElement('img');
-            img.src = cdCovers[i];
-            img.style.width = 'calc((100% - 40px) / 3)'; // Garantir que o estilo seja aplicado
-            img.style.margin = '0 5px';
-            img.style.borderRadius = '8px';
-            const link = document.createElement('a');
-            link.href = '#';
-            link.classList.add('album-link');
-            link.appendChild(img);
-            carouselTrack.appendChild(link);
+        if (endIndex > offset) {
+            for (let i = offset; i < endIndex; i++) {
+                const img = document.createElement('img');
+                img.src = cdCovers[i];
+                carouselTrack.appendChild(img);
+            }
+        } else {
+            for (let i = offset; i < totalCovers; i++) {
+                const img = document.createElement('img');
+                img.src = cdCovers[i];
+                carouselTrack.appendChild(img);
+            }
+            for (let i = 0; i < endIndex; i++) {
+                const img = document.createElement('img');
+                img.src = cdCovers[i];
+                carouselTrack.appendChild(img);
+            }
         }
-    } else {
-        for (let i = offset; i < totalCovers; i++) {
-            const img = document.createElement('img');
-            img.src = cdCovers[i];
-            img.style.width = 'calc((100% - 40px) / 3)';
-            img.style.margin = '0 5px';
-            img.style.borderRadius = '8px';
-            const link = document.createElement('a');
-            link.href = '#';
-            link.classList.add('album-link');
-            link.appendChild(img);
-            carouselTrack.appendChild(link);
-        }
-        for (let i = 0; i < endIndex; i++) {
-            const img = document.createElement('img');
-            img.src = cdCovers[i];
-            img.style.width = 'calc((100% - 40px) / 3)';
-            img.style.margin = '0 5px';
-            img.style.borderRadius = '8px';
-            const link = document.createElement('a');
-            link.href = '#';
-            link.classList.add('album-link');
-            link.appendChild(img);
-            carouselTrack.appendChild(link);
-        }
-    }
 
-    const transformValue = -currentIndex * ((100 + 10) / coversToShow);
-    carouselTrack.style.transform = `translateX(${transformValue}%)`;
-
-
-        document.querySelectorAll('.album-link').forEach(link => {
-            link.addEventListener('click', (event) => {
-                event.preventDefault();
-                const img = link.querySelector('img');
-                const albumData = albums[img.src.split('/').pop()];
-                if (albumData) {
-                    document.getElementById('album-cover').src = img.src;
-                    document.getElementById('album-name').textContent = albumData.album;
-                    document.getElementById('band-name').textContent = albumData.band;
-                    const albumTrackList = document.getElementById('album-track-list');
-                    albumTrackList.innerHTML = '';
-                    albumData.tracks.forEach(track => {
-                        const li = document.createElement('li');
-                        li.textContent = track.name;
-                        li.addEventListener('click', () => {
-                            document.getElementById('album-audio-player').src = track.url;
-                            document.getElementById('album-audio-player').play();
-                        });
-                        albumTrackList.appendChild(li);
-                    });
-                    document.getElementById('album-details').style.display = 'block';
-                }
-            });
-        });
+        const transformValue = -currentIndex * ((100 + 10) / coversToShow);
+        carouselTrack.style.transform = `translateX(${transformValue}%)`;
     }
 
     prevButton.addEventListener('click', () => {
@@ -112,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPlaying = null;
     let favorites = JSON.parse(localStorage.getItem('favorites')) || []; // Carrega favoritos do localStorage
 
+    // **Aqui você substitui a definição das estações**
     const stations = [
         { name: 'Rock', url: 'https://stream.zeno.fm/qupiusi3w5puv' },
         { name: 'Metal', url: 'https://stm39.stmsrv.com:8382/;?1716176724313' },
@@ -142,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Adiciona ícone de compartilhamento
         const shareIcon = document.createElement('i');
-        shareIcon.classList.add('fa', 'fa-share', 'share-icon');
+        shareIcon.classList.add('fa', 'fa-share', 'share-icon'); // Alterado para 'fa-share'
         shareIcon.addEventListener('click', (e) => {
             e.stopPropagation();
             openShareModal(station.url);
@@ -196,7 +150,6 @@ document.addEventListener('DOMContentLoaded', () => {
         audioPlayer.volume = e.target.value;
         console.log(`Volume: ${audioPlayer.volume}`);
     });
-});
 
     // Lógica do Temporizador
     const clockIcon = document.getElementById('clock-icon');
@@ -382,82 +335,4 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Por favor, preencha todos os campos.');
         }
     });
-
-    // Lógica do álbum
-    const albums = {
-        'capa1.jpg': {
-            band: 'Nome da Banda 1',
-            album: 'Nome do Álbum 1',
-            tracks: [
-                { name: 'Música 1', url: 'url-da-musica-1.mp3' },
-                { name: 'Música 2', url: 'url-da-musica-2.mp3' },
-                { name: 'Música 3', url: 'url-da-musica-3.mp3' }
-            ]
-        },
-        'capa2.jpg': {
-            band: 'Nome da Banda 2',
-            album: 'Nome do Álbum 2',
-            tracks: [
-                { name: 'Música A', url: 'url-da-musica-A.mp3' },
-                { name: 'Música B', url: 'url-da-musica-B.mp3' },
-                { name: 'Música C', url: 'url-da-musica-C.mp3' }
-            ]
-        },
-        'capa3.jpg': {
-            band: 'Nome da Banda 3',
-            album: 'Nome do Álbum 3',
-            tracks: [
-                { name: 'Música X', url: 'url-da-musica-X.mp3' },
-                { name: 'Música Y', url: 'url-da-musica-Y.mp3' },
-                { name: 'Música Z', url: 'url-da-musica-Z.mp3' }
-            ]
-        }
-        // Adicione outros álbuns conforme necessário
-    };
-
-    document.querySelectorAll('.album-link').forEach(link => {
-        link.addEventListener('click', (event) => {
-            event.preventDefault();
-            const img = link.querySelector('img');
-            const albumData = albums[img.src.split('/').pop()];
-            if (albumData) {
-                document.getElementById('album-cover').src = img.src;
-                document.getElementById('album-name').textContent = albumData.album;
-                document.getElementById('band-name').textContent = albumData.band;
-                const albumTrackList = document.getElementById('album-track-list');
-                albumTrackList.innerHTML = '';
-                albumData.tracks.forEach(track => {
-                    const li = document.createElement('li');
-                    li.textContent = track.name;
-                    li.addEventListener('click', () => {
-                        document.getElementById('album-audio-player').src = track.url;
-                        document.getElementById('album-audio-player').play();
-                    });
-                    albumTrackList.appendChild(li);
-                });
-                document.getElementById('album-details').style.display = 'block';
-            }
-        });
-    });
 });
-
-function showAlbumDetails(albumId) {
-    const albumData = albums[`capa${albumId}.jpg`];
-    if (albumData) {
-        document.getElementById('album-cover').src = `capa${albumId}.jpg`;
-        document.getElementById('album-name').textContent = albumData.album;
-        document.getElementById('band-name').textContent = albumData.band;
-        const albumTrackList = document.getElementById('album-track-list');
-        albumTrackList.innerHTML = '';
-        albumData.tracks.forEach(track => {
-            const li = document.createElement('li');
-            li.textContent = track.name;
-            li.addEventListener('click', () => {
-                document.getElementById('album-audio-player').src = track.url;
-                document.getElementById('album-audio-player').play();
-            });
-            albumTrackList.appendChild(li);
-        });
-        document.getElementById('album-details').style.display = 'block';
-    }
-}
