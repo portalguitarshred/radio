@@ -1,10 +1,10 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const carouselTrack = document.querySelector('.carousel-track');
-    const prevButton = document.getElementById('carousel-prev');
-    const nextButton = document.getElementById('carousel-next');
+ddocument.addEventListener('DOMContentLoaded', () => {
+    const carouselTrack = document.querySelector('.custom-carousel-track');
+    const prevButton = document.getElementById('custom-carousel-prev');
+    const nextButton = document.getElementById('custom-carousel-next');
     let currentIndex = 0;
 
-    const totalCovers = document.querySelectorAll('.carousel-track a').length;
+    const totalCovers = document.querySelectorAll('.custom-carousel-track a').length;
     const coversToShow = 3;
 
     function updateCarousel() {
