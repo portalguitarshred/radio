@@ -12,46 +12,56 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     function updateCarousel() {
-        const totalCovers = cdCovers.length;
-        const coversToShow = 3; // Número de capas visíveis
-        const offset = currentIndex % totalCovers;
-        const endIndex = (offset + coversToShow) % totalCovers;
+    const totalCovers = cdCovers.length;
+    const coversToShow = 3; // Número de capas visíveis
+    const offset = currentIndex % totalCovers;
+    const endIndex = (offset + coversToShow) % totalCovers;
 
-        carouselTrack.innerHTML = '';
+    carouselTrack.innerHTML = '';
 
-        if (endIndex > offset) {
-            for (let i = offset; i < endIndex; i++) {
-                const img = document.createElement('img');
-                img.src = cdCovers[i];
-                const link = document.createElement('a');
-                link.href = '#';
-                link.classList.add('album-link');
-                link.appendChild(img);
-                carouselTrack.appendChild(link);
-            }
-        } else {
-            for (let i = offset; i < totalCovers; i++) {
-                const img = document.createElement('img');
-                img.src = cdCovers[i];
-                const link = document.createElement('a');
-                link.href = '#';
-                link.classList.add('album-link');
-                link.appendChild(img);
-                carouselTrack.appendChild(link);
-            }
-            for (let i = 0; i < endIndex; i++) {
-                const img = document.createElement('img');
-                img.src = cdCovers[i];
-                const link = document.createElement('a');
-                link.href = '#';
-                link.classList.add('album-link');
-                link.appendChild(img);
-                carouselTrack.appendChild(link);
-            }
+    if (endIndex > offset) {
+        for (let i = offset; i < endIndex; i++) {
+            const img = document.createElement('img');
+            img.src = cdCovers[i];
+            img.style.width = 'calc((100% - 40px) / 3)'; // Garantir que o estilo seja aplicado
+            img.style.margin = '0 5px';
+            img.style.borderRadius = '8px';
+            const link = document.createElement('a');
+            link.href = '#';
+            link.classList.add('album-link');
+            link.appendChild(img);
+            carouselTrack.appendChild(link);
         }
+    } else {
+        for (let i = offset; i < totalCovers; i++) {
+            const img = document.createElement('img');
+            img.src = cdCovers[i];
+            img.style.width = 'calc((100% - 40px) / 3)';
+            img.style.margin = '0 5px';
+            img.style.borderRadius = '8px';
+            const link = document.createElement('a');
+            link.href = '#';
+            link.classList.add('album-link');
+            link.appendChild(img);
+            carouselTrack.appendChild(link);
+        }
+        for (let i = 0; i < endIndex; i++) {
+            const img = document.createElement('img');
+            img.src = cdCovers[i];
+            img.style.width = 'calc((100% - 40px) / 3)';
+            img.style.margin = '0 5px';
+            img.style.borderRadius = '8px';
+            const link = document.createElement('a');
+            link.href = '#';
+            link.classList.add('album-link');
+            link.appendChild(img);
+            carouselTrack.appendChild(link);
+        }
+    }
 
-        const transformValue = -currentIndex * ((100 + 10) / coversToShow);
-        carouselTrack.style.transform = `translateX(${transformValue}%)`;
+    const transformValue = -currentIndex * ((100 + 10) / coversToShow);
+    carouselTrack.style.transform = `translateX(${transformValue}%)`;
+}
 
         document.querySelectorAll('.album-link').forEach(link => {
             link.addEventListener('click', (event) => {
