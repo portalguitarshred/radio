@@ -1,12 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicialização do carrossel
     const carouselTrack = document.querySelector('.carousel-track');
     const prevButton = document.getElementById('carousel-prev');
     const nextButton = document.getElementById('carousel-next');
     let currentIndex = 0;
 
     const totalCovers = document.querySelectorAll('.carousel-track a').length;
-    const coversToShow = 3; // Número de capas visíveis
+    const coversToShow = 3;
 
     function updateCarousel() {
         const offset = currentIndex % totalCovers;
@@ -16,6 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     prevButton.addEventListener('click', () => {
         currentIndex = (currentIndex - 1 + totalCovers) % totalCovers;
+        updateCarousel();
+    });
+
+    nextButton.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % totalCovers;
         updateCarousel();
     });
     
