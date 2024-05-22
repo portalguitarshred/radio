@@ -91,102 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
         stationList.appendChild(li);
     });
 
-    // Funções adicionais como temporizador, compartilhamento, login, registro, etc., se houverem
-    // Adicione aqui o restante do código das outras funcionalidades, se necessário.
-});
-
-
-
-    // Lógica do player de rádio
-    const stationList = document.getElementById('station-list');
-    const audioPlayer = document.getElementById('audio-player');
-    const volumeControl = document.getElementById('volume-control');
-    const statusMessage = document.createElement('div'); // Elemento para mensagens de status
-    statusMessage.id = 'status-message';
-    document.body.appendChild(statusMessage); // Adiciona o elemento de status ao corpo do documento
-    let currentPlaying = null;
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || []; // Carrega favoritos do localStorage
-
-    // **Aqui você substitui a definição das estações**
-    const stations = [
-        { name: 'Rock', url: 'https://stream.zeno.fm/qupiusi3w5puv' },
-        { name: 'Metal', url: 'https://stm39.stmsrv.com:8382/;?1716176724313' },
-        { name: 'Anos 80', url: 'https://stream-158.zeno.fm/3ywickpd3rkvv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiIzeXdpY2twZDNya3Z2IiwiaG9zdCI6InN0cmVhbS0xNTguemVuby5mbSIsInJ0dGwiOjUsImp0aSI6IjVNUzljTlY0VG02VWlBZFVvazBqcFEiLCJpYXQiOjE3MTYxNzg2ODcsImV4cCI6MTcxNjE3ODc0N30.Umsbo62LR5tbHfFHYA63nvU1B6z38tBmwLqOZ07L50c&1716178687366' }
-    ];
-
-    stations.forEach(station => {
-        const li = document.createElement('li');
-        li.textContent = station.name;
-
-        // Adiciona ícone de coração
-        const heartIcon = document.createElement('i');
-        heartIcon.classList.add('fa', 'fa-heart', 'heart-icon');
-        if (favorites.includes(station.url)) {
-            heartIcon.classList.add('favorited');
-        }
-        heartIcon.addEventListener('click', (e) => {
-            e.stopPropagation();
-            heartIcon.classList.toggle('favorited');
-            if (heartIcon.classList.contains('favorited')) {
-                favorites.push(station.url);
-            } else {
-                favorites = favorites.filter(fav => fav !== station.url);
-            }
-            localStorage.setItem('favorites', JSON.stringify(favorites));
-        });
-        li.appendChild(heartIcon);
-
-        // Adiciona ícone de compartilhamento
-        const shareIcon = document.createElement('i');
-        shareIcon.classList.add('fa', 'fa-share', 'share-icon'); // Alterado para 'fa-share'
-        shareIcon.addEventListener('click', (e) => {
-            e.stopPropagation();
-            openShareModal(station.url);
-        });
-        li.appendChild(shareIcon);
-
-        // Adiciona barras do espectro de áudio
-        const spectrum = document.createElement('div');
-        spectrum.classList.add('spectrum');
-        for (let i = 0; i < 5; i++) {
-            const bar = document.createElement('div');
-            spectrum.appendChild(bar);
-        }
-        li.appendChild(spectrum);
-
-        li.addEventListener('click', () => {
-            console.log(`Playing: ${station.name} - URL: ${station.url}`);
-            audioPlayer.src = station.url;
-            statusMessage.textContent = 'Carregando...'; // Mensagem de carregamento
-            statusMessage.classList.add('show'); // Mostrar mensagem de status
-        
-            audioPlayer.play().then(() => {
-                statusMessage.textContent = ''; // Limpa a mensagem de carregamento
-                statusMessage.classList.remove('show'); // Esconde a mensagem de status
-            }).catch(error => {
-                console.error('Playback failed', error);
-                statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.'; // Mensagem de erro
-            });
-        
-            audioPlayer.oncanplay = () => {
-                statusMessage.textContent = ''; // Limpa a mensagem de carregamento
-                statusMessage.classList.remove('show'); // Esconde a mensagem de status
-            };
-        
-            audioPlayer.onerror = () => {
-                statusMessage.textContent = 'Erro ao carregar a estação. Tente novamente.'; // Mensagem de erro
-            };
-
-            if (currentPlaying) {
-                currentPlaying.classList.remove('playing'); // Remove a classe 'playing' da estação anterior
-            }
-            li.classList.add('playing'); // Adiciona a classe 'playing' à estação atual
-            currentPlaying = li; // Atualiza a estação atual
-        });
-
-        stationList.appendChild(li);
-    });
-
     // Controle de volume
     volumeControl.addEventListener('input', (e) => {
         audioPlayer.volume = e.target.value;
@@ -376,5 +280,19 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             alert('Por favor, preencha todos os campos.');
         }
+    });
+
+    // Lógica do carrossel
+    const carouselTrack = document.querySelector('.carousel-track');
+    const cdCovers = [
+        'capa1.jpg', // URLs reais das capas
+        'capa2.jpg',
+        'capa3.jpg'
+    ];
+
+    cdCovers.forEach(src => {
+        const img = document.createElement('img');
+        img.src = src;
+        carouselTrack.appendChild(img);
     });
 });
