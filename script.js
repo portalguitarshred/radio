@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicialização do carrossel
+    // Código 1: Inicialização do Carrossel
     const carouselTrack = document.querySelector('.carousel-track');
     const prevButton = document.getElementById('carousel-prev');
     const nextButton = document.getElementById('carousel-next');
@@ -41,6 +41,68 @@ document.addEventListener('DOMContentLoaded', () => {
         const transformValue = -currentIndex * ((100 + 10) / coversToShow);
         carouselTrack.style.transform = `translateX(${transformValue}%)`;
     }
+
+    prevButton.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + cdCovers.length) % cdCovers.length;
+        updateCarousel();
+    });
+
+    nextButton.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % cdCovers.length;
+        updateCarousel();
+    });
+
+    updateCarousel();
+
+    // Código 2: Detalhes do Álbum
+    const albumDetails = document.getElementById('album-details');
+    const albumCoverImg = document.getElementById('album-cover-img');
+    const albumName = document.getElementById('album-name');
+    const artistName = document.getElementById('artist-name');
+    const trackList = document.getElementById('track-list');
+    const albumAudioPlayer = document.getElementById('album-audio-player');
+
+    const albumData = {
+        cover: 'capa1.jpg',
+        name: 'Nome do Álbum',
+        artist: 'Nome do Artista',
+        tracks: [
+            { title: 'Música 1', url: 'url_da_musica1.mp3' },
+            { title: 'Música 2', url: 'url_da_musica2.mp3' },
+            { title: 'Música 3', url: 'url_da_musica3.mp3' }
+        ]
+    };
+
+    function updateAlbumDetails(album) {
+        albumCoverImg.src = album.cover;
+        albumName.textContent = album.name;
+        artistName.textContent = album.artist;
+        trackList.innerHTML = '';
+
+        album.tracks.forEach(track => {
+            const li = document.createElement('li');
+            li.textContent = track.title;
+            li.addEventListener('click', () => {
+                albumAudioPlayer.src = track.url;
+                albumAudioPlayer.play();
+            });
+            trackList.appendChild(li);
+        });
+
+        albumDetails.style.display = 'flex';
+    }
+
+    const albumLinks = document.querySelectorAll('.album-link');
+    albumLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const albumId = link.getAttribute('data-album');
+            if (albumId === 'capa1') {
+                updateAlbumDetails(albumData);
+            }
+        });
+    });
+});
 
     prevButton.addEventListener('click', () => {
         currentIndex = (currentIndex - 1 + cdCovers.length) % cdCovers.length;
@@ -335,54 +397,4 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Por favor, preencha todos os campos.');
         }
     });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Elementos da nova área de detalhes do álbum
-    const albumDetails = document.getElementById('album-details');
-    const albumCoverImg = document.getElementById('album-cover-img');
-    const albumName = document.getElementById('album-name');
-    const artistName = document.getElementById('artist-name');
-    const trackList = document.getElementById('track-list');
-    const albumAudioPlayer = document.getElementById('album-audio-player');
-
-    // Exemplo de dados do álbum
-    const albumData = {
-        cover: 'capa1.jpg',
-        name: 'Nome do Álbum',
-        artist: 'Nome do Artista',
-        tracks: [
-            { title: 'Música 1', url: 'url_da_musica1.mp3' },
-            { title: 'Música 2', url: 'url_da_musica2.mp3' },
-            { title: 'Música 3', url: 'url_da_musica3.mp3' }
-        ]
-    };
-
-    // Função para atualizar a área de detalhes do álbum
-    function updateAlbumDetails(album) {
-        albumCoverImg.src = album.cover;
-        albumName.textContent = album.name;
-        artistName.textContent = album.artist;
-        trackList.innerHTML = '';
-
-        album.tracks.forEach(track => {
-            const li = document.createElement('li');
-            li.textContent = track.title;
-            li.addEventListener('click', () => {
-                albumAudioPlayer.src = track.url;
-                albumAudioPlayer.play();
-            });
-            trackList.appendChild(li);
-        });
-
-        albumDetails.style.display = 'flex';
-    }
-
-    // Adicionar evento de clique na capa1.jpg para exibir os detalhes do álbum
-    const capa1 = document.querySelector('.carousel img[src="capa1.jpg"]');
-    if (capa1) {
-        capa1.addEventListener('click', () => {
-            updateAlbumDetails(albumData);
-        });
-    }
 });
