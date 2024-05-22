@@ -12,36 +12,49 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     function updateCarousel() {
-        const totalCovers = cdCovers.length;
-        const coversToShow = 3; // Número de capas visíveis
-        const offset = currentIndex % totalCovers;
-        const endIndex = (offset + coversToShow) % totalCovers;
+    const totalCovers = cdCovers.length;
+    const coversToShow = 3; // Número de capas visíveis
+    const offset = currentIndex % totalCovers;
+    const endIndex = (offset + coversToShow) % totalCovers;
 
-        carouselTrack.innerHTML = '';
+    carouselTrack.innerHTML = '';
 
-        if (endIndex > offset) {
-            for (let i = offset; i < endIndex; i++) {
-                const img = document.createElement('img');
-                img.src = cdCovers[i];
-                carouselTrack.appendChild(img);
-            }
-        } else {
-            for (let i = offset; i < totalCovers; i++) {
-                const img = document.createElement('img');
-                img.src = cdCovers[i];
-                carouselTrack.appendChild(img);
-            }
-            for (let i = 0; i < endIndex; i++) {
-                const img = document.createElement('img');
-                img.src = cdCovers[i];
-                carouselTrack.appendChild(img);
-            }
+    const urls = ['url1', 'url2', 'url3']; // Substitua pelos URLs reais
+
+    if (endIndex > offset) {
+        for (let i = offset; i < endIndex; i++) {
+            const link = document.createElement('a');
+            link.href = urls[i];
+            link.target = '_blank';
+            const img = document.createElement('img');
+            img.src = cdCovers[i];
+            link.appendChild(img);
+            carouselTrack.appendChild(link);
         }
-
-        const transformValue = -currentIndex * ((100 + 10) / coversToShow);
-        carouselTrack.style.transform = `translateX(${transformValue}%)`;
+    } else {
+        for (let i = offset; i < totalCovers; i++) {
+            const link = document.createElement('a');
+            link.href = urls[i];
+            link.target = '_blank';
+            const img = document.createElement('img');
+            img.src = cdCovers[i];
+            link.appendChild(img);
+            carouselTrack.appendChild(link);
+        }
+        for (let i = 0; i < endIndex; i++) {
+            const link = document.createElement('a');
+            link.href = urls[i];
+            link.target = '_blank';
+            const img = document.createElement('img');
+            img.src = cdCovers[i];
+            link.appendChild(img);
+            carouselTrack.appendChild(link);
+        }
     }
 
+    const transformValue = -currentIndex * ((100 + 10) / coversToShow);
+    carouselTrack.style.transform = `translateX(${transformValue}%)`;
+}
     prevButton.addEventListener('click', () => {
         currentIndex = (currentIndex - 1 + cdCovers.length) % cdCovers.length;
         updateCarousel();
