@@ -11,23 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
         'capa3.jpg'
     ];
 
-    // Adicione estas declarações aqui
-    const albumDetails = {
-        'capa1.jpg': { name: 'Álbum 1', artist: 'Artista 1' },
-        'capa2.jpg': { name: 'Álbum 2', artist: 'Artista 2' },
-        'capa3.jpg': { name: 'Álbum 3', artist: 'Artista 3' }
-    };
-
-    function showAlbumDetails(albumCover) {
-        const albumInfo = albumDetails[albumCover];
-        if (albumInfo) {
-            document.getElementById('album-cover-img').src = albumCover;
-            document.getElementById('album-name').textContent = albumInfo.name;
-            document.getElementById('artist-name').textContent = albumInfo.artist;
-            document.getElementById('album-details').style.display = 'flex';
-        }
-    }
-
     function updateCarousel() {
         const totalCovers = cdCovers.length;
         const coversToShow = 3; // Número de capas visíveis
@@ -40,45 +23,23 @@ document.addEventListener('DOMContentLoaded', () => {
             for (let i = offset; i < endIndex; i++) {
                 const img = document.createElement('img');
                 img.src = cdCovers[i];
-                img.style.width = 'calc((100% - 40px) / 3)'; // Ajuste o tamanho das imagens
-                img.style.height = 'auto'; // Ajuste a altura das imagens
-                img.addEventListener('click', () => {
-                    showAlbumDetails(cdCovers[i]);
-                });
                 carouselTrack.appendChild(img);
             }
         } else {
             for (let i = offset; i < totalCovers; i++) {
                 const img = document.createElement('img');
                 img.src = cdCovers[i];
-                img.style.width = 'calc((100% - 40px) / 3)'; // Ajuste o tamanho das imagens
-                img.style.height = 'auto'; // Ajuste a altura das imagens
-                img.addEventListener('click', () => {
-                    showAlbumDetails(cdCovers[i]);
-                });
                 carouselTrack.appendChild(img);
             }
             for (let i = 0; i < endIndex; i++) {
                 const img = document.createElement('img');
                 img.src = cdCovers[i];
-                img.style.width = 'calc((100% - 40px) / 3)'; // Ajuste o tamanho das imagens
-                img.style.height = 'auto'; // Ajuste a altura das imagens
-                img.addEventListener('click', () => {
-                    showAlbumDetails(cdCovers[i]);
-                });
                 carouselTrack.appendChild(img);
             }
         }
 
         const transformValue = -currentIndex * ((100 + 10) / coversToShow);
         carouselTrack.style.transform = `translateX(${transformValue}%)`;
-
-        // Torna as capas clicáveis
-        carouselTrack.querySelectorAll('img').forEach((img, index) => {
-            img.addEventListener('click', () => {
-                showAlbumDetails(cdCovers[(currentIndex + index) % cdCovers.length]);
-            });
-        });
     }
 
     prevButton.addEventListener('click', () => {
@@ -93,9 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Carregar as primeiras capas ao iniciar
     updateCarousel();
-
-    // Resto do código...
-});
 
     // Lógica do player de rádio
     const stationList = document.getElementById('station-list');
