@@ -64,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const img = document.createElement('img');
         img.src = cdCovers[index];
+        img.style.maxHeight = '200px'; // Adicione esta linha para garantir que a altura máxima seja aplicada
         link.appendChild(img);
         carouselTrack.appendChild(link);
     }
