@@ -7,7 +7,6 @@
     <!-- Link para a biblioteca Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* CSS existente */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -351,7 +350,6 @@
             cursor: pointer;
         }
 
-        /* Adicionando o espectro de áudio falso */
         li.playing .spectrum {
             display: flex;
             gap: 2px;
@@ -362,7 +360,7 @@
         li.playing .spectrum div {
             width: 2px;
             background: #ffffff;
-            animation: bar-animation 0.5s infinite; /* Duração da animação ajustada para 0.5s */
+            animation: bar-animation 0.5s infinite;
             animation-timing-function: linear;
         }
 
@@ -490,26 +488,22 @@
             color: #ffffff;
         }
 
-        /* Estilos para as capas */
-        .covers-container {
+        /* Estilos para o destaque de capas */
+        .highlights {
             display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 2rem;
+            justify-content: space-between;
+            margin-bottom: 20px;
         }
-
-        .cd-cover {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            cursor: pointer;
+        
+        .highlights img {
+            width: 30%;
             border-radius: 8px;
         }
 
         #player {
-        position: relative;
-        top: -20px; /* Ajuste este valor conforme necessário */
-    }
+            position: relative;
+            top: -20px; /* Ajuste este valor conforme necessário */
+        }
     </style>
 </head>
 <body>
@@ -529,8 +523,10 @@
     <main>
         <section id="highlights">
             <h2>Destaques</h2>
-            <div class="covers-container">
-                <!-- As capas estáticas serão adicionadas aqui pelo JavaScript -->
+            <div class="highlights">
+                <a href="album.html?album=capa1"><img src="capa1.jpg" alt="Capa 1"></a>
+                <a href="album.html?album=capa2"><img src="capa2.jpg" alt="Capa 2"></a>
+                <a href="album.html?album=capa3"><img src="capa3.jpg" alt="Capa 3"></a>
             </div>
         </section>
         <section id="stations">
@@ -556,10 +552,10 @@
     <div id="timerModal" class="modal">
         <div class="modal-content">
             <span class="close" id="closeModal">&times;</span>
-            <h3>Hora de dormir</h3> <!-- Frase ajustada -->
+            <h3>Hora de dormir</h3>
             <label for="timer">Desligar após (minutos):</label>
             <input type="number" id="timer" min="1" max="120" value="30">
-            <button class="timer-button" id="setTimer">Definir o tempo</button> <!-- Botão ajustado -->
+            <button class="timer-button" id="setTimer">Definir o tempo</button>
         </div>
     </div>
 
