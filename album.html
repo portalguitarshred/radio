@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Álbum</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .album-container {
+            text-align: center;
+        }
+
+        .album-cover {
+            width: 300px;
+            height: 300px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .album-details {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="album-container">
+        <img id="album-cover" src="" alt="Capa do Álbum" class="album-cover">
+        <div class="album-details">
+            <h1 id="album-name">Nome do Álbum</h1>
+            <p id="artist-name">Nome do Artista</p>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript para carregar os detalhes do álbum
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            const album = params.get('album');
+
+            // Dados simulados de álbuns
+            const albums = {
+                'capa1': { coverUrl: 'capa1.jpg', albumName: 'Álbum 1', artistName: 'Artista 1' },
+                'capa2': { coverUrl: 'capa2.jpg', albumName: 'Álbum 2', artistName: 'Artista 2' },
+                'capa3': { coverUrl: 'capa3.jpg', albumName: 'Álbum 3', artistName: 'Artista 3' }
+            };
+
+            const albumData = albums[album];
+
+            if (albumData) {
+                document.getElementById('album-cover').src = albumData.coverUrl;
+                document.getElementById('album-name').innerText = albumData.albumName;
+                document.getElementById('artist-name').innerText = albumData.artistName;
+            } else {
+                document.getElementById('album-cover').src = 'default.jpg';
+                document.getElementById('album-name').innerText = 'Álbum Desconhecido';
+                document.getElementById('artist-name').innerText = 'Artista Desconhecido';
+            }
+        });
+    </script>
+</body>
+</html>
