@@ -539,6 +539,29 @@
         position: relative;
         top: -20px; /* Ajuste este valor conforme necessário */
     }
+
+        #album-details {
+        display: flex;
+        align-items: flex-start;
+        background-color: #1f1f1f;
+        color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+        box-sizing: border-box;
+        max-width: 800px;
+        width: calc(100% - 40px);
+    }
+    
+    #album-details img {
+        max-width: 200px;
+        margin-right: 20px;
+    }
+    
+    #album-details h3, #album-details p {
+        margin: 0;
+    }
     </style>
 </head>
 <body>
@@ -642,6 +665,13 @@
             <button class="register-button" id="registerButton">Registrar</button>
         </div>
     </div>
+    <section id="album-details" style="display: none;">
+        <img id="album-cover" src="" alt="Album Cover" style="max-width: 200px; float: left; margin-right: 20px;">
+        <div>
+            <h3 id="album-name"></h3>
+            <p id="artist-name"></p>
+        </div>
+    </section>
 
     <script src="script.js"></script>
 </body>
