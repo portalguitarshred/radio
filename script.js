@@ -11,43 +11,75 @@ document.addEventListener('DOMContentLoaded', () => {
         'capa3.jpg'
     ];
 
-    function updateCarousel() {
-    const totalCovers = cdCovers.length;
-    const coversToShow = 3; // Número de capas visíveis
-    const offset = currentIndex % totalCovers;
-    const endIndex = (offset + coversToShow) % totalCovers;
+    // Adicione estas declarações aqui
+    const albumDetails = {
+        'capa1.jpg': { name: 'Álbum 1', artist: 'Artista 1' },
+        'capa2.jpg': { name: 'Álbum 2', artist: 'Artista 2' },
+        'capa3.jpg': { name: 'Álbum 3', artist: 'Artista 3' }
+    };
 
-    carouselTrack.innerHTML = '';
-
-    if (endIndex > offset) {
-        for (let i = offset; i < endIndex; i++) {
-            const img = document.createElement('img');
-            img.src = cdCovers[i];
-            carouselTrack.appendChild(img);
-        }
-    } else {
-        for (let i = offset; i < totalCovers; i++) {
-            const img = document.createElement('img');
-            img.src = cdCovers[i];
-            carouselTrack.appendChild(img);
-        }
-        for (let i = 0; i < endIndex; i++) {
-            const img = document.createElement('img');
-            img.src = cdCovers[i];
-            carouselTrack.appendChild(img);
+    function showAlbumDetails(albumCover) {
+        const albumInfo = albumDetails[albumCover];
+        if (albumInfo) {
+            document.getElementById('album-cover-img').src = albumCover;
+            document.getElementById('album-name').textContent = albumInfo.name;
+            document.getElementById('artist-name').textContent = albumInfo.artist;
+            document.getElementById('album-details').style.display = 'flex';
         }
     }
 
-    const transformValue = -currentIndex * ((100 + 10) / coversToShow);
-    carouselTrack.style.transform = `translateX(${transformValue}%)`;
+    function updateCarousel() {
+        const totalCovers = cdCovers.length;
+        const coversToShow = 3; // Número de capas visíveis
+        const offset = currentIndex % totalCovers;
+        const endIndex = (offset + coversToShow) % totalCovers;
 
-    // Torna as capas clicáveis
-    carouselTrack.querySelectorAll('img').forEach((img, index) => {
-        img.addEventListener('click', () => {
-            showAlbumDetails(cdCovers[(currentIndex + index) % cdCovers.length]);
+        carouselTrack.innerHTML = '';
+
+        if (endIndex > offset) {
+            for (let i = offset; i < endIndex; i++) {
+                const img = document.createElement('img');
+                img.src = cdCovers[i];
+                img.style.width = 'calc((100% - 40px) / 3)'; // Ajuste o tamanho das imagens
+                img.style.height = 'auto'; // Ajuste a altura das imagens
+                img.addEventListener('click', () => {
+                    showAlbumDetails(cdCovers[i]);
+                });
+                carouselTrack.appendChild(img);
+            }
+        } else {
+            for (let i = offset; i < totalCovers; i++) {
+                const img = document.createElement('img');
+                img.src = cdCovers[i];
+                img.style.width = 'calc((100% - 40px) / 3)'; // Ajuste o tamanho das imagens
+                img.style.height = 'auto'; // Ajuste a altura das imagens
+                img.addEventListener('click', () => {
+                    showAlbumDetails(cdCovers[i]);
+                });
+                carouselTrack.appendChild(img);
+            }
+            for (let i = 0; i < endIndex; i++) {
+                const img = document.createElement('img');
+                img.src = cdCovers[i];
+                img.style.width = 'calc((100% - 40px) / 3)'; // Ajuste o tamanho das imagens
+                img.style.height = 'auto'; // Ajuste a altura das imagens
+                img.addEventListener('click', () => {
+                    showAlbumDetails(cdCovers[i]);
+                });
+                carouselTrack.appendChild(img);
+            }
+        }
+
+        const transformValue = -currentIndex * ((100 + 10) / coversToShow);
+        carouselTrack.style.transform = `translateX(${transformValue}%)`;
+
+        // Torna as capas clicáveis
+        carouselTrack.querySelectorAll('img').forEach((img, index) => {
+            img.addEventListener('click', () => {
+                showAlbumDetails(cdCovers[(currentIndex + index) % cdCovers.length]);
+            });
         });
-    });
-}
+    }
 
     prevButton.addEventListener('click', () => {
         currentIndex = (currentIndex - 1 + cdCovers.length) % cdCovers.length;
@@ -61,6 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Carregar as primeiras capas ao iniciar
     updateCarousel();
+
+    // Resto do código...
+});
 
     // Lógica do player de rádio
     const stationList = document.getElementById('station-list');
