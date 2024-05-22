@@ -131,7 +131,6 @@
             align-items: center;
             justify-content: flex-start;
             position: relative;
-            width: 100%;
         }
 
         li:hover {
@@ -300,17 +299,8 @@
 
         #stations {
             margin-bottom: 20px;
-            width: 100%;
+            width: calc(100%);
             padding: 0 20px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        #station-list {
-            width: 100%;
-            max-width: 800px;
             box-sizing: border-box;
         }
 
@@ -562,33 +552,34 @@
     </header>
     <main>
         <section id="highlights">
-    <div class="carousel-container">
-        <h2>Destaques</h2>
-    </div>
-    <div class="carousel">
-        <div class="carousel-track">
-            <img src="capa1.jpg" alt="Capa 1">
-            <img src="capa2.jpg" alt="Capa 2">
-            <img src="capa3.jpg" alt="Capa 3">
-        </div>
-    </div>
-</section>
+            <div class="carousel-container">
+                <h2>Destaques</h2>
+            </div>
+            <div class="carousel">
+                <div class="carousel-track">
+                    <img src="capa1.jpg" alt="Capa 1">
+                    <img src="capa2.jpg" alt="Capa 2">
+                    <img src="capa3.jpg" alt="Capa 3">
+                </div>
+            </div>
+        </section>
         <section id="stations">
-    <h2>Escolha a estação
-        <span class="clock-icon" id="clock-icon">&#128339;</span> <!-- Ícone de relógio -->
-    </h2>
-    <ul id="station-list">
-        <!-- Stations will be dynamically added here -->
-    </ul>
-<section id="player">
-    <audio id="audio-player" controls>
-        Your browser does not support the audio element.
-    </audio>
-    <div id="volume-container">
-        <label for="volume-control">Volume:</label>
-        <input type="range" id="volume-control" min="0" max="1" step="0.01" value="1">
-    </div>
-</section>
+            <h2>Escolha a estação
+                <span class="clock-icon" id="clock-icon">&#128339;</span> <!-- Ícone de relógio -->
+            </h2>
+            <ul id="station-list">
+                <!-- Stations will be dynamically added here -->
+            </ul>
+        </section>
+        <section id="player">
+            <audio id="audio-player" controls>
+                Your browser does not support the audio element.
+            </audio>
+            <div id="volume-container">
+                <label for="volume-control">Volume:</label>
+                <input type="range" id="volume-control" min="0" max="1" step="0.01" value="1">
+            </div>
+        </section>
     </main>
 
     <!-- Modal para a programação do temporizador -->
