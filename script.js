@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Inicialização do carrossel
     const carouselTrack = document.querySelector('.carousel-track');
     const prevButton = document.getElementById('carousel-prev');
     const nextButton = document.getElementById('carousel-next');
@@ -8,9 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const coversToShow = 3;
 
     function updateCarousel() {
-        const offset = currentIndex % totalCovers;
-        const transformValue = -offset * (100 / coversToShow);
-        carouselTrack.style.transform = `translateX(${transformValue}%)`;
+        const offset = currentIndex * 100 / coversToShow;
+        carouselTrack.style.transform = `translateX(-${offset}%)`;
     }
 
     prevButton.addEventListener('click', () => {
@@ -22,6 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
         currentIndex = (currentIndex + 1) % totalCovers;
         updateCarousel();
     });
+
+    updateCarousel();
+});
     
     // Lógica do player de rádio
     const stationList = document.getElementById('station-list');
