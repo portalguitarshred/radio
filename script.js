@@ -172,10 +172,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Lógica do Menu Sanduíche
+    document.addEventListener('DOMContentLoaded', () => {
+    // Lógica do Menu Sanduíche
     const menuToggle = document.querySelector('.menu-toggle');
     const menu = document.querySelector('.menu');
-    
-    menuToggle.addEventListener('click', () => {
+
+    menuToggle.addEventListener('click', (event) => {
+        event.stopPropagation();
         if (menu.style.display === 'none' || menu.style.display === '') {
             menu.style.display = 'flex';
         } else {
