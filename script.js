@@ -10,10 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const stations = [
         { name: 'Rock Station', url: 'https://stream.zeno.fm/qupiusi3w5puv' },
-        { name: 'Classic Rocks', url: 'https://stream.zeno.fm/amepggt3jxptv' },
-        { name: 'Blues', url: 'https://stream-172.zeno.fm/5npyxpydys8uv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiI1bnB5eHB5ZHlzOHV2IiwiaG9zdCI6InN0cmVhbS0xNzIuemVuby5mbSIsInJ0dGwiOjUsImp0aSI6InhoZFV4UGNNUUc2eWsxR0I5ZzdENFEiLCJpYXQiOjE3MTYxNzUxMzksImV4cCI6MTcxNjE3NTE5OX0.-H5QPR8KYpGEe4-i0vuClifNYM0sWZzNvkTHhRqPUuM&1716175139266' },
-        { name: 'Metal', url: 'https://stm39.stmsrv.com:8382/;?1716176724313' },
-        { name: 'Anos 80', url: 'https://stream-158.zeno.fm/3ywickpd3rkvv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiIzeXdpY2twZDNya3Z2IiwiaG9zdCI6InN0cmVhbS0xNTguemVuby5mbSIsInJ0dGwiOjUsImp0aSI6IjVNUzljTlY0VG02VWlBZFVvazBqcFEiLCJpYXQiOjE3MTYxNzg2ODcsImV4cCI6MTcxNjE3ODc0N30.Umsbo62LR5tbHfFHYA63nvU1B6z38tBmwLqOZ07L50c&1716178687366' }
     ];
 
     stations.forEach(station => {
@@ -187,6 +183,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Lógica para fechar o menu ao clicar fora dele
+    document.addEventListener('click', (event) => {
+        const isClickInside = menu.contains(event.target) || menuToggle.contains(event.target);
+
+        if (!isClickInside) {
+            menu.style.display = 'none';
+        }
+    });
+
     // Lógica do Login de Usuário
     const loginLink = document.getElementById('login-link');
     const loginModal = document.getElementById('loginModal');
@@ -213,17 +218,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('login-password').value;
 
         if (email && password) {
-            const response = await fetch('http://localhost:3000/login', {
+            const response = await fetch('http://musica.guitarshred.com.br/login.php', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: JSON.stringify({ email, password })
+                body: new URLSearchParams({
+                    email: email,
+                    password: password
+                })
             });
 
+            const data = await response.text();
+            alert(data);
+
             if (response.ok) {
-                const data = await response.json();
-                alert('Login realizado com sucesso!');
                 loginModal.style.display = 'none';
                 // Aqui você pode salvar o token JWT ou outra informação de autenticação
             } else {
@@ -235,48 +244,54 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Lógica do Registro de Usuário
-    const registerLink = document.getElementById('register-link');
-    const registerModal = document.getElementById('registerModal');
-    const closeRegisterModal = document.getElementById('closeRegisterModal');
-    const registerButton = document.getElementById('registerButton');
-    
-    registerLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        registerModal.style.display = 'block';
-    });
+const registerLink = document.getElementById('register-link');
+const registerModal = document.getElementById('registerModal');
+const closeRegisterModal = document.getElementById('closeRegisterModal');
+const registerButton = document.getElementById('registerButton');
 
-    closeRegisterModal.addEventListener('click', () => {
+registerLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    registerModal.style.display = 'block';
+});
+
+closeRegisterModal.addEventListener('click', () => {
+    registerModal.style.display = 'none';
+});
+
+window.addEventListener('click', (event) => {
+    if (event.target === registerModal) {
         registerModal.style.display = 'none';
-    });
+    }
+});
 
-    window.addEventListener('click', (event) => {
-        if (event.target === registerModal) {
+registerButton.addEventListener('click', async () => {
+    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    if (username && email && password) {
+        const response = await fetch('http://musica.guitarshred.com.br/register.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({
+                username: username,
+                email: email,
+                password: password
+            })
+        });
+
+        const data = await response.text();
+        alert(data);
+
+        if (response.ok) {
             registerModal.style.display = 'none';
-        }
-    });
-
-    registerButton.addEventListener('click', async () => {
-        const username = document.getElementById('username').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-
-        if (username && email && password) {
-            const response = await fetch('http://localhost:3000/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, email, password })
-            });
-
-            if (response.ok) {
-                alert('Usuário registrado com sucesso!');
-                registerModal.style.display = 'none';
-            } else {
-                alert('Erro ao registrar usuário. Tente novamente.');
-            }
         } else {
-            alert('Por favor, preencha todos os campos.');
+            alert('Erro ao registrar usuário. Tente novamente.');
         }
-    });
+    } else {
+        alert('Por favor, preencha todos os campos.');
+    }
+});
 });
