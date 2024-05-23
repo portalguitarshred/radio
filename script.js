@@ -218,21 +218,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('login-password').value;
 
         if (email && password) {
-            const response = await fetch('http://musica.guitarshred.com.br/login.php', {
+            const response = await fetch('http://localhost:3000/login', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'application/json'
                 },
-                body: new URLSearchParams({
-                    email: email,
-                    password: password
-                })
+                body: JSON.stringify({ email, password })
             });
 
-            const data = await response.text();
-            alert(data);
-
             if (response.ok) {
+                const data = await response.json();
+                alert('Login realizado com sucesso!');
                 loginModal.style.display = 'none';
                 // Aqui você pode salvar o token JWT ou outra informação de autenticação
             } else {
